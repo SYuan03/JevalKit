@@ -5,28 +5,28 @@ Missing and fully unsupported evaluations have no score. The detailed table reta
 
 Only currently registered Jev-related benchmarks are included; retired tasks remain in the original result storage.
 
-| Model | DecisionIndex | JevBench | VisualDecisionBench_Image | VisualDecisionBench_Video |
-|---|---:|---:|---:|---:|
-| Clef-Flash | — | 82.68% | 82.24% | — |
-| Crivo-150M | — | 48.48% | — | — |
-| Decision1-Kai | — | 49.35% | — | — |
-| H2O-Lightning | — | 87.45% | 82.06% | — |
-| Intern-Decision-0.8B | — | 71.00% | 66.35% | — |
-| JevK5 | — | 88.74% | — | — |
-| Kev | — | 74.03% | — | — |
-| Laya | — | 58.87% | — | — |
-| Liquid-d1-3B | — | 74.89% | 81.82% | — |
-| OmniJev | — | — | 62.18% | 63.36% |
-| OpenJev | — | 87.45% | 83.12% | — |
-| Pplx-Decider | — | 89.18% | 86.88% | — |
-| QEV | — | 61.47% | 73.59% | — |
-| RSI-Jev-v4 | — | 70.13% | 80.18% | — |
-| StartLux-0.8B | — | 76.62% | 71.59% | — |
-| Valen-0.8B | 20.71 (imported) | 77.49% | 75.82% | 79.01% |
-| Valen-2B | 27.20 (imported) | 82.68% | 80.47% | 82.74% |
-| Valen-4B | 38.54 (imported) | 83.55% | 83.12% | 87.43% |
-| Visual-Jev | — | — | 77.94% | — |
-| Vjev-4B | — | 60.61% | 74.24% | — |
+| Model | DecisionIndex | JevBench | VisualDecisionBench_Image | VisualDecisionBench_Video | ZhDecisionBench |
+|---|---:|---:|---:|---:|---:|
+| Clef-Flash | — | 82.68% | 82.24% | — | — |
+| Crivo-150M | — | 48.48% | — | — | — |
+| Decision1-Kai | — | 49.35% | — | — | — |
+| H2O-Lightning | — | 87.45% | 82.06% | — | — |
+| Intern-Decision-0.8B | — | 71.00% | 66.35% | — | — |
+| JevK5 | — | 88.74% | — | — | — |
+| Kev | — | 74.03% | — | — | — |
+| Laya | — | 58.87% | — | — | — |
+| Liquid-d1-3B | — | 74.89% | 81.82% | — | — |
+| OmniJev | — | — | 62.18% | 63.36% | — |
+| OpenJev | — | 87.45% | 83.12% | — | — |
+| Pplx-Decider | — | 89.18% | 86.88% | — | — |
+| QEV | — | 61.47% | 73.59% | — | — |
+| RSI-Jev-v4 | — | 70.13% | 80.18% | — | — |
+| StartLux-0.8B | — | 76.62% | 71.59% | — | — |
+| Valen-0.8B | 20.71 (imported) | 77.49% | 75.82% | 79.01% | 82.44% |
+| Valen-2B | 27.20 (imported) | 82.68% | 80.47% | 82.74% | — |
+| Valen-4B | 38.54 (imported) | 83.55% | 83.12% | 87.43% | — |
+| Visual-Jev | — | — | 77.94% | — | — |
+| Vjev-4B | — | 60.61% | 74.24% | — | — |
 
 Accuracy is shown as a percentage. DecisionIndex uses the upstream weighted public index (0–100).
 
@@ -100,6 +100,7 @@ Accuracy is shown as a percentage. DecisionIndex uses the upstream weighted publ
 | OmniJev | VisualDecisionBench_Video | 63.36% | accuracy | 100.00% | full | 7143 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/OmniJev/VisualDecisionBench_Video/metrics.json>) |
 | Valen-0.8B | VisualDecisionBench_Video | 76.92% | accuracy | 100.00% | smoke | 104 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/smoke/Valen-0.8B/VisualDecisionBench_Video/metrics.json>) |
 | OmniJev | VisualDecisionBench_Video | 65.38% | accuracy | 100.00% | smoke | 104 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round2/OmniJev/VisualDecisionBench_Video/metrics.json>) |
+| Valen-0.8B | ZhDecisionBench | 82.44% | accuracy | 100.00% | full | 467 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Valen-0.8B/ZhDecisionBench/metrics.json>) |
 
 TSV/JSON include dataset hashes, protocol, hardware and evidence paths.
 Accuracy counts failed/unsupported hard questions as incorrect. Probability metrics use valid outputs.

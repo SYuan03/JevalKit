@@ -1632,6 +1632,30 @@
       "origin": "jevalkit-inference",
       "created_utc": "2026-10-16T18:02:29.828798+00:00",
       "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round2/OmniJev/VisualDecisionBench_Video/metrics.json"
+    },
+    {
+      "model": "Valen-0.8B",
+      "benchmark": "ZhDecisionBench",
+      "protocol": "v0.2-validation-378-native-v1",
+      "dataset_sha256": "d99704fc055c8f767813786ce6184089a5ebc8aa4f88a5cc21075108bafbe099",
+      "complete": true,
+      "smoke": false,
+      "eligible": true,
+      "input_conformant": true,
+      "questions": 467,
+      "coverage": 1.0,
+      "accuracy": 0.8244111349036403,
+      "brier": 0.2279876555320291,
+      "nll": 0.3861843091553529,
+      "ece": 0.04784652510995702,
+      "public_decision_index": null,
+      "failed": 0,
+      "unsupported": 0,
+      "latency_s": 0.07689884967274135,
+      "hardware": "NVIDIA H200",
+      "origin": "jevalkit-inference",
+      "created_utc": "2026-10-18T06:59:43.512004+00:00",
+      "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Valen-0.8B/ZhDecisionBench/metrics.json"
     }
   ],
   "primary_results": [
@@ -2594,6 +2618,30 @@
       "origin": "jevalkit-inference",
       "created_utc": "2026-10-16T18:31:09.938254+00:00",
       "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/OmniJev/VisualDecisionBench_Video/metrics.json"
+    },
+    {
+      "model": "Valen-0.8B",
+      "benchmark": "ZhDecisionBench",
+      "protocol": "v0.2-validation-378-native-v1",
+      "dataset_sha256": "d99704fc055c8f767813786ce6184089a5ebc8aa4f88a5cc21075108bafbe099",
+      "complete": true,
+      "smoke": false,
+      "eligible": true,
+      "input_conformant": true,
+      "questions": 467,
+      "coverage": 1.0,
+      "accuracy": 0.8244111349036403,
+      "brier": 0.2279876555320291,
+      "nll": 0.3861843091553529,
+      "ece": 0.04784652510995702,
+      "public_decision_index": null,
+      "failed": 0,
+      "unsupported": 0,
+      "latency_s": 0.07689884967274135,
+      "hardware": "NVIDIA H200",
+      "origin": "jevalkit-inference",
+      "created_utc": "2026-10-18T06:59:43.512004+00:00",
+      "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Valen-0.8B/ZhDecisionBench/metrics.json"
     }
   ],
   "policy": "Only complete non-smoke runs without runtime failures are eligible. Compare identical dataset hashes and protocols; latency also requires matching hardware. Public Decision Index excludes private components."
