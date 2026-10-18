@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "output": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/served",
+  "runs": [
+    {
+      "model": "Kev",
+      "data": ["JevBench", "AGNews"],
+      "options": {"endpoint": "http://127.0.0.1:8008/v1/systemone", "model": "kev-latest"},
+      "services": [
+        {
+          "command": ["/path/to/python3.12", "-m", "kev.serve", "--run", "/path/to/kev-4b", "--host", "127.0.0.1", "--port", "8008"],
+          "env": {"PYTHONPATH": "/path/to/kev-sdk", "KEV_TRUNCATE_STATES": "0"},
+          "ready_url": "http://127.0.0.1:8008/v1/models",
+          "timeout": 900,
+          "provenance_paths": ["/path/to/kev-4b", "/path/to/kev-sdk/kev", "/path/to/base-weights"]
+        }
+      ]
+    }
+  ]
+}

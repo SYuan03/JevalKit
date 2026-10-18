@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "output": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/hosted-apis",
+  "data": ["JevBench"],
+  "runs": [
+    {"model": "OpenAI-Decisions"},
+    {"model": "Jev"}
+  ]
+}
