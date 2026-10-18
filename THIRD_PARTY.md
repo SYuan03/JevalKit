@@ -21,3 +21,20 @@ Do not treat JevalKit's Apache-2.0 license as a relicensing of those assets.
 OpenAI Decisions uses the documented `/v1/decisions` schema:
 https://developers.openai.com/api/reference/resources/decisions/methods/create
 The adapter maps Noul to Predicate and preserves ordered Score levels.
+
+Additional decision benchmarks are downloaded at pinned revisions, with source
+file hashes retained in the dataset manifests. Their data is stored outside Git:
+
+- [Typed Decisions](https://huggingface.co/datasets/LocalLLaMA/typed-decisions): Apache-2.0.
+- [DecisionBench](https://huggingface.co/datasets/Hanno-Labs/decision-bench): source-specific terms; the collection declares `other`.
+- [Procedural Typed Decisions](https://huggingface.co/datasets/tasksource/procedural-typed-decisions): Apache-2.0, Damien Sileo/tasksource.
+- [zh-decision-bench](https://github.com/CodyQin/zh-decision-bench): CC-BY-4.0 data; CodyQin's authored scenarios and Amazon MASSIVE Chinese routing records.
+- [JevAlt-Bench](https://huggingface.co/datasets/mertkayacs/jevalt-bench): record-level mixed permissive terms, including Apache-2.0, CC0 and CC-BY-4.0 with original source attribution.
+
+JevalKit's DecisionBench request projection follows the upstream System One
+adapter at `Hanno-Labs/decision-bench@89aaa85827912f8975c1835348ead7436710f581`.
+Reference scoring conventions were checked against that repository,
+`mertkayacs/jevoss@0dbffa411fc4adfc1728113a5d34bc6adfb142cb` and
+`CodyQin/zh-decision-bench@6769a45fc15c7d568450a9d34c977692a3f5faa6`.
+These independently implemented protocol reports are identified separately from
+the benchmark-owned scorers used for JevBench and Decision Index.

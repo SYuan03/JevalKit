@@ -86,6 +86,7 @@ def main(argv=None):
                 print(name + "\t" + value["family"] + "\t" + value.get("transport", value.get("modality", "")))
     elif args.command == "prepare":
         from .datasets.prepare import prepare_decision_index, prepare_jevbench, prepare_visual
+        from .datasets.decisions import SOURCES, prepare_decision_benchmark
         if args.source and len(args.benchmarks) != 1:
             parser.error("--source accepts one benchmark at a time")
         for name in args.benchmarks:
@@ -95,6 +96,8 @@ def main(argv=None):
                 result = prepare_jevbench(args.root, args.source)
             elif name == "DecisionIndex":
                 result = prepare_decision_index(args.root, args.source, args.edition)
+            elif name in SOURCES:
+                result = prepare_decision_benchmark(name, args.root, args.source)
             else:
                 parser.error("No preparation handler for benchmark: " + name)
             print(dumps(result), flush=True)

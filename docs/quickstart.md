@@ -45,6 +45,8 @@ $JEVALKIT_DATA_ROOT/
 
 ```bash
 python -m jevalkit prepare JevBench
+python -m jevalkit prepare TypedDecisions DecisionBench ProceduralTypedDecisions \
+  ZhDecisionBench JevAltBench
 python -m jevalkit prepare VisualDecisionBench
 python -m jevalkit prepare DecisionIndex --source /path/to/verified/suite-0.3
 python -m jevalkit verify JevBench VisualDecisionBench_Image --media

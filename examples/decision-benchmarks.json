@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "output": "/path/to/jevalkit-data/results/decision-benchmarks",
+  "runs": [
+    {
+      "model": "Valen-0.8B",
+      "data": ["TypedDecisions", "DecisionBench", "ProceduralTypedDecisions", "ZhDecisionBench", "JevAltBench"]
+    }
+  ]
+}

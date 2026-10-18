@@ -9,6 +9,11 @@ BENCHMARKS = {
     "VisualDecisionBench_Video": {"family": "VisualDecisionBench", "modality": "video"},
     "JevBench": {"family": "JevBench", "modality": "text"},
     "DecisionIndex": {"family": "DecisionIndex", "modality": "text"},
+    "TypedDecisions": {"family": "TypedDecisions", "modality": "text"},
+    "DecisionBench": {"family": "DecisionBench", "modality": "text"},
+    "ProceduralTypedDecisions": {"family": "ProceduralTypedDecisions", "modality": "text"},
+    "ZhDecisionBench": {"family": "ZhDecisionBench", "modality": "text"},
+    "JevAltBench": {"family": "JevAltBench", "modality": "text"},
 }
 
 

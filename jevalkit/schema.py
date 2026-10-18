@@ -62,6 +62,16 @@ def target_probabilities(question, target):
     return {key: float(key == value) for key in keys}
 
 
+def target_label(question, target):
+    """An explicit modal label may coexist with a soft probability reference."""
+    if isinstance(target, dict) and target.get("label") is not None:
+        # Reuse the strict label conversion independently of soft probabilities.
+        truth = target_probabilities(question, {"label": target["label"]})
+    else:
+        truth = target_probabilities(question, target)
+    return max(truth, key=truth.get) if truth is not None and max(truth.values()) == 1 else None
+
+
 def validate_record(record):
     if not isinstance(record, dict) or not str(record.get("index", "")):
         raise ValueError("Record requires a nonempty index")
@@ -91,9 +101,22 @@ def validate_record(record):
     if set(record.get("targets", {})) != set(questions):
         raise ValueError("Every evaluation question needs exactly one target")
     for qid, question in questions.items():
-        target_probabilities(question, record["targets"][qid])
+        target = record["targets"][qid]
+        target_probabilities(question, target)
+        target_label(question, target)
+        if isinstance(target, dict) and "ordinal_values" in target:
+            values = target["ordinal_values"]
+            if question["type"] != "score" or not isinstance(values, list) or len(values) != len(candidates(question)):
+                raise ValueError("Ordinal values must match every Score level")
+            if any(isinstance(v, bool) or not isinstance(v, (int, float)) or not math.isfinite(v) for v in values):
+                raise ValueError("Ordinal values must be finite numbers")
+            if any(a >= b for a, b in zip(values, values[1:])):
+                raise ValueError("Ordinal values must strictly increase")
     if not isinstance(record.get("meta", {}), dict) or not isinstance(record.get("assets", []), list):
         raise ValueError("Invalid record metadata/assets")
+    for qid, order in record.get("meta", {}).get("candidate_order", {}).items():
+        if qid not in questions or len(order) != len(set(order)) or set(order) != set(candidates(questions[qid])):
+            raise ValueError("Scoring candidate order must cover the complete candidate set")
     return record
 
 

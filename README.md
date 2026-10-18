@@ -9,7 +9,7 @@ Text, images and video in. Choice, Noul and Score probabilities out.
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](pyproject.toml)
 [![Model families: 20](https://img.shields.io/badge/Model_families-20-6366f1.svg)](#supported-models)
-[![Core suites: 3](https://img.shields.io/badge/Core_suites-3-16a34a.svg)](#supported-benchmarks)
+[![Core suites: 8](https://img.shields.io/badge/Core_suites-8-16a34a.svg)](#supported-benchmarks)
 
 [Leaderboard](leaderboard/README.md) · [Quick Start](#quick-start) · [Models](#supported-models) · [Benchmarks](#supported-benchmarks) · [Documentation](#documentation) · [Contributing](#contributing)
 
@@ -45,11 +45,12 @@ flowchart LR
 ## Latest Updates
 
 - **2026-10-18:** Published the initial implementation and evaluation results for
-  **18 model families**, with **65 passing tests**. Jev and OpenAI-Decisions have
+  **18 model families**, with **75 passing tests**. Jev and OpenAI-Decisions have
   implemented adapters; their live API measurements are pending.
-- **2026-10-18:** Focused the benchmark registry and leaderboard on **3 Jev-related
-  suites**. Additional decision-specific benchmarks are being surveyed in the
-  [benchmark research](docs/benchmarks.md#benchmark-research).
+- **2026-10-18:** Added Typed-Decisions, DecisionBench, Procedural Typed Decisions,
+  zh-decision-bench and JevAlt-Bench: **8 Jev-related suites / 10 dataset views**.
+  All new evaluation data is pinned and verified; full trained-model runs on the
+  new suites remain pending.
 
 ## Quick Start
 
@@ -133,14 +134,29 @@ the [integration guide](docs/models.md).
 | [VisualDecisionBench](https://huggingface.co/datasets/Valen-Team/VisualDecisionBench) | Image + video | 1,696 states; 9,143 questions | Accuracy, soft-target Brier/NLL, ordinal metrics |
 | [JevBench](https://github.com/fstandhartinger/jevbench) | Text | 231 public tasks across easy/original/hard tiers | Official task scores and calibration |
 | [Decision Index](https://huggingface.co/spaces/multimodalart/jev-decision-index) | Text | Edition 0.3 public suite; 43 constituent datasets | Official chance-corrected, weighted public index |
+| [Typed-Decisions](https://huggingface.co/datasets/LocalLLaMA/typed-decisions) | Text | 400 states; 2,000 decisions | Modal accuracy, KL and soft-target Brier |
+| [DecisionBench](https://huggingface.co/datasets/Hanno-Labs/decision-bench) | Text | 23,900 evaluation rows; 43 tasks | Accuracy, reference NLL and calibration |
+| [Procedural Typed Decisions](https://huggingface.co/datasets/tasksource/procedural-typed-decisions) | Text | 18,000 test states; 57,016 questions | Rule execution and exact probability judgments |
+| [zh-decision-bench](https://github.com/CodyQin/zh-decision-bench) | Chinese text | v0.2: 378 items; 467 questions | Routing, moderation, ordinal ratings and calibration |
+| [JevAlt-Bench](https://huggingface.co/datasets/mertkayacs/jevalt-bench) | English, Turkish, German text | 3,116 test states; 8,434 questions | Labeled and soft-probability decisions; language slices |
 
 VisualDecisionBench's image and video views belong to the same benchmark.
 Decision Index public scores and its private leaderboard components are reported
 separately. See the [frozen data inventory](docs/data-manifest.json) and
 [scoring protocols](docs/benchmarks.md).
 
-Additional candidates are documented in the [benchmark research](docs/benchmarks.md#benchmark-research).
-They are not included in the supported count until implemented.
+Prepare the five new suites together:
+
+```bash
+python -m jevalkit prepare TypedDecisions DecisionBench ProceduralTypedDecisions \
+  ZhDecisionBench JevAltBench
+```
+
+Use the [matrix example](examples/decision-benchmarks.json) for a full evaluation.
+The new suites have passed complete data checks and CPU pipeline smoke checks;
+those diagnostics do not add trained-model scores to the leaderboard. Protocol
+notes cover soft references, candidate mappings, and JevAlt's explicit `unknown`
+projection. Other candidates remain in the [benchmark research](docs/benchmarks.md#benchmark-research).
 
 ## Evaluation Results
 

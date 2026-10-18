@@ -1,7 +1,6 @@
 # Benchmark protocols
 
-Three Jev-related benchmark families are implemented: VisualDecisionBench,
-JevBench and Decision Index, exposed through five TSV views. The Image/Video
+Eight Jev-related benchmark families are implemented, exposed through ten TSV views. The Image/Video
 views are subdivisions of VisualDecisionBench, not additional benchmark families.
 
 | Family | Evaluation data | Scoring |
@@ -9,6 +8,11 @@ views are subdivisions of VisualDecisionBench, not additional benchmark families
 | VisualDecisionBench | Full released `eval.jsonl`, 1,696 shared states, 9,143 questions: 2,000 image and 7,143 video | Hard-label accuracy; soft-label NLL/Brier; ordinal MAE/RPS; modality/type/domain breakdowns |
 | JevBench | 231 frozen public tasks: 48 easy, 72 original, 111 hard | Vendored official task scorer, calibration and family/paraphrase reports |
 | Decision Index | Edition 0.3 public suite, 140,178 requests after native subset/exclusion rules | Upstream edition-specific, chance-corrected weighted public index; 43 constituent datasets |
+| Typed-Decisions | Pinned `all/test`: 400 shared states, 2,000 questions | Explicit modal-label accuracy; soft-reference KL, Brier and cross-entropy |
+| DecisionBench | Pinned standard `eval`: 23,900 rows, three primitives | All-row accuracy; candidate-aligned NLL and calibration; original ordinal values |
+| Procedural Typed Decisions | Pinned `all/test`: 18,000 states, 57,016 questions | Exact rule judgments; pure posterior questions use probability error without invented hard labels |
+| zh-decision-bench | Pinned v0.2 public validation: 378 states, 467 questions | Chinese classification/rating; right-closed 15-bin reference ECE |
+| JevAlt-Bench | Pinned English/Turkish/German test files: 3,116 states, 8,434 questions | Modal accuracy; hard and soft probability scores; language slices and equal-mass reference ECE |
 
 Dataset manifests pin the actual source revisions and SHA-256 fingerprints. The
 existing Valen snapshots are copied to JevalKit storage; their sources remain
@@ -40,13 +44,65 @@ lexical argmax tie rule. Its official aggregates are retained separately.
 
 NLL floors probabilities at 1e-12; multiclass Brier is the sum of squared errors;
 ECE uses 15 equal-width confidence bins; ordinal RPS averages squared cumulative
-errors over the first K−1 levels. Soft targets have no hard-label accuracy.
+errors over the first K−1 levels. Soft targets without an explicit classification label have no hard-label accuracy.
+When a source provides both a label and a distribution, accuracy/ECE use the
+label while proper probability scores use the complete distribution.
 Per-request synchronized latency includes preprocessing and native inference,
 excludes model loading/warmup, and is counted once per multi-question request.
 
 Dataset/provider licenses and usage restrictions remain in force. Data stays in
 the user-requested shared directory, outside Git. Native Decision Index data with
 redistribution restrictions is never automatically published by JevalKit.
+
+## Additional decision-suite protocols
+
+The loaders use immutable Hub revisions and SHA-256 checks on every source file,
+including cached files. Preparation checks complete row/question counts before
+atomically publishing a TSV. `--source` accepts a local copy of the same pinned
+payload; it does not bypass integrity checks. No train split is downloaded.
+The source files, TSVs and manifests remain under `JEVALKIT_DATA_ROOT`.
+
+- **Typed-Decisions:** decode JSON states, preserve all five questions in one
+  request, and retain both explicit labels and normalized soft golds. Teacher
+  annotations measure teacher agreement. General and workflow-finetuned models
+  have different exposure; compare them with that distinction visible.
+- **DecisionBench:** use the upstream System One projection: the first binary
+  candidate maps to Noul `true`; Choice keeps original candidate IDs; Score
+  sorts by original ordinal value and stores the inverse ID mapping. Scoring
+  restores original candidate order for ties and original numeric values for
+  ordinal errors. Compact fields are not used. The reference NLL floor is
+  1e-15; canonical generic NLL retains its 1e-12 floor.
+- **Procedural Typed Decisions:** preserve every task, difficulty and question.
+  Pure probabilistic Noul targets remain soft: they contribute probability
+  losses and posterior MAE, not fabricated hard accuracy or empirical ECE.
+  The pinned 18-task release differs from older RSI evaluation snapshots.
+- **zh-decision-bench:** read the published v0.2 payload (323 routing and 55
+  business items), map Chinese Score labels to their supplied level positions,
+  and retain the source's `true,false` tie order. The Hub card has stale count
+  tables; verified payload counts are 378 items / 467 questions. This is its
+  public validation set; no test-time temperature refit is performed.
+- **JevAlt-Bench:** use file membership for the test split despite placeholder
+  row fields saying `train`. The published input `abstain` flag adds an explicit
+  `unknown` Choice candidate; gold labels never determine model input. This
+  common interface is an explicitly tagged projection of the author's API
+  abstention flag. Dictionary Score rubrics retain insertion order and label
+  mappings. Extra upstream question fields are serialized into instructions.
+  These interface choices must be matched before comparing author scores.
+
+`metrics` contains common JevalKit measurements. For these five suites the
+historically named `official` field contains a **JevalKit reference protocol
+report**, identified by `scorer=jevalkit-decision-protocol-v1`; it does not imply
+execution by an upstream harness. Reports include task/domain/language/difficulty
+slices, label-only NLL/Brier, soft-target KL/Brier, and the applicable reference
+ECE. JevBench and Decision Index continue to invoke their benchmark-owned scorers.
+
+Data/schema validation covers every new row. CPU Uniform smoke runs exercise
+inference, scoring and re-scoring on actual public inputs and remain outside the
+main leaderboard. They are diagnostic baselines, not trained-model full scores.
+Reference checks match the upstream DecisionBench request mapping and scoring
+on 39 examples, including three with at least 128 candidates; JevOss equal-mass
+ECE and zh-decision-bench right-closed ECE were checked against upstream code.
+
 
 ## Benchmark research
 
@@ -57,8 +113,9 @@ that every registered checkpoint has run every listed evaluation.
 
 The five general NLP tasks were removed from the active registry at the user's
 request. Existing shared TSVs and original prediction records remain archived.
-The supported count is **3 benchmark families / 5 views**; candidates below are
-research findings, not implemented integrations.
+The supported count is now **8 benchmark families / 10 views**. The five
+priority candidates below are implemented; the remaining entries are research
+findings and are not counted as supported integrations.
 
 ### What the 20 model families evaluated or created
 
@@ -94,17 +151,17 @@ do not become independent benchmarks when counted separately.
 
 ### Candidates and integration priority
 
-P1 means recommended next integration work. Public data alone does not establish
+Integrated marks the five completed loader/scorer integrations. Public data alone does not establish
 a matching scorer, independence from training, or comparability with an author's
 score. Each integration still needs a frozen protocol and adapter validation.
 
 | Candidate | Priority | Relationship and available evaluation | Material limits |
 |---|---|---|---|
-| [Typed-Decisions](https://huggingface.co/datasets/LocalLLaMA/typed-decisions) | P1 | 400 test states / 2,000 decisions; four workflows; Noul/Choice/Score and soft golds. Laya, Intern-Decision, QEV; Jev and Liquid API rows by the benchmark maintainer. Public test data and golds; evaluate all questions per state, preserving the chosen interface. | Teacher agreement is not objective correctness; mark general vs workflow-finetuned models. |
-| [DecisionBench](https://huggingface.co/datasets/Hanno-Labs/decision-bench) | P1 | 23,900 eval rows; three primitives; 43 task IDs; candidates up to 255. Liquid d1 reports a full-suite evaluation. Public canonical eval Parquet, gold targets, provenance and evaluation code. | Standard and compact inputs are separate protocols; retain option IDs/order/ordinal values. |
-| [Procedural Typed Decisions](https://huggingface.co/datasets/tasksource/procedural-typed-decisions) | P1 | Exact rule-derived multi-question decisions; current card lists 18 task configurations plus all. RSI-Jev evaluates a pinned version; Crivo also trains on this data. Public train/validation/test, reference answers and deterministic generators. | Pin a revision: the RSI-pinned release has a different configuration set. Known train exposure must be disclosed. |
-| [zh-decision-bench](https://github.com/CodyQin/zh-decision-bench) | P1 | Current v0.2: 378 items / 467 questions; Chinese routing, service and moderation. Laya and Jev, with Qwen and NeoHorse baselines, evaluated by the benchmark author. Public golds, raw predictions, scorer and robustness/refit scripts. | Older Laya notes describe v0.1 219/284. Small subgroups and one human adjudicator limit conclusions. |
-| [JevAlt-Bench](https://huggingface.co/datasets/mertkayacs/jevalt-bench) | P1 | 3,116 test requests / 8,434 questions across English, Turkish and German. Crivo reports English evaluation; dataset authors compare Kev and Laya. Public JSONL with probability targets; JevOss evaluator is public. | Mostly converted public tasks plus authored scenarios. File location defines split even when row split says train; upstream overlap is disclosed. |
+| [Typed-Decisions](https://huggingface.co/datasets/LocalLLaMA/typed-decisions) | Integrated | 400 test states / 2,000 decisions; four workflows; Noul/Choice/Score and soft golds. Laya, Intern-Decision, QEV; Jev and Liquid API rows by the benchmark maintainer. Public test data and golds; evaluate all questions per state, preserving the chosen interface. | Teacher agreement is not objective correctness; mark general vs workflow-finetuned models. |
+| [DecisionBench](https://huggingface.co/datasets/Hanno-Labs/decision-bench) | Integrated | 23,900 eval rows; three primitives; 43 task IDs; candidates up to 255. Liquid d1 reports a full-suite evaluation. Public canonical eval Parquet, gold targets, provenance and evaluation code. | Standard and compact inputs are separate protocols; retain option IDs/order/ordinal values. |
+| [Procedural Typed Decisions](https://huggingface.co/datasets/tasksource/procedural-typed-decisions) | Integrated | Exact rule-derived multi-question decisions; current card lists 18 task configurations plus all. RSI-Jev evaluates a pinned version; Crivo also trains on this data. Public train/validation/test, reference answers and deterministic generators. | Pin a revision: the RSI-pinned release has a different configuration set. Known train exposure must be disclosed. |
+| [zh-decision-bench](https://github.com/CodyQin/zh-decision-bench) | Integrated | Current v0.2: 378 items / 467 questions; Chinese routing, service and moderation. Laya and Jev, with Qwen and NeoHorse baselines, evaluated by the benchmark author. Public golds, raw predictions, scorer and robustness/refit scripts. | Older Laya notes describe v0.1 219/284. Small subgroups and one human adjudicator limit conclusions. |
+| [JevAlt-Bench](https://huggingface.co/datasets/mertkayacs/jevalt-bench) | Integrated | 3,116 test requests / 8,434 questions across English, Turkish and German. Crivo reports English evaluation; dataset authors compare Kev and Laya. Public JSONL with probability targets; JevOss evaluator is public. | Mostly converted public tasks plus authored scenarios. File location defines split even when row split says train; upstream overlap is disclosed. |
 | [Kev frozen suites](https://huggingface.co/datasets/jaredpalmer/kev-suites/tree/main) | P2 | Versioned decision, transfer, policy and robustness tests; transfer-v4 test has 764 rows. Kev; RSI-Jev reuses selected Kev suites. Verified public test JSONL/manifests in jaredpalmer/kev-suites; kev.benchmark scores native requests. | Select a named version and split; do not pool overlapping suite versions or private document tests. |
 | [Intern known-distribution pilot](https://github.com/InternLM/Intern-Decision/blob/main/docs/CALIBRATION_BENCHMARK.md) | Diagnostic | 96 cases / 48 paired parameter settings with exact outcome distributions. Created and released by Intern-Decision. Public inputs, separate references, deterministic generator and offline scorer. | Use excess expected Brier/TVD/expected ECE, not hard-label accuracy. It is a small diagnostic pilot. |
 | [ImajevBench](https://huggingface.co/datasets/mohit67890/imajev-bench) | Preview / partial public scoring | Text, visual and joint decision tracks; 533 public items including 279 test items. Liquid d1 evaluates public dev/calibration. Dev/calibration golds public; test golds withheld, scored by maintainers; additional private hidden set. | Keep public split scores separate from test leaderboard. Preserve evidence-cluster grouping and quarantine metadata. |
@@ -115,9 +172,9 @@ score. Each integration still needs a frozen protocol and adapter validation.
 | [TypeSafe Workflow Evals](https://evals.typesafe.ai/) | Public results / bundle not verified | Four business workflows with typed primitives and consensus reference labels. Clef and Jev. Public evaluation website; a complete downloadable test/gold/scorer bundle was not verified. | Shares workflow themes with LocalLLaMA Typed-Decisions, but that dataset is independent; do not assume identical inputs or labels. |
 | [Kai / OpenJev / Vjev custom panels](https://huggingface.co/vllm-sr/Decision-1.0-Kai-0.6B/blob/main/evaluation/BENCHMARK.md) | Reported panels / release needed | Fixed regression, agent/text and vision-geometry panels respectively. Their model authors. Published reports; complete canonical input/gold/scorer bundles not established by this survey. | A score table or screenshot is not enough to claim a reproducible public benchmark integration. |
 
-The recommended primary expansion is **Typed-Decisions, DecisionBench, Procedural
-Typed Decisions, zh-decision-bench and JevAlt-Bench**. Alongside the existing
-three, that would provide eight Jev-related suite families after integration.
+The implemented primary expansion is **Typed-Decisions, DecisionBench, Procedural
+Typed Decisions, zh-decision-bench and JevAlt-Bench**, bringing the supported
+count to eight Jev-related suite families.
 This selection targets workflow judgments, runtime-defined labels, rule execution,
 Chinese calibration and multilingual decisions rather than padding the count
 with standalone sentiment or topic-classification tasks.
@@ -143,4 +200,4 @@ comparing results. JevAlt's current English test has 1,277 requests; Crivo's
 
 [Machine-readable survey](benchmark-survey.json) records all 20 families,
 candidate priorities, source URLs and document hashes, dataset revisions and
-public-file check hashes. No candidate scores were added to the leaderboard.
+public-file check hashes. No trained-model full scores for the newly integrated suites were added to the leaderboard.

@@ -4,6 +4,10 @@ from .io import dumps
 
 
 def official_report(dataset, records, predictions, output):
+    from .datasets.decisions import SOURCES
+    if dataset.name in SOURCES:
+        from .benchmark_reports import decision_report
+        return decision_report(dataset, records, predictions)
     if dataset.name == "JevBench":
         from .datasets._jevbench.tasks import Task
         from .datasets._jevbench.scoring import score_task

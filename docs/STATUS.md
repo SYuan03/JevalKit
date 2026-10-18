@@ -1,15 +1,15 @@
 # Implementation and evaluation status
 
-Updated UTC: 2026-10-18T06:18:37.941001+00:00
+Updated UTC: 2026-10-18T06:42:17.235658+00:00
 
 The original goal is not complete. Public checkpoint validation is complete;
 live measurements for the two hosted APIs still require credentials.
 
-- Implemented: 20 model families, 3 Jev-related benchmark suites / 5 active TSV views.
+- Implemented: 20 model families, 8 Jev-related benchmark suites / 10 active TSV views.
 - Real inference verified: 18 families, including Valen and all public checkpoint integrations.
 - Results: 68 retained artifacts in the active board; 40 distinct eligible primary full scores.
-- Checks: 65 tests passed. A fresh wheel matched all 30 source modules and bundled licenses; its CLI started using only the standard library.
-- Data: the 5 active TSV views passed schema, count, content-hash and media checks on 2026-10-17; retired data remains archived.
+- Checks: 75 tests passed. A fresh wheel matched all 32 source modules and bundled licenses; its CLI started using only the standard library.
+- Data: the five new suites (45,794 states / 91,817 questions) passed full schema, count and content-hash checks. Existing media checks remain valid; retired data remains archived.
 - GPU budget: 31/32 cumulative reservations, including failed/stopped/repeated attempts. All planned GPU tasks have finished.
 
 The [leaderboard](../leaderboard/README.md) selects the latest complete measurement
@@ -20,10 +20,16 @@ sources and counts under `/mnt/shared-storage-user/mllm/liuziyu/share_data/Jeval
 The [requirement audit](validation-audit.json) records the original scope and pending evidence.
 The [runtime guide](runtime-environments.md) records the tested environments.
 
-The five auxiliary text tasks have been removed from the registry, preparation
-commands, examples and active leaderboard. A [survey of all 20 families](benchmarks.md#benchmark-research)
-identifies five decision-specific candidates for expansion; these are not yet
-implemented. The original 5–10-benchmark target is therefore pending.
+Five decision-specific suites are now integrated: TypedDecisions, DecisionBench,
+ProceduralTypedDecisions, ZhDecisionBench and JevAltBench. Their complete pinned
+TSVs are retained in shared storage. The original 5–10-benchmark scope is met
+with eight families. The five retired general NLP tasks remain excluded.
+
+CPU Uniform smoke runs passed inference, protocol scoring and re-scoring on all
+five new suites; these diagnostic records are outside the main leaderboard.
+No new trained-model full measurements are claimed. Upstream parity checks
+covered 39 DecisionBench cases plus JevOss/Chinese reference ECE conventions.
+The [protocol guide](benchmarks.md) describes soft labels and interface projections.
 
 ## Latest completed evaluations
 

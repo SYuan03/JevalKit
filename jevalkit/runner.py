@@ -10,7 +10,7 @@ from . import __version__
 from .datasets import DecisionDataset
 from .io import atomic_json, dumps, load_json, object_hash, sha256
 from .metrics import grouped_report, question_metrics
-from .schema import Unsupported, answer_probabilities, inference_request, is_capacity_error, target_probabilities
+from .schema import Unsupported, answer_probabilities, inference_request, is_capacity_error, target_label, target_probabilities
 
 
 def selected_records(dataset, limit=None, rank=0, world_size=1):
@@ -68,7 +68,7 @@ def score_predictions(dataset, predictions):
         for qid, question in record["request"]["questions"].items():
             truth = target_probabilities(question, record["targets"][qid])
             row = {"index": record["index"], "qid": qid, "type": question["type"],
-                   "hard": truth is not None and max(truth.values()) == 1,
+                   "hard": target_label(question, record["targets"][qid]) is not None,
                    "scorable": truth is not None, "status": prediction["status"],
                    **{k: record["meta"].get(k, "unknown") for k in ("subset", "domain", "modality")}}
             if prediction["status"] == "error" and is_capacity_error(prediction.get("error", "")):
@@ -87,7 +87,8 @@ def score_predictions(dataset, predictions):
                         row.update(status="unsupported", error=answer["error"])
                     else:
                         probabilities = answer_probabilities(question, answer)
-                        row.update(question_metrics(question, record["targets"][qid], probabilities),
+                        order = record["meta"].get("candidate_order", {}).get(qid)
+                        row.update(question_metrics(question, record["targets"][qid], probabilities, order),
                                    probabilities=probabilities)
                 except (KeyError, TypeError, ValueError) as exc:
                     row.update(status="error", error=str(exc))

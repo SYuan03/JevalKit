@@ -1,10 +1,10 @@
 {
-  "updated_utc": "2026-10-18T06:18:37.941001+00:00",
+  "updated_utc": "2026-10-18T06:44:26.431967+00:00",
   "goal_complete": false,
   "scope": {
     "model_families": 20,
-    "benchmark_families": 3,
-    "tsv_views": 5,
+    "benchmark_families": 8,
+    "tsv_views": 10,
     "target_benchmark_families": [
       5,
       10
@@ -523,51 +523,77 @@
     },
     {
       "requirement": "Five to ten benchmarks, including VisualDecisionBench, JevBench and DecisionIndex",
-      "state": "partially-implemented-benchmark-expansion-pending",
+      "state": "verified-data-and-pipeline; new-trained-model-runs-pending",
       "evidence": [
         "docs/data-manifest.json",
-        "artifacts/goal-audit-data.jsonl",
-        "artifacts/final-data-verification.json",
-        "docs/benchmark-survey.json"
+        "docs/benchmarks.md",
+        "artifacts/benchmark-integration-all-data-verification.jsonl",
+        "artifacts/benchmark-protocol-parity.json",
+        "artifacts/new-benchmark-smoke-validation.json"
       ],
       "datasets": [
-        {
-          "name": "DecisionIndex",
-          "records": 140178,
-          "questions": 312320,
-          "sha256": "9cc55d90b70b0aeca387abffed2957d740a11246be6dc480dfd41e0cc9b7368f",
-          "media_verified": true
-        },
-        {
-          "name": "JevBench",
-          "records": 231,
-          "questions": 231,
-          "sha256": "ca68a699a439c8be56a7fc02be718585482bea6ccf1d08a761cc57bd3b6d578c",
-          "media_verified": true
-        },
         {
           "name": "VisualDecisionBench",
           "records": 1696,
           "questions": 9143,
-          "sha256": "7caa026b69ba1b160f2aa23776b31d4d6162cdb95592810411ce4c905e1a1b44",
-          "media_verified": true
+          "sha256": "7caa026b69ba1b160f2aa23776b31d4d6162cdb95592810411ce4c905e1a1b44"
         },
         {
           "name": "VisualDecisionBench_Image",
           "records": 1402,
           "questions": 2000,
-          "sha256": "4db5a36bb084f5143d537a107e1685a2d01a3cbd7bf7c8717dd414d91e9aa67a",
-          "media_verified": true
+          "sha256": "4db5a36bb084f5143d537a107e1685a2d01a3cbd7bf7c8717dd414d91e9aa67a"
         },
         {
           "name": "VisualDecisionBench_Video",
           "records": 294,
           "questions": 7143,
-          "sha256": "72a0d2421a439212fa749a320df5d90570d87ad37570561a5dd06d3d5f3be7ed",
-          "media_verified": true
+          "sha256": "72a0d2421a439212fa749a320df5d90570d87ad37570561a5dd06d3d5f3be7ed"
+        },
+        {
+          "name": "JevBench",
+          "records": 231,
+          "questions": 231,
+          "sha256": "ca68a699a439c8be56a7fc02be718585482bea6ccf1d08a761cc57bd3b6d578c"
+        },
+        {
+          "name": "DecisionIndex",
+          "records": 140178,
+          "questions": 312320,
+          "sha256": "9cc55d90b70b0aeca387abffed2957d740a11246be6dc480dfd41e0cc9b7368f"
+        },
+        {
+          "name": "TypedDecisions",
+          "records": 400,
+          "questions": 2000,
+          "sha256": "043b3089dac5ab2045e717d3899afe7bfc073e30e66da3cb47b8ebca17277cfe"
+        },
+        {
+          "name": "DecisionBench",
+          "records": 23900,
+          "questions": 23900,
+          "sha256": "c99000b66862ef3781aa65f1d4edf267c605a519e619b9975a1509de428fefec"
+        },
+        {
+          "name": "ProceduralTypedDecisions",
+          "records": 18000,
+          "questions": 57016,
+          "sha256": "4809d20dc7aa54a6d15d7edf352044e658898e46232cb42bba9acb15f1fd8faf"
+        },
+        {
+          "name": "ZhDecisionBench",
+          "records": 378,
+          "questions": 467,
+          "sha256": "d99704fc055c8f767813786ce6184089a5ebc8aa4f88a5cc21075108bafbe099"
+        },
+        {
+          "name": "JevAltBench",
+          "records": 3116,
+          "questions": 8434,
+          "sha256": "58cd34780da758315050609a716ea22e53519122513343327614d956ed08c49a"
         }
       ],
-      "scope_change": "Five general NLP tasks removed at user request; current active scope is three Jev-related suites."
+      "scope_change": "Five retired NLP tasks replaced by five typed-decision suites; eight active benchmark families."
     },
     {
       "requirement": "Retain TSVs and media under requested shared storage; store new checkpoint downloads there",
@@ -626,11 +652,11 @@
   ],
   "evidence_sha256": {
     "artifacts/goal-audit-data.jsonl": "befde6782c804138551a504415b3d08fe5bd7d2cc66ac54f5037710a07b3e326",
-    "artifacts/validated-source.json": "c4622bff1175b231c97ca35e02681837b0baf5674cac3ed1f2c98d1f44016184",
+    "artifacts/validated-source.json": "3969111c75c85e416836d7a0971ede61e282c3b6797edb79c778bf1333dc4940",
     "leaderboard/leaderboard.json": "8dd68ee017af178afe155b3bcfc0327033a04f1e479ec6344c03a51c18ab439e",
     "artifacts/gpu-ledger.json": "4ebcc0cf8dfbc8dcafb0e843d697421c749324a0f40f208cf1fa07a2af5d416e"
   },
   "remaining_benchmark_work": [
-    "Integrate and validate decision-specific candidates; the current count is 3, below the original 5\u201310 target."
+    "Full trained-model evaluation on the five new suites is not yet measured; data and CPU pipeline integration are verified."
   ]
 }

@@ -2,16 +2,14 @@
   "checked_utc": "2026-10-18T06:17:36.250417+00:00",
   "scope": "20 registered model families; author and benchmark-maintainer reports across release versions. These are not newly measured JevalKit results.",
   "current_implemented_suites": [
-    "VisualDecisionBench",
-    "JevBench",
-    "DecisionIndex"
-  ],
-  "proposed_primary_additions": [
-    "Typed-Decisions",
     "DecisionBench",
-    "Procedural Typed Decisions",
-    "zh-decision-bench",
-    "JevAlt-Bench"
+    "DecisionIndex",
+    "JevAltBench",
+    "JevBench",
+    "ProceduralTypedDecisions",
+    "TypedDecisions",
+    "VisualDecisionBench",
+    "ZhDecisionBench"
   ],
   "models": [
     {
@@ -158,48 +156,88 @@
   "candidates": [
     {
       "name": "Typed-Decisions",
-      "priority": "P1",
+      "priority": "Integrated",
       "scope": "400 test states / 2,000 decisions; four workflows; Noul/Choice/Score and soft golds.",
       "relationship": "Laya, Intern-Decision, QEV; Jev and Liquid API rows by the benchmark maintainer.",
       "availability": "Public test data and golds; evaluate all questions per state, preserving the chosen interface.",
       "limits": "Teacher agreement is not objective correctness; mark general vs workflow-finetuned models.",
-      "source_url": "https://huggingface.co/datasets/LocalLLaMA/typed-decisions"
+      "source_url": "https://huggingface.co/datasets/LocalLLaMA/typed-decisions",
+      "integration": {
+        "name": "TypedDecisions",
+        "protocol": "test-400-shared-state-soft-gold-v1",
+        "records": 400,
+        "questions": 2000,
+        "sha256": "043b3089dac5ab2045e717d3899afe7bfc073e30e66da3cb47b8ebca17277cfe",
+        "revision": "7189f46b02248bd2569df7325c9df8e3b24e90a7"
+      }
     },
     {
       "name": "DecisionBench",
-      "priority": "P1",
+      "priority": "Integrated",
       "scope": "23,900 eval rows; three primitives; 43 task IDs; candidates up to 255.",
       "relationship": "Liquid d1 reports a full-suite evaluation.",
       "availability": "Public canonical eval Parquet, gold targets, provenance and evaluation code.",
       "limits": "Standard and compact inputs are separate protocols; retain option IDs/order/ordinal values.",
-      "source_url": "https://huggingface.co/datasets/Hanno-Labs/decision-bench"
+      "source_url": "https://huggingface.co/datasets/Hanno-Labs/decision-bench",
+      "integration": {
+        "name": "DecisionBench",
+        "protocol": "standard-eval-systemone-native-v1",
+        "records": 23900,
+        "questions": 23900,
+        "sha256": "c99000b66862ef3781aa65f1d4edf267c605a519e619b9975a1509de428fefec",
+        "revision": "071b7b2d2e1504c89e1e5a811a3f82e1bfe3aedb"
+      }
     },
     {
       "name": "Procedural Typed Decisions",
-      "priority": "P1",
+      "priority": "Integrated",
       "scope": "Exact rule-derived multi-question decisions; current card lists 18 task configurations plus all.",
       "relationship": "RSI-Jev evaluates a pinned version; Crivo also trains on this data.",
       "availability": "Public train/validation/test, reference answers and deterministic generators.",
       "limits": "Pin a revision: the RSI-pinned release has a different configuration set. Known train exposure must be disclosed.",
-      "source_url": "https://huggingface.co/datasets/tasksource/procedural-typed-decisions"
+      "source_url": "https://huggingface.co/datasets/tasksource/procedural-typed-decisions",
+      "integration": {
+        "name": "ProceduralTypedDecisions",
+        "protocol": "18-tasks-test-native-probability-v1",
+        "records": 18000,
+        "questions": 57016,
+        "sha256": "4809d20dc7aa54a6d15d7edf352044e658898e46232cb42bba9acb15f1fd8faf",
+        "revision": "e4b21b7b55f6cc9e76e33563e9d604ac5fcd25ad"
+      }
     },
     {
       "name": "zh-decision-bench",
-      "priority": "P1",
+      "priority": "Integrated",
       "scope": "Current v0.2: 378 items / 467 questions; Chinese routing, service and moderation.",
       "relationship": "Laya and Jev, with Qwen and NeoHorse baselines, evaluated by the benchmark author.",
       "availability": "Public golds, raw predictions, scorer and robustness/refit scripts.",
       "limits": "Older Laya notes describe v0.1 219/284. Small subgroups and one human adjudicator limit conclusions.",
-      "source_url": "https://github.com/CodyQin/zh-decision-bench"
+      "source_url": "https://github.com/CodyQin/zh-decision-bench",
+      "integration": {
+        "name": "ZhDecisionBench",
+        "protocol": "v0.2-validation-378-native-v1",
+        "records": 378,
+        "questions": 467,
+        "sha256": "d99704fc055c8f767813786ce6184089a5ebc8aa4f88a5cc21075108bafbe099",
+        "revision": "c4f90cdd973f5f5c0793c30a2ff3b77ea42d2266"
+      }
     },
     {
       "name": "JevAlt-Bench",
-      "priority": "P1",
+      "priority": "Integrated",
       "scope": "3,116 test requests / 8,434 questions across English, Turkish and German.",
       "relationship": "Crivo reports English evaluation; dataset authors compare Kev and Laya.",
       "availability": "Public JSONL with probability targets; JevOss evaluator is public.",
       "limits": "Mostly converted public tasks plus authored scenarios. File location defines split even when row split says train; upstream overlap is disclosed.",
-      "source_url": "https://huggingface.co/datasets/mertkayacs/jevalt-bench"
+      "source_url": "https://huggingface.co/datasets/mertkayacs/jevalt-bench",
+      "integration": {
+        "name": "JevAltBench",
+        "protocol": "test-en-tr-de-explicit-unknown-v1",
+        "records": 3116,
+        "questions": 8434,
+        "sha256": "58cd34780da758315050609a716ea22e53519122513343327614d956ed08c49a",
+        "revision": "950b95fac0950d85b6383dccbe3445726c1ccc3c"
+      }
     },
     {
       "name": "Kev frozen suites",
@@ -319,6 +357,14 @@
     {
       "repository": "LocalLLaMA/typed-decisions",
       "revision": "7189f46b02248bd2569df7325c9df8e3b24e90a7"
+    },
+    {
+      "repository": "tasksource/procedural-typed-decisions",
+      "revision": "e4b21b7b55f6cc9e76e33563e9d604ac5fcd25ad"
+    },
+    {
+      "repository": "CodyQin/zh-decision-bench",
+      "revision": "c4f90cdd973f5f5c0793c30a2ff3b77ea42d2266"
     }
   ],
   "public_file_checks": [
@@ -633,5 +679,18 @@
       "url": "https://huggingface.co/datasets/Valen-Team/Valen-Eval-Game/raw/main/README.md",
       "sha256": "3c816ea0bb8e5832ddb8775e13b70da66a528a6b7a366074f6aff14b6bd77c02"
     }
-  ]
+  ],
+  "integrated_primary_additions": [
+    "Typed-Decisions",
+    "DecisionBench",
+    "Procedural Typed Decisions",
+    "zh-decision-bench",
+    "JevAlt-Bench"
+  ],
+  "integration_validation": {
+    "tests_passed": 75,
+    "full_data_verified": true,
+    "cpu_smoke_benchmarks": 5,
+    "new_trained_model_full_scores": 0
+  }
 }
