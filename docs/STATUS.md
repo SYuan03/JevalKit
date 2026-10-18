@@ -1,6 +1,6 @@
 # Implementation and evaluation status
 
-Updated UTC: 2026-10-18T07:00:28.949852+00:00
+Updated UTC: 2026-10-18T16:38:08.765019+00:00
 
 The original goal is not complete. Public checkpoint validation is complete;
 live measurements for the two hosted APIs still require credentials.
@@ -66,6 +66,40 @@ status are retained under
 `code/matrix.status.json`. Predictions and metrics are written to
 `/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/`.
 No further GPU reservations remain within the agreed cumulative limit.
+
+### Progress snapshot: 2026-10-19 00:37 Hong Kong time
+
+The scheduler still reports **Running**. Of 110 planned pairs, **84 have complete
+metric artifacts**, one stopped with an error, one is running, and 24 are pending.
+The completed artifacts contain **55 eligible full scores**, seven fully
+unsupported evaluations, and 22 evaluations with question errors that remain
+excluded from the primary score table.
+
+| New suite | Complete metric artifacts | Remaining work |
+|---|---:|---|
+| ZhDecisionBench | 22/22 | Complete, with native modality limits retained |
+| TypedDecisions | 22/22 | Complete, with native question/modality limits retained |
+| JevAltBench | 22/22 | Input compatibility errors require repair before promotion |
+| DecisionBench | 18/22 | Kev running at about 15,000/23,900 requests; Laya stopped; two later models pending |
+| ProceduralTypedDecisions | 0/22 | Pending in the same live GPU queue |
+
+The shared JevAltBench failure is a structured ticket containing a `messages`
+field with timestamp/sender/text entries. It was mistaken for a chat-message
+envelope, causing a missing role/content error across releases. Some author SDKs
+also reject null or structured Noul criteria. Original journals remain intact;
+these measurements are not presented as passing full scores.
+
+Laya stopped after 5,572/23,900 requests because 151 candidate markers do not fit
+its released 512-token budget; only 126 fit with the question head. The capacity
+rejection was classified as an error, triggering the consecutive-error stop.
+The incomplete journal is retained. Neither candidates nor failed requests were
+removed to manufacture a full result. The frozen running worker and its input
+datasets remain unchanged while the independent pairs continue.
+
+The leaderboard now retains 152 active artifacts in total, including the 84 new
+completed measurements. Its primary table admits 55 new eligible scores; the
+complete error and unsupported records remain in the detailed results. The live
+monitor continues to verify prediction/manifest hashes before aggregation.
 
 ## Latest completed evaluations
 
