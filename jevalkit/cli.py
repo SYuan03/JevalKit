@@ -32,7 +32,7 @@ def main(argv=None):
     prepare = sub.add_parser("prepare", help="Download/import public data into retained TSVs")
     prepare.add_argument("benchmarks", nargs="+", choices=BENCHMARKS)
     prepare.add_argument("--root")
-    prepare.add_argument("--source", help="Existing native benchmark directory or When2Call normalized JSONL")
+    prepare.add_argument("--source", help="Existing native benchmark directory")
     prepare.add_argument("--edition", default="0.3", choices=("0.2.1", "0.3"))
     verify = sub.add_parser("verify", help="Verify TSV schemas, counts, hashes, optionally all media")
     verify.add_argument("benchmarks", nargs="+", choices=BENCHMARKS)
@@ -85,8 +85,7 @@ def main(argv=None):
             for name, value in data.items():
                 print(name + "\t" + value["family"] + "\t" + value.get("transport", value.get("modality", "")))
     elif args.command == "prepare":
-        from .datasets.prepare import (prepare_decision_index, prepare_hf, prepare_jevbench,
-                                       prepare_visual, prepare_when2call)
+        from .datasets.prepare import prepare_decision_index, prepare_jevbench, prepare_visual
         if args.source and len(args.benchmarks) != 1:
             parser.error("--source accepts one benchmark at a time")
         for name in args.benchmarks:
@@ -96,10 +95,8 @@ def main(argv=None):
                 result = prepare_jevbench(args.root, args.source)
             elif name == "DecisionIndex":
                 result = prepare_decision_index(args.root, args.source, args.edition)
-            elif name == "When2Call":
-                result = prepare_when2call(args.root, args.source)
             else:
-                result = prepare_hf(name, args.root)
+                parser.error("No preparation handler for benchmark: " + name)
             print(dumps(result), flush=True)
     elif args.command == "verify":
         for name in args.benchmarks:

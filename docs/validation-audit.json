@@ -1,10 +1,14 @@
 {
-  "updated_utc": "2026-10-17T20:09:35.519912+00:00",
+  "updated_utc": "2026-10-18T06:18:37.941001+00:00",
   "goal_complete": false,
   "scope": {
     "model_families": 20,
-    "benchmark_families": 8,
-    "tsv_views": 10
+    "benchmark_families": 3,
+    "tsv_views": 5,
+    "target_benchmark_families": [
+      5,
+      10
+    ]
   },
   "requirements": [
     {
@@ -68,39 +72,9 @@
           "full_measurements": [
             {
               "model": "Crivo-150M",
-              "benchmark": "AGNews",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Crivo-150M/AGNews/metrics.json"
-            },
-            {
-              "model": "Crivo-150M",
-              "benchmark": "Banking77",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Crivo-150M/Banking77/metrics.json"
-            },
-            {
-              "model": "Crivo-150M",
-              "benchmark": "BoolQ",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Crivo-150M/BoolQ/metrics.json"
-            },
-            {
-              "model": "Crivo-150M",
               "benchmark": "JevBench",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Crivo-150M/JevBench/metrics.json"
-            },
-            {
-              "model": "Crivo-150M",
-              "benchmark": "SST2",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Crivo-150M/SST2/metrics.json"
-            },
-            {
-              "model": "Crivo-150M",
-              "benchmark": "When2Call",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Crivo-150M/When2Call/metrics.json"
             }
           ],
           "smoke_evidence": [
@@ -140,39 +114,15 @@
           "full_measurements": [
             {
               "model": "Intern-Decision-0.8B",
-              "benchmark": "AGNews",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Intern-Decision-0.8B/AGNews/metrics.json"
-            },
-            {
-              "model": "Intern-Decision-0.8B",
-              "benchmark": "BoolQ",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round2/Intern-Decision-0.8B/BoolQ/metrics.json"
-            },
-            {
-              "model": "Intern-Decision-0.8B",
               "benchmark": "JevBench",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Intern-Decision-0.8B/JevBench/metrics.json"
             },
             {
               "model": "Intern-Decision-0.8B",
-              "benchmark": "SST2",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round2/Intern-Decision-0.8B/SST2/metrics.json"
-            },
-            {
-              "model": "Intern-Decision-0.8B",
               "benchmark": "VisualDecisionBench_Image",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Intern-Decision-0.8B/VisualDecisionBench_Image/metrics.json"
-            },
-            {
-              "model": "Intern-Decision-0.8B",
-              "benchmark": "When2Call",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Intern-Decision-0.8B/When2Call/metrics.json"
             }
           ],
           "smoke_evidence": [
@@ -198,39 +148,9 @@
           "full_measurements": [
             {
               "model": "JevK5",
-              "benchmark": "AGNews",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round4/JevK5/AGNews/metrics.json"
-            },
-            {
-              "model": "JevK5",
-              "benchmark": "Banking77",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round4/JevK5/Banking77/metrics.json"
-            },
-            {
-              "model": "JevK5",
-              "benchmark": "BoolQ",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round4/JevK5/BoolQ/metrics.json"
-            },
-            {
-              "model": "JevK5",
               "benchmark": "JevBench",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round4/JevK5/JevBench/metrics.json"
-            },
-            {
-              "model": "JevK5",
-              "benchmark": "SST2",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round4/JevK5/SST2/metrics.json"
-            },
-            {
-              "model": "JevK5",
-              "benchmark": "When2Call",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round4/JevK5/When2Call/metrics.json"
             }
           ],
           "smoke_evidence": [
@@ -246,39 +166,9 @@
           "full_measurements": [
             {
               "model": "Kev",
-              "benchmark": "AGNews",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/served-round4/Kev/AGNews/metrics.json"
-            },
-            {
-              "model": "Kev",
-              "benchmark": "Banking77",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/served-round4/Kev/Banking77/metrics.json"
-            },
-            {
-              "model": "Kev",
-              "benchmark": "BoolQ",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/served-round4/Kev/BoolQ/metrics.json"
-            },
-            {
-              "model": "Kev",
               "benchmark": "JevBench",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/served-round4/Kev/JevBench/metrics.json"
-            },
-            {
-              "model": "Kev",
-              "benchmark": "SST2",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/served-round4/Kev/SST2/metrics.json"
-            },
-            {
-              "model": "Kev",
-              "benchmark": "When2Call",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/served-round4/Kev/When2Call/metrics.json"
             }
           ],
           "smoke_evidence": []
@@ -292,39 +182,9 @@
           "full_measurements": [
             {
               "model": "Laya",
-              "benchmark": "AGNews",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Laya/AGNews/metrics.json"
-            },
-            {
-              "model": "Laya",
-              "benchmark": "Banking77",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Laya/Banking77/metrics.json"
-            },
-            {
-              "model": "Laya",
-              "benchmark": "BoolQ",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Laya/BoolQ/metrics.json"
-            },
-            {
-              "model": "Laya",
               "benchmark": "JevBench",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Laya/JevBench/metrics.json"
-            },
-            {
-              "model": "Laya",
-              "benchmark": "SST2",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Laya/SST2/metrics.json"
-            },
-            {
-              "model": "Laya",
-              "benchmark": "When2Call",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Laya/When2Call/metrics.json"
             }
           ],
           "smoke_evidence": []
@@ -338,45 +198,15 @@
           "full_measurements": [
             {
               "model": "Liquid-d1-3B",
-              "benchmark": "AGNews",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/Liquid-d1-3B/AGNews/metrics.json"
-            },
-            {
-              "model": "Liquid-d1-3B",
-              "benchmark": "Banking77",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/Liquid-d1-3B/Banking77/metrics.json"
-            },
-            {
-              "model": "Liquid-d1-3B",
-              "benchmark": "BoolQ",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/Liquid-d1-3B/BoolQ/metrics.json"
-            },
-            {
-              "model": "Liquid-d1-3B",
               "benchmark": "JevBench",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/Liquid-d1-3B/JevBench/metrics.json"
             },
             {
               "model": "Liquid-d1-3B",
-              "benchmark": "SST2",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/Liquid-d1-3B/SST2/metrics.json"
-            },
-            {
-              "model": "Liquid-d1-3B",
               "benchmark": "VisualDecisionBench_Image",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/Liquid-d1-3B/VisualDecisionBench_Image/metrics.json"
-            },
-            {
-              "model": "Liquid-d1-3B",
-              "benchmark": "When2Call",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/Liquid-d1-3B/When2Call/metrics.json"
             }
           ],
           "smoke_evidence": [
@@ -474,39 +304,15 @@
           "full_measurements": [
             {
               "model": "QEV",
-              "benchmark": "AGNews",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round2/QEV/AGNews/metrics.json"
-            },
-            {
-              "model": "QEV",
-              "benchmark": "BoolQ",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/QEV/BoolQ/metrics.json"
-            },
-            {
-              "model": "QEV",
               "benchmark": "JevBench",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round2/QEV/JevBench/metrics.json"
             },
             {
               "model": "QEV",
-              "benchmark": "SST2",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/QEV/SST2/metrics.json"
-            },
-            {
-              "model": "QEV",
               "benchmark": "VisualDecisionBench_Image",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round2/QEV/VisualDecisionBench_Image/metrics.json"
-            },
-            {
-              "model": "QEV",
-              "benchmark": "When2Call",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round2/QEV/When2Call/metrics.json"
             }
           ],
           "smoke_evidence": [
@@ -523,45 +329,15 @@
           "full_measurements": [
             {
               "model": "RSI-Jev-v4",
-              "benchmark": "AGNews",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round2/RSI-Jev-v4/AGNews/metrics.json"
-            },
-            {
-              "model": "RSI-Jev-v4",
-              "benchmark": "Banking77",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round2/RSI-Jev-v4/Banking77/metrics.json"
-            },
-            {
-              "model": "RSI-Jev-v4",
-              "benchmark": "BoolQ",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round2/RSI-Jev-v4/BoolQ/metrics.json"
-            },
-            {
-              "model": "RSI-Jev-v4",
               "benchmark": "JevBench",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round2/RSI-Jev-v4/JevBench/metrics.json"
             },
             {
               "model": "RSI-Jev-v4",
-              "benchmark": "SST2",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round2/RSI-Jev-v4/SST2/metrics.json"
-            },
-            {
-              "model": "RSI-Jev-v4",
               "benchmark": "VisualDecisionBench_Image",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round2/RSI-Jev-v4/VisualDecisionBench_Image/metrics.json"
-            },
-            {
-              "model": "RSI-Jev-v4",
-              "benchmark": "When2Call",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round2/RSI-Jev-v4/When2Call/metrics.json"
             }
           ],
           "smoke_evidence": [
@@ -578,45 +354,15 @@
           "full_measurements": [
             {
               "model": "StartLux-0.8B",
-              "benchmark": "AGNews",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/StartLux-0.8B/AGNews/metrics.json"
-            },
-            {
-              "model": "StartLux-0.8B",
-              "benchmark": "Banking77",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/StartLux-0.8B/Banking77/metrics.json"
-            },
-            {
-              "model": "StartLux-0.8B",
-              "benchmark": "BoolQ",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/StartLux-0.8B/BoolQ/metrics.json"
-            },
-            {
-              "model": "StartLux-0.8B",
               "benchmark": "JevBench",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/StartLux-0.8B/JevBench/metrics.json"
             },
             {
               "model": "StartLux-0.8B",
-              "benchmark": "SST2",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/StartLux-0.8B/SST2/metrics.json"
-            },
-            {
-              "model": "StartLux-0.8B",
               "benchmark": "VisualDecisionBench_Image",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/StartLux-0.8B/VisualDecisionBench_Image/metrics.json"
-            },
-            {
-              "model": "StartLux-0.8B",
-              "benchmark": "When2Call",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/StartLux-0.8B/When2Call/metrics.json"
             }
           ],
           "smoke_evidence": [
@@ -633,60 +379,6 @@
           ],
           "state": "real-inference-verified",
           "full_measurements": [
-            {
-              "model": "Valen-4B",
-              "benchmark": "AGNews",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Valen-4B/AGNews/metrics.json"
-            },
-            {
-              "model": "Valen-2B",
-              "benchmark": "AGNews",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Valen-2B/AGNews/metrics.json"
-            },
-            {
-              "model": "Valen-0.8B",
-              "benchmark": "AGNews",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Valen-0.8B/AGNews/metrics.json"
-            },
-            {
-              "model": "Valen-4B",
-              "benchmark": "Banking77",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Valen-4B/Banking77/metrics.json"
-            },
-            {
-              "model": "Valen-2B",
-              "benchmark": "Banking77",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Valen-2B/Banking77/metrics.json"
-            },
-            {
-              "model": "Valen-0.8B",
-              "benchmark": "Banking77",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Valen-0.8B/Banking77/metrics.json"
-            },
-            {
-              "model": "Valen-4B",
-              "benchmark": "BoolQ",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Valen-4B/BoolQ/metrics.json"
-            },
-            {
-              "model": "Valen-2B",
-              "benchmark": "BoolQ",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Valen-2B/BoolQ/metrics.json"
-            },
-            {
-              "model": "Valen-0.8B",
-              "benchmark": "BoolQ",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Valen-0.8B/BoolQ/metrics.json"
-            },
             {
               "model": "Valen-4B",
               "benchmark": "DecisionIndex",
@@ -724,24 +416,6 @@
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Valen-0.8B/JevBench/metrics.json"
             },
             {
-              "model": "Valen-2B",
-              "benchmark": "SST2",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Valen-2B/SST2/metrics.json"
-            },
-            {
-              "model": "Valen-4B",
-              "benchmark": "SST2",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Valen-4B/SST2/metrics.json"
-            },
-            {
-              "model": "Valen-0.8B",
-              "benchmark": "SST2",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Valen-0.8B/SST2/metrics.json"
-            },
-            {
               "model": "Valen-4B",
               "benchmark": "VisualDecisionBench_Image",
               "origin": "jevalkit-inference",
@@ -776,24 +450,6 @@
               "benchmark": "VisualDecisionBench_Video",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Valen-0.8B/VisualDecisionBench_Video/metrics.json"
-            },
-            {
-              "model": "Valen-4B",
-              "benchmark": "When2Call",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Valen-4B/When2Call/metrics.json"
-            },
-            {
-              "model": "Valen-2B",
-              "benchmark": "When2Call",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Valen-2B/When2Call/metrics.json"
-            },
-            {
-              "model": "Valen-0.8B",
-              "benchmark": "When2Call",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Valen-0.8B/When2Call/metrics.json"
             }
           ],
           "smoke_evidence": [
@@ -829,45 +485,15 @@
           "full_measurements": [
             {
               "model": "Vjev-4B",
-              "benchmark": "AGNews",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/Vjev-4B/AGNews/metrics.json"
-            },
-            {
-              "model": "Vjev-4B",
-              "benchmark": "Banking77",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/Vjev-4B/Banking77/metrics.json"
-            },
-            {
-              "model": "Vjev-4B",
-              "benchmark": "BoolQ",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/Vjev-4B/BoolQ/metrics.json"
-            },
-            {
-              "model": "Vjev-4B",
               "benchmark": "JevBench",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round5/Vjev-4B/JevBench/metrics.json"
             },
             {
               "model": "Vjev-4B",
-              "benchmark": "SST2",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/Vjev-4B/SST2/metrics.json"
-            },
-            {
-              "model": "Vjev-4B",
               "benchmark": "VisualDecisionBench_Image",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/Vjev-4B/VisualDecisionBench_Image/metrics.json"
-            },
-            {
-              "model": "Vjev-4B",
-              "benchmark": "When2Call",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/Vjev-4B/When2Call/metrics.json"
             }
           ],
           "smoke_evidence": [
@@ -883,44 +509,13 @@
           "full_measurements": [
             {
               "model": "Decision1-Kai",
-              "benchmark": "AGNews",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/Decision1-Kai/AGNews/metrics.json"
-            },
-            {
-              "model": "Decision1-Kai",
-              "benchmark": "Banking77",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/Decision1-Kai/Banking77/metrics.json"
-            },
-            {
-              "model": "Decision1-Kai",
-              "benchmark": "BoolQ",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/Decision1-Kai/BoolQ/metrics.json"
-            },
-            {
-              "model": "Decision1-Kai",
               "benchmark": "JevBench",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/Decision1-Kai/JevBench/metrics.json"
-            },
-            {
-              "model": "Decision1-Kai",
-              "benchmark": "SST2",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/Decision1-Kai/SST2/metrics.json"
-            },
-            {
-              "model": "Decision1-Kai",
-              "benchmark": "When2Call",
-              "origin": "jevalkit-inference",
-              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/Decision1-Kai/When2Call/metrics.json"
             }
           ],
           "smoke_evidence": [
-            "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/smoke-round3/Decision1-Kai/JevBench/metrics.json",
-            "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/smoke-round3/Decision1-Kai/When2Call/metrics.json"
+            "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/smoke-round3/Decision1-Kai/JevBench/metrics.json"
           ]
         }
       ],
@@ -928,34 +523,14 @@
     },
     {
       "requirement": "Five to ten benchmarks, including VisualDecisionBench, JevBench and DecisionIndex",
-      "state": "verified",
+      "state": "partially-implemented-benchmark-expansion-pending",
       "evidence": [
         "docs/data-manifest.json",
         "artifacts/goal-audit-data.jsonl",
-        "artifacts/final-data-verification.json"
+        "artifacts/final-data-verification.json",
+        "docs/benchmark-survey.json"
       ],
       "datasets": [
-        {
-          "name": "AGNews",
-          "records": 7600,
-          "questions": 7600,
-          "sha256": "fd25aef487de04ac61abdee47701865cdffc44d7925e83b0ae28cf8e9d2201ac",
-          "media_verified": true
-        },
-        {
-          "name": "Banking77",
-          "records": 3080,
-          "questions": 3080,
-          "sha256": "f13205c4b54dbed549afcb86e26759b257aab96b763ceb8c0346c4d61c4d03a5",
-          "media_verified": true
-        },
-        {
-          "name": "BoolQ",
-          "records": 3270,
-          "questions": 3270,
-          "sha256": "48b0dfa891a484f223529f11c4a7572eb55135d72b0fb610c9f7f893e25bed71",
-          "media_verified": true
-        },
         {
           "name": "DecisionIndex",
           "records": 140178,
@@ -968,13 +543,6 @@
           "records": 231,
           "questions": 231,
           "sha256": "ca68a699a439c8be56a7fc02be718585482bea6ccf1d08a761cc57bd3b6d578c",
-          "media_verified": true
-        },
-        {
-          "name": "SST2",
-          "records": 872,
-          "questions": 872,
-          "sha256": "a5762e3682880e834e9c2300ee8554568e60b7bbf10d129d5cf9e00d1d2cc5a2",
           "media_verified": true
         },
         {
@@ -997,15 +565,9 @@
           "questions": 7143,
           "sha256": "72a0d2421a439212fa749a320df5d90570d87ad37570561a5dd06d3d5f3be7ed",
           "media_verified": true
-        },
-        {
-          "name": "When2Call",
-          "records": 3652,
-          "questions": 3652,
-          "sha256": "ce277ee3fa5aff14b4202fd439ce8c7e5f6d71340c01e5d8a8e648d5e2d77b99",
-          "media_verified": true
         }
-      ]
+      ],
+      "scope_change": "Five general NLP tasks removed at user request; current active scope is three Jev-related suites."
     },
     {
       "requirement": "Retain TSVs and media under requested shared storage; store new checkpoint downloads there",
@@ -1034,8 +596,8 @@
     {
       "requirement": "Aggregate actual benchmark measurements into a leaderboard",
       "state": "verified-for-completed-runs",
-      "retained_artifacts": 144,
-      "primary_eligible_scores": 108,
+      "retained_artifacts": 68,
+      "primary_eligible_scores": 40,
       "evidence": [
         "leaderboard/README.md",
         "leaderboard/leaderboard.tsv",
@@ -1064,8 +626,11 @@
   ],
   "evidence_sha256": {
     "artifacts/goal-audit-data.jsonl": "befde6782c804138551a504415b3d08fe5bd7d2cc66ac54f5037710a07b3e326",
-    "artifacts/validated-source.json": "808dbcdeedf49cdb9a8e903f0f46f8a515bc599abb6082a72f4c6bc506d510dd",
-    "leaderboard/leaderboard.json": "2d222dd8dfb1df16c1c11305efab228f6efe30250cba7cb7214e3f17cb085fcb",
+    "artifacts/validated-source.json": "c4622bff1175b231c97ca35e02681837b0baf5674cac3ed1f2c98d1f44016184",
+    "leaderboard/leaderboard.json": "8dd68ee017af178afe155b3bcfc0327033a04f1e479ec6344c03a51c18ab439e",
     "artifacts/gpu-ledger.json": "4ebcc0cf8dfbc8dcafb0e843d697421c749324a0f40f208cf1fa07a2af5d416e"
-  }
+  },
+  "remaining_benchmark_work": [
+    "Integrate and validate decision-specific candidates; the current count is 3, below the original 5\u201310 target."
+  ]
 }

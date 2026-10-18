@@ -4,7 +4,7 @@
   "runs": [
     {
       "model": "Kev",
-      "data": ["JevBench", "AGNews"],
+      "data": ["JevBench"],
       "options": {"endpoint": "http://127.0.0.1:8008/v1/systemone", "model": "kev-latest"},
       "services": [
         {

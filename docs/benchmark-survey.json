@@ -1,0 +1,637 @@
+{
+  "checked_utc": "2026-10-18T06:17:36.250417+00:00",
+  "scope": "20 registered model families; author and benchmark-maintainer reports across release versions. These are not newly measured JevalKit results.",
+  "current_implemented_suites": [
+    "VisualDecisionBench",
+    "JevBench",
+    "DecisionIndex"
+  ],
+  "proposed_primary_additions": [
+    "Typed-Decisions",
+    "DecisionBench",
+    "Procedural Typed Decisions",
+    "zh-decision-bench",
+    "JevAlt-Bench"
+  ],
+  "models": [
+    {
+      "family": "Valen",
+      "reported_evaluations": "VisualDecisionBench; JevBench; Decision Index",
+      "self_created": "Created VisualDecisionBench, earlier General-5k, and Sokoban action/game evaluation.",
+      "availability_and_limits": "Public data; inspect overlap between earlier General-5k and VDB before pooling.",
+      "source_url": "https://github.com/Liuziyu77/Valen"
+    },
+    {
+      "family": "Intern-Decision",
+      "reported_evaluations": "JevBench; Typed-Decisions; ToolACE; AG News; WildJailBreak",
+      "self_created": "Released a 96-case known-distribution calibration pilot.",
+      "availability_and_limits": "Accuracy bundles and pilot inputs/references/scorer are public.",
+      "source_url": "https://github.com/InternLM/Intern-Decision/blob/main/docs/EVALUATION.md"
+    },
+    {
+      "family": "Laya",
+      "reported_evaluations": "Typed-Decisions; zh-decision-bench (community); multilingual intent/NLI and application panels",
+      "self_created": "Publishes application, calibration and option-order harnesses; Typed-Decisions is external.",
+      "availability_and_limits": "General and workflow-finetuned checkpoints have different training exposure.",
+      "source_url": "https://github.com/NandhaKishorM/laya/blob/main/BENCHMARKS.md"
+    },
+    {
+      "family": "Liquid-d1",
+      "reported_evaluations": "Decision Index; DecisionBench; FastDecisions dev; ImajevBench dev/calibration; converted text/vision tasks",
+      "self_created": "No separate self-created public decision benchmark located in the checked release.",
+      "availability_and_limits": "FastDecisions dev and Imajev dev/calibration are not their hidden-test leaderboards.",
+      "source_url": "https://huggingface.co/LiquidAI/d1-3B"
+    },
+    {
+      "family": "vLLM-Decision1",
+      "reported_evaluations": "Self-built fixed 54-task / 3,766-question regression suite",
+      "self_created": "Five weighted groups: Reading, Decisions, Composition, Inference, Transfer.",
+      "availability_and_limits": "Published matrices/methods; a complete frozen request/label bundle was not located in the checked model files.",
+      "source_url": "https://huggingface.co/vllm-sr/Decision-1.0-Kai-0.6B/blob/main/evaluation/BENCHMARK.md"
+    },
+    {
+      "family": "Clef",
+      "reported_evaluations": "Decision Index; four TypeSafe Workflow Evals",
+      "self_created": "No separate self-created public benchmark located in the checked cards.",
+      "availability_and_limits": "Workflow results are public; bulk test inputs/golds/scorer availability still needs verification.",
+      "source_url": "https://huggingface.co/Cloudflare/clef"
+    },
+    {
+      "family": "Pplx-Decider",
+      "reported_evaluations": "Decision Index",
+      "self_created": "No independent self-created public benchmark located in the checked card.",
+      "availability_and_limits": "Do not substitute tasksource training data for an evaluation benchmark.",
+      "source_url": "https://huggingface.co/perplexity-ai/pplx-decider-v1.1-27b"
+    },
+    {
+      "family": "JevK5",
+      "reported_evaluations": "JevBench; BEV decision test sample; Decision Index proxy",
+      "self_created": "362 held-out teacher questions and 64 hand-written hard questions used for model selection.",
+      "availability_and_limits": "Its 16-source development proxy is not an official Decision Index score; BEV is external.",
+      "source_url": "https://huggingface.co/alibiserikbay/JevK5"
+    },
+    {
+      "family": "StartLux",
+      "reported_evaluations": "Decision Index; JevBench; Intern-Decision seven-column accuracy comparison",
+      "self_created": "No independent self-created public benchmark located in the checked card.",
+      "availability_and_limits": "The three JevBench tiers in that comparison count as one benchmark family.",
+      "source_url": "https://huggingface.co/startlux-models/StartLux-Decision-v1-0.8B"
+    },
+    {
+      "family": "Crivo",
+      "reported_evaluations": "Decision Index; FastDecisions dev; JevAlt-Bench English test",
+      "self_created": "Reports its own runs on external decision datasets.",
+      "availability_and_limits": "2,964 requests is the combined FastDecisions + JevAlt panel, not JevAlt alone.",
+      "source_url": "https://huggingface.co/tardellirs/crivo-150m"
+    },
+    {
+      "family": "RSI-Jev",
+      "reported_evaluations": "15-part suite: Typed-Decisions, JevBench, Kev, procedural and other decision panels; Decision Index",
+      "self_created": "Publishes versioned suite weights, pinned loaders and held-out evaluation protocols.",
+      "availability_and_limits": "A collection of overlapping benchmarks, not 15 newly created independent benchmarks.",
+      "source_url": "https://github.com/Shanghua-Gao/RSI-Jev/blob/main/BENCHMARKS.md"
+    },
+    {
+      "family": "Vjev",
+      "reported_evaluations": "COCO geometry decisions; VQAv2 choices; POPE; 20k held-out text rows",
+      "self_created": "Created annotation-derived geometry questions and a text holdout panel.",
+      "availability_and_limits": "These are author conversions/panels; a frozen standalone public test bundle was not located in the checked card.",
+      "source_url": "https://huggingface.co/yah01/vjev-vision"
+    },
+    {
+      "family": "QEV",
+      "reported_evaluations": "Typed-Decisions adapted for its one-question interface; AG News; Emotion; image guards; procedural workflows; 2048",
+      "self_created": "Created procedural workflow, uncertainty and game diagnostics; publishes qev-data.",
+      "availability_and_limits": "15 historical corpus configurations are not 15 independent benchmarks; assistance variants remain separate.",
+      "source_url": "https://github.com/ken-jo/qev/blob/main/docs/LAYA_COMPARISON.md"
+    },
+    {
+      "family": "OmniJev",
+      "reported_evaluations": "30 task-family aggregates spanning images/video, agents and games",
+      "self_created": "Built a mixed multimodal evaluation collection and a later frozen question set.",
+      "availability_and_limits": "Capped/custom holdouts, differing image protocols and incomplete later SFT evaluation prevent uniform official-score claims.",
+      "source_url": "https://github.com/tinnel123666888/OmniJev"
+    },
+    {
+      "family": "Visual-Jev",
+      "reported_evaluations": "GQA; SNLI-VE; TextVQA; TallyQA, converted to candidate decisions",
+      "self_created": "Publishes a four-task forced-choice evaluation protocol and code.",
+      "availability_and_limits": "The original datasets are general vision benchmarks; conversions are not four new Jev-specific benchmarks.",
+      "source_url": "https://github.com/guanxuyu-sv/Visual-Jev"
+    },
+    {
+      "family": "Jev",
+      "reported_evaluations": "TypeSafe Workflow Evals; Typed-Decisions, zh-decision-bench and procedural evaluations by external maintainers",
+      "self_created": "TypeSafe publishes four structured workflow evaluations.",
+      "availability_and_limits": "Public external evaluations must be distinguished from TypeSafe-created datasets.",
+      "source_url": "https://evals.typesafe.ai/"
+    },
+    {
+      "family": "OpenAI-Decisions",
+      "reported_evaluations": "No independent public decision-specific evaluation dataset established by the checked official documentation",
+      "self_created": "Official documentation describes the typed Decisions API; no standalone benchmark bundle was found there.",
+      "availability_and_limits": "This is a bounded search finding, not a claim that OpenAI has no internal evaluations.",
+      "source_url": "https://developers.openai.com/api/docs/guides/decisions"
+    },
+    {
+      "family": "Kev",
+      "reported_evaluations": "JevBench; decision/transfer suites; breadth, hard, devtools, document and tasksource panels",
+      "self_created": "Created versioned decision suites and published frozen data/manifests plus its scorer.",
+      "availability_and_limits": "Public Hub mirror verified; transfer-v4 test has 764 rows. Some document suites are private; training exposure differs by release.",
+      "source_url": "https://github.com/jaredpalmer/kev"
+    },
+    {
+      "family": "H2O-Lightning",
+      "reported_evaluations": "BenchmarkHeaven JevBench; public decision comparisons; Plumb/Eikos routing panels",
+      "self_created": "Released routing questions, predictions and threshold-analysis code.",
+      "availability_and_limits": "Routing panel mixes Plumb train/test and Eikos validation/heldout. BenchmarkHeaven and the pinned public-231 protocol are not interchangeable.",
+      "source_url": "https://huggingface.co/h2oai/h2o-lightning-4b"
+    },
+    {
+      "family": "OpenJev",
+      "reported_evaluations": "10k text questions from 34 sources; browser/desktop steps; option shuffles; MiniWoB development tasks",
+      "self_created": "Created text and agent evaluation panels.",
+      "availability_and_limits": "Card reports results; a full frozen public request/gold bundle was not located in the checked release. Development-used items are disclosed.",
+      "source_url": "https://huggingface.co/openjev/openjev"
+    }
+  ],
+  "candidates": [
+    {
+      "name": "Typed-Decisions",
+      "priority": "P1",
+      "scope": "400 test states / 2,000 decisions; four workflows; Noul/Choice/Score and soft golds.",
+      "relationship": "Laya, Intern-Decision, QEV; Jev and Liquid API rows by the benchmark maintainer.",
+      "availability": "Public test data and golds; evaluate all questions per state, preserving the chosen interface.",
+      "limits": "Teacher agreement is not objective correctness; mark general vs workflow-finetuned models.",
+      "source_url": "https://huggingface.co/datasets/LocalLLaMA/typed-decisions"
+    },
+    {
+      "name": "DecisionBench",
+      "priority": "P1",
+      "scope": "23,900 eval rows; three primitives; 43 task IDs; candidates up to 255.",
+      "relationship": "Liquid d1 reports a full-suite evaluation.",
+      "availability": "Public canonical eval Parquet, gold targets, provenance and evaluation code.",
+      "limits": "Standard and compact inputs are separate protocols; retain option IDs/order/ordinal values.",
+      "source_url": "https://huggingface.co/datasets/Hanno-Labs/decision-bench"
+    },
+    {
+      "name": "Procedural Typed Decisions",
+      "priority": "P1",
+      "scope": "Exact rule-derived multi-question decisions; current card lists 18 task configurations plus all.",
+      "relationship": "RSI-Jev evaluates a pinned version; Crivo also trains on this data.",
+      "availability": "Public train/validation/test, reference answers and deterministic generators.",
+      "limits": "Pin a revision: the RSI-pinned release has a different configuration set. Known train exposure must be disclosed.",
+      "source_url": "https://huggingface.co/datasets/tasksource/procedural-typed-decisions"
+    },
+    {
+      "name": "zh-decision-bench",
+      "priority": "P1",
+      "scope": "Current v0.2: 378 items / 467 questions; Chinese routing, service and moderation.",
+      "relationship": "Laya and Jev, with Qwen and NeoHorse baselines, evaluated by the benchmark author.",
+      "availability": "Public golds, raw predictions, scorer and robustness/refit scripts.",
+      "limits": "Older Laya notes describe v0.1 219/284. Small subgroups and one human adjudicator limit conclusions.",
+      "source_url": "https://github.com/CodyQin/zh-decision-bench"
+    },
+    {
+      "name": "JevAlt-Bench",
+      "priority": "P1",
+      "scope": "3,116 test requests / 8,434 questions across English, Turkish and German.",
+      "relationship": "Crivo reports English evaluation; dataset authors compare Kev and Laya.",
+      "availability": "Public JSONL with probability targets; JevOss evaluator is public.",
+      "limits": "Mostly converted public tasks plus authored scenarios. File location defines split even when row split says train; upstream overlap is disclosed.",
+      "source_url": "https://huggingface.co/datasets/mertkayacs/jevalt-bench"
+    },
+    {
+      "name": "Kev frozen suites",
+      "priority": "P2",
+      "scope": "Versioned decision, transfer, policy and robustness tests; transfer-v4 test has 764 rows.",
+      "relationship": "Kev; RSI-Jev reuses selected Kev suites.",
+      "availability": "Verified public test JSONL/manifests in jaredpalmer/kev-suites; kev.benchmark scores native requests.",
+      "limits": "Select a named version and split; do not pool overlapping suite versions or private document tests.",
+      "source_url": "https://huggingface.co/datasets/jaredpalmer/kev-suites/tree/main"
+    },
+    {
+      "name": "Intern known-distribution pilot",
+      "priority": "Diagnostic",
+      "scope": "96 cases / 48 paired parameter settings with exact outcome distributions.",
+      "relationship": "Created and released by Intern-Decision.",
+      "availability": "Public inputs, separate references, deterministic generator and offline scorer.",
+      "limits": "Use excess expected Brier/TVD/expected ECE, not hard-label accuracy. It is a small diagnostic pilot.",
+      "source_url": "https://github.com/InternLM/Intern-Decision/blob/main/docs/CALIBRATION_BENCHMARK.md"
+    },
+    {
+      "name": "ImajevBench",
+      "priority": "Preview / partial public scoring",
+      "scope": "Text, visual and joint decision tracks; 533 public items including 279 test items.",
+      "relationship": "Liquid d1 evaluates public dev/calibration.",
+      "availability": "Dev/calibration golds public; test golds withheld, scored by maintainers; additional private hidden set.",
+      "limits": "Keep public split scores separate from test leaderboard. Preserve evidence-cluster grouping and quarantine metadata.",
+      "source_url": "https://huggingface.co/datasets/mohit67890/imajev-bench"
+    },
+    {
+      "name": "Valen General-5k / Sokoban",
+      "priority": "P2",
+      "scope": "General-5k: 5,000 visual decisions. Sokoban: 500 actions and 100 full-game test levels.",
+      "relationship": "Created by Valen.",
+      "availability": "Public data/media and evaluator references.",
+      "limits": "Check General-5k overlap with VDB. Sokoban action and game views share test layouts and measure different outcomes.",
+      "source_url": "https://huggingface.co/datasets/Valen-Team/Valen-Eval-Game"
+    },
+    {
+      "name": "BEV decision test split",
+      "priority": "Secondary corpus evaluation",
+      "scope": "Original default: 150k total rows, including 24,386 test rows; multiple typed questions.",
+      "relationship": "JevK5 evaluates 2,500 hashed test rows, not the whole release.",
+      "availability": "Public held-out data, but collection is primarily a converted training corpus.",
+      "limits": "Old bev-decision-150K ID redirects to bev-decision; choose config/revision and audit source-specific terms (card says license unknown).",
+      "source_url": "https://huggingface.co/datasets/avbiswas/bev-decision"
+    },
+    {
+      "name": "FastDecisions",
+      "priority": "Development diagnostic",
+      "scope": "17 operational classification domains; public development set of 1,700 rows.",
+      "relationship": "Liquid d1 and Crivo evaluate development data.",
+      "availability": "Development data public; official 300-per-domain test data is held out.",
+      "limits": "The card explicitly says not to report a public-dev score as its test benchmark score; support multi-label heads faithfully.",
+      "source_url": "https://huggingface.co/datasets/fastino/fast-decisions"
+    },
+    {
+      "name": "Plumb / Eikos routing panels",
+      "priority": "Diagnostic",
+      "scope": "H2O release: 2,000 Plumb + 1,474 Eikos questions.",
+      "relationship": "H2O-Lightning evaluates these native decision datasets.",
+      "availability": "Public frozen question conversions, predictions and threshold-analysis code.",
+      "limits": "Plumb includes 1,869 train + 131 test; Eikos combines English validation/heldout. Do not call the mixture a blind independent test.",
+      "source_url": "https://huggingface.co/h2oai/h2o-lightning-4b/blob/main/routing_reproducibility/README.md"
+    },
+    {
+      "name": "TypeSafe Workflow Evals",
+      "priority": "Public results / bundle not verified",
+      "scope": "Four business workflows with typed primitives and consensus reference labels.",
+      "relationship": "Clef and Jev.",
+      "availability": "Public evaluation website; a complete downloadable test/gold/scorer bundle was not verified.",
+      "limits": "Shares workflow themes with LocalLLaMA Typed-Decisions, but that dataset is independent; do not assume identical inputs or labels.",
+      "source_url": "https://evals.typesafe.ai/"
+    },
+    {
+      "name": "Kai / OpenJev / Vjev custom panels",
+      "priority": "Reported panels / release needed",
+      "scope": "Fixed regression, agent/text and vision-geometry panels respectively.",
+      "relationship": "Their model authors.",
+      "availability": "Published reports; complete canonical input/gold/scorer bundles not established by this survey.",
+      "limits": "A score table or screenshot is not enough to claim a reproducible public benchmark integration.",
+      "source_url": "https://huggingface.co/vllm-sr/Decision-1.0-Kai-0.6B/blob/main/evaluation/BENCHMARK.md"
+    }
+  ],
+  "dataset_revisions": [
+    {
+      "repository": "avbiswas/bev-decision",
+      "revision": "11ed9b5b879e7f9524e7c89c1037d498c54206f0"
+    },
+    {
+      "repository": "Hanno-Labs/decision-bench",
+      "revision": "071b7b2d2e1504c89e1e5a811a3f82e1bfe3aedb"
+    },
+    {
+      "repository": "caiovicentino1/eikos-decisions",
+      "revision": "cebb4a26687cb14742fd07c0ebe17387ee51d369"
+    },
+    {
+      "repository": "fastino/fast-decisions",
+      "revision": "35afb79a0f611a1db44380e855ac2a821b0a4da1"
+    },
+    {
+      "repository": "mohit67890/imajev-bench",
+      "revision": "043ab1f7425ef7b60e6206199cff43e1f80bc64f"
+    },
+    {
+      "repository": "mertkayacs/jevalt-bench",
+      "revision": "950b95fac0950d85b6383dccbe3445726c1ccc3c"
+    },
+    {
+      "repository": "jaredpalmer/kev-suites",
+      "revision": "cc4bac803e73112689ec327ffa481c519cbc7a05"
+    },
+    {
+      "repository": "crh225/plumb-decisions",
+      "revision": "718a9f006f3beaecfa7f66a819553f99ed7b94f6"
+    },
+    {
+      "repository": "LocalLLaMA/typed-decisions",
+      "revision": "7189f46b02248bd2569df7325c9df8e3b24e90a7"
+    }
+  ],
+  "public_file_checks": [
+    {
+      "name": "intern-typed-test",
+      "url": "https://raw.githubusercontent.com/InternLM/Intern-Decision/main/benchmarks/accuracy-v1/typed_decisions/test.jsonl",
+      "checked_utc": "2026-10-18T06:14:48.339707+00:00",
+      "rows": 400,
+      "sha256": "fa43c0389d9dbdf18cf1afe75c73f320d7620f3bb2a8be19e7cca7df5e78588f",
+      "fields": [
+        "id",
+        "state",
+        "questions",
+        "targets",
+        "images",
+        "category"
+      ],
+      "questions": 2000,
+      "status": "ok"
+    },
+    {
+      "name": "intern-calibration-inputs",
+      "url": "https://raw.githubusercontent.com/InternLM/Intern-Decision/main/benchmarks/known-distribution-pilot-v1/inputs.jsonl",
+      "checked_utc": "2026-10-18T06:14:48.341058+00:00",
+      "rows": 96,
+      "sha256": "54a2c97dffd972aa0c2ca0ba9386d79a63e369a1bd4f6913ed533ae32f0aff91",
+      "fields": [
+        "id",
+        "state",
+        "questions"
+      ],
+      "questions": 96,
+      "status": "ok"
+    },
+    {
+      "name": "kev-transfer-test",
+      "url": "https://huggingface.co/datasets/jaredpalmer/kev-suites/resolve/cc4bac803e73112689ec327ffa481c519cbc7a05/v4/transfer-v4/test.jsonl",
+      "checked_utc": "2026-10-18T06:14:48.341607+00:00",
+      "rows": 764,
+      "sha256": "c30a91274f9b483aac9e4f02ada5dea953b3f1a2829456e0bc07806c4e73b517",
+      "fields": [
+        "state",
+        "questions",
+        "_meta"
+      ],
+      "questions": 764,
+      "status": "ok"
+    },
+    {
+      "name": "plumb-test",
+      "url": "https://huggingface.co/datasets/crh225/plumb-decisions/resolve/718a9f006f3beaecfa7f66a819553f99ed7b94f6/data/test.jsonl",
+      "checked_utc": "2026-10-18T06:14:48.342287+00:00",
+      "rows": 131,
+      "sha256": "75db3ef5e40c8c8f180018ca65eca2bb5788f8c8e916d73ac6f296e405d7a383",
+      "fields": [
+        "id",
+        "family",
+        "domain",
+        "length",
+        "state",
+        "question",
+        "expected",
+        "explanation",
+        "teacher_probs"
+      ],
+      "status": "ok"
+    },
+    {
+      "name": "procedural-rsi-pin-meta",
+      "url": "https://huggingface.co/api/datasets/tasksource/procedural-typed-decisions/revision/b4f55bea135283127b2945c8e6fc7e68e9c56a4a",
+      "checked_utc": "2026-10-18T06:14:48.343892+00:00",
+      "revision": "b4f55bea135283127b2945c8e6fc7e68e9c56a4a",
+      "public_files": 35,
+      "configs": [
+        "arithmetic",
+        "entity_belief_tracking",
+        "event_state_reconstruction",
+        "evidence_sufficiency",
+        "multi_view_adjudication",
+        "needle_retrieval",
+        "partial_observation_calibration",
+        "policy_applicability",
+        "record_aggregation",
+        "state_perturbation",
+        "table_lookup"
+      ],
+      "status": "ok"
+    }
+  ],
+  "source_documents": [
+    {
+      "url": "https://huggingface.co/datasets/Hanno-Labs/decision-bench/raw/main/README.md",
+      "sha256": "2d354df2e6dbd677055aeaef7772e20c516c22de836f7e9145a8ba94c5cb32df"
+    },
+    {
+      "url": "https://huggingface.co/api/datasets/Hanno-Labs/decision-bench",
+      "sha256": "75d5c41683a29f1ab243c821d9476bc79e430afecf9a6a072c3f51a27d879537"
+    },
+    {
+      "url": "https://huggingface.co/datasets/mertkayacs/jevalt-bench/raw/main/README.md",
+      "sha256": "a41b7212d4e317f53089aa5bae783cb350d46d01160aa7d0c92ebc8e2dc19bff"
+    },
+    {
+      "url": "https://huggingface.co/api/datasets/mertkayacs/jevalt-bench",
+      "sha256": "884363c16bb16207ca5a5bc0db58a2107d6f94eab13f9f7048ddba0f7fe2c889"
+    },
+    {
+      "url": "https://huggingface.co/datasets/mohit67890/imajev-bench/raw/main/README.md",
+      "sha256": "b2f7e7b347d5f7f728f5a22eac622a8ca583747aa828a515b1a97cb390997fe9"
+    },
+    {
+      "url": "https://huggingface.co/api/datasets/mohit67890/imajev-bench",
+      "sha256": "a9a3749eac685505e596b65d435ac527363bbc1c734e2a0e55ab9a6700d0c23f"
+    },
+    {
+      "url": "https://huggingface.co/datasets/fastino/fast-decisions/raw/main/README.md",
+      "sha256": "d777028dd7e6706e8c68dbd58647383200587df75d0176a2d16351a26ce8d6bb"
+    },
+    {
+      "url": "https://huggingface.co/api/datasets/fastino/fast-decisions",
+      "sha256": "3145ea410cae5ab282fe511a80c486178b4b1f6e7d3f09d2fc7f43cd4f608324"
+    },
+    {
+      "url": "https://huggingface.co/datasets/avbiswas/bev-decision-150K/raw/main/README.md",
+      "sha256": "4a6da4930922cd74ce3ddcd858dccd12ab108c07111507598f0c1011fd399348"
+    },
+    {
+      "url": "https://huggingface.co/api/datasets/avbiswas/bev-decision-150K",
+      "sha256": "11cb1996c86b8c5875732b295110b858a221ea6b3659f1f0fcd83c260608332e"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/InternLM/Intern-Decision/main/docs/CALIBRATION_BENCHMARK.md",
+      "sha256": "cbe5bef1870bfab0e63b22daf6e9892cab0383de9dd3c2a9c5faa390568a78ef"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/InternLM/Intern-Decision/main/docs/EVALUATION.md",
+      "sha256": "bab3986ea7df5c36359dbeb94ee4279eb94d154c5cdc38edd346c9b4619688cf"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/InternLM/Intern-Decision/main/README.md",
+      "sha256": "17015c3ca0bee81ee54fbbb1547d5a0abd6d8dcddbfe61d64a857ede4fb40dba"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/NandhaKishorM/laya/main/BENCHMARKS.md",
+      "sha256": "a0d8bfe9e8b1c1e5f22e447902ccfd27d1caa1fadde6b91f581fe7cf4423b1cd"
+    },
+    {
+      "url": "https://huggingface.co/vllm-sr/Decision-1.0-Kai-0.6B/raw/main/evaluation/BENCHMARK.md",
+      "sha256": "4589546af38503d429d068b10467dac275efd5d625b905f97539260b3c37443a"
+    },
+    {
+      "url": "https://huggingface.co/vllm-sr/Decision-1.0-Kai-0.6B/raw/main/evaluation/METHODS.md",
+      "sha256": "4892cf7398ca08af0249f51f160b800485cc8aaa9a9f7e6d55f31301f38a78c1"
+    },
+    {
+      "url": "https://huggingface.co/h2oai/h2o-lightning-4b/raw/main/routing_reproducibility/README.md",
+      "sha256": "62d4cc8f7682872e1004fbb69cfda2cfb0fe89ea3ac44e17a88f94393b90283e"
+    },
+    {
+      "url": "https://huggingface.co/h2oai/h2o-lightning-4b/raw/main/routing_reproducibility/ATTRIBUTION.md",
+      "sha256": "08c97ec85225a782000bd6d10feff566a3e31dd8569120fefa4846869f0fb84e"
+    },
+    {
+      "url": "https://huggingface.co/yah01/vjev-vision/raw/main/README.md",
+      "sha256": "ed64a432a8d978187c7f64fc510948817caade79fcf5648c6fd1badce17c6514"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/ken-jo/qev/main/docs/EVALUATION.md",
+      "sha256": "89fbbd05c8f50b37c80719503f4be8efa714d4ca745438274ec19eb208d8315c"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/ken-jo/qev/main/docs/DATA.md",
+      "sha256": "efa4f53eb232670f039ba2e44cf13be5e16ffe5dfc093e52371f3619ff9d20c8"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Shanghua-Gao/RSI-Jev/main/README.md",
+      "sha256": "6f2092f4d8c3e80d03ac412fdc63b2d882e09526c74f4ef2d192954b180328c2"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/jaredpalmer/kev/main/README.md",
+      "sha256": "0b68530a29d58de5792574ba8cb4afd735d6c98c96de99f30d2de53cf84fbfd4"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/tinnel123666888/OmniJev/main/README.md",
+      "sha256": "d83fda3a010f5f95ffd09a8cc001de33abca523df2fb998f3bf478ed2a824fb9"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Liuziyu77/Valen/main/README.md",
+      "sha256": "05bdab63970006867d10298eb6c1b2e178734169cbf497e8eb9c300d71715669"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/guanxuyu-sv/Visual-Jev/main/README.md",
+      "sha256": "25d66790bc28cf10f3bf2af532771cfbf9e16d4aecd8f693a9cc46ff4c96983a"
+    },
+    {
+      "url": "https://huggingface.co/datasets/LocalLLaMA/typed-decisions/raw/main/README.md",
+      "sha256": "a97d0e14914bb816b0cf3015c641c285c9fbbb598089593495c72f809ca99f59"
+    },
+    {
+      "url": "https://huggingface.co/api/datasets/LocalLLaMA/typed-decisions",
+      "sha256": "2deea7a3ef29c1c025ef1b0f69695afb87a4b788b83b65825ac09b1de3ebe01f"
+    },
+    {
+      "url": "https://huggingface.co/datasets/crh225/plumb-decisions/raw/main/README.md",
+      "sha256": "afa704399af6db2e098580e69b38039b827424aa706a872914817567118bb114"
+    },
+    {
+      "url": "https://huggingface.co/api/datasets/crh225/plumb-decisions",
+      "sha256": "8f7067c32c6a740bc8f2e8d786d4fad1e0e638d99c382b14ba3a177766ecf8f6"
+    },
+    {
+      "url": "https://huggingface.co/datasets/caiovicentino1/eikos-decisions/raw/main/README.md",
+      "sha256": "f500587c483e28b930a8995d482ca595352b744e8e42fd28e2404fe38ec577ae"
+    },
+    {
+      "url": "https://huggingface.co/api/datasets/caiovicentino1/eikos-decisions",
+      "sha256": "56027c1ecbe51012db4d52db9d289ce2d1d008a40ae3d8d487f506dada40577c"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/InternLM/Intern-Decision/main/benchmarks/accuracy-v1/manifest.json",
+      "sha256": "fb77cf303bac4fe917a300641022c3110849928ae425f415708b2aa885db98a7"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/ken-jo/qev/main/docs/LAYA_COMPARISON.md",
+      "sha256": "fe9ff248ab895217ca4a191e3fffd2aa33fc486fcacc71ea66ffc566cb60a46f"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Shanghua-Gao/RSI-Jev/main/BENCHMARKS.md",
+      "sha256": "332d9014c7785940a8b616efb36509578a46e2187bd16310c842b77f865b193a"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Hanno-Labs/decision-bench/main/README.md",
+      "sha256": "692be0a9f8cbca2b0543378f54299ddaf8f243d83eb68bc87127f285097bfd11"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/mertkayacs/jevalt/main/README.md",
+      "sha256": "85c19f15fb15843558d10fd6a83585d8b87ab11b40684e37bff20e6b0bb7799a"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/mertkayacs/jevoss/main/README.md",
+      "sha256": "f9d643acc5a1683db82b2a248528c3d2e6e1f994be2bf4566593b615e45a6345"
+    },
+    {
+      "url": "https://huggingface.co/LiquidAI/d1-3B/raw/main/README.md",
+      "sha256": "175b0bd5f0b4272a67723e16d5e1994e7a8c2d162e7797c9f1c24c01fed83f1d"
+    },
+    {
+      "url": "https://huggingface.co/Cloudflare/clef/raw/main/README.md",
+      "sha256": "16ee04d296b1ef5edcdb3c4d3d3cd369acdc627fb5d255b34264a73e224d821a"
+    },
+    {
+      "url": "https://huggingface.co/perplexity-ai/pplx-decider-v1.1-27b/raw/main/README.md",
+      "sha256": "1cc6f24b69b187db2d8de8e5a39e8193afbfa0356afcd02c820cf1240d428c0a"
+    },
+    {
+      "url": "https://huggingface.co/openjev/openjev/raw/main/README.md",
+      "sha256": "bff7f9971c9c8f4c5a7ef346640b1c242060ef92f06d41f49c3e37e74b930bd5"
+    },
+    {
+      "url": "https://huggingface.co/startlux-models/StartLux-Decision-v1-0.8B/raw/main/README.md",
+      "sha256": "2a86954f6e8fd31fa35f74c740ea036619859ec7fc11568e4188934e76586c43"
+    },
+    {
+      "url": "https://huggingface.co/alibiserikbay/JevK5/raw/main/README.md",
+      "sha256": "ae04e164af42c70837b1e79a5d5414c3b9c5641a7651047223756404fd6a2786"
+    },
+    {
+      "url": "https://huggingface.co/tardellirs/crivo-150m/raw/main/README.md",
+      "sha256": "7a17b39a8e7cb5d3fc2f66e966419c53c904327cc3fb745bb2812b7828aeb29b"
+    },
+    {
+      "url": "https://benchmarkheaven.com/api/jevbench/latest",
+      "sha256": "f0ad2b931846ad395cd9e0232c32933233ea584556bdf99aa9f3c23c18669a7a"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/open-compass/VLMEvalKit/main/README.md",
+      "sha256": "f86d93987acb476a2844d87a44eb5263d5fa535009aebf74077b6d286c9629c1"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/CodyQin/zh-decision-bench/master/README.md",
+      "sha256": "fcb661df637b21efd19f21f8f98c2d13ad5e4fb68efb22ce7ff33ef0164bade4"
+    },
+    {
+      "url": "https://huggingface.co/api/datasets/jaredpalmer/kev-suites",
+      "sha256": "b23cb5d67d9f8346c4fc28f4c0a6b57e1edef4060a63a27ff4ff1ee7089e7422"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/InternLM/Intern-Decision/main/benchmarks/known-distribution-pilot-v1/README.md",
+      "sha256": "1e8900f70b0f2d3f198b0d096efc44e681b6d8d9628d87050fe7668a5637c60f"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Shanghua-Gao/RSI-Jev/main/rsijev/targets_suite.py",
+      "sha256": "3061729b797e16cce1ed2fc26f133d571f5839c77ed3c3364ab268cf0377e00e"
+    },
+    {
+      "url": "https://huggingface.co/datasets/tasksource/procedural-typed-decisions/raw/main/README.md",
+      "sha256": "40b8351547d835b6fea8ae418dd24281dde23f8f853aac5d01f886e4f0338a6e"
+    },
+    {
+      "url": "https://huggingface.co/datasets/jaredpalmer/kev-suites/raw/cc4bac803e73112689ec327ffa481c519cbc7a05/v4/transfer-v4/manifest.json",
+      "sha256": "31677c2256b406222e7d94ffdc0a02a70ce05746b9efe307876024c4e77291d1"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Hanno-Labs/decision-bench/main/docs/get_started/usage/running_the_evaluation.md",
+      "sha256": "96a67088b425fc14dece421cc89cb79357f6b55e35cf51a76b6bb1fac333dd8f"
+    },
+    {
+      "url": "https://huggingface.co/datasets/Valen-Team/Valen-Eval-General-5k/raw/main/README.md",
+      "sha256": "a79d117d83826a0a04da135629708a967f813135841473633347910bf38a5aa2"
+    },
+    {
+      "url": "https://huggingface.co/datasets/Valen-Team/Valen-Eval-Game/raw/main/README.md",
+      "sha256": "3c816ea0bb8e5832ddb8775e13b70da66a528a6b7a366074f6aff14b6bd77c02"
+    }
+  ]
+}

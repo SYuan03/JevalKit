@@ -1,197 +1,207 @@
+<div align="center">
+
 # JevalKit
 
-An evaluation toolkit for Jev-like decision models: text, image and video evidence
-in; **Choice, Noul and Score probabilities** out. The layout follows
-[VLMEvalKit](https://github.com/open-compass/VLMEvalKit): model and dataset
-registries, a common inference runner, benchmark scorers and a local leaderboard.
+**A unified evaluation toolkit for Jev-like decision models.**
 
-This initial implementation registers **20 model families**, **3 Jev-related
-benchmark suites** and **5 auxiliary text tasks** (10 dataset views in total).
-The auxiliary tasks are general NLP datasets adapted to typed decisions;
-they are not five additional Jev-specific benchmarks. Registration, unit tests, GPU smoke checks and
-complete benchmark runs are distinct validation levels. Consult the
-[actual result artifacts](leaderboard/README.md); unmeasured models have no score.
-The [requirement audit](docs/validation-audit.json) records the verified scope and remaining work.
+Text, images and video in. Choice, Noul and Score probabilities out.
 
-## Install and inspect
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](pyproject.toml)
+[![Model families: 20](https://img.shields.io/badge/Model_families-20-6366f1.svg)](#supported-models)
+[![Core suites: 3](https://img.shields.io/badge/Core_suites-3-16a34a.svg)](#supported-benchmarks)
 
-Python 3.10+ is required. Inference environments are model-specific; for example,
-Intern-Decision and pplx-decider require Python 3.12+. The base package has no
-third-party dependencies.
+[Leaderboard](leaderboard/README.md) · [Quick Start](#quick-start) · [Models](#supported-models) · [Benchmarks](#supported-benchmarks) · [Documentation](#documentation) · [Contributing](#contributing)
+
+</div>
+
+JevalKit evaluates models that return **probabilities over decisions defined at
+request time**: a yes/no judgment, a choice among named options, or a rating on an
+ordered scale. It brings model adapters, benchmark preparation, scoring and result
+comparison into one workflow, following the registry-based design of
+[VLMEvalKit](https://github.com/open-compass/VLMEvalKit).
+
+## Highlights
+
+- **20 model families in one registry.** Run open checkpoints through their native
+  decision interfaces and hosted models through their published APIs.
+- **Text, image and video evidence.** Preserve shared states, multiple questions,
+  candidate order and model-specific modality limits.
+- **Evaluate the whole distribution.** Report accuracy alongside Brier, NLL,
+  calibration and ordinal metrics, with benchmark-specific official scorers.
+- **Reproduce and resume.** Retain dataset hashes, raw predictions, runtime
+  provenance, failures and coverage; resume interrupted runs or score them again.
+- **Compare measured results.** Browse Markdown, TSV and JSON leaderboards, with
+  smoke tests, imported predictions and complete runs identified separately.
+
+```mermaid
+flowchart LR
+    A[Benchmark TSV + media] --> B[Native model or API]
+    B --> C[Choice / Noul / Score probabilities]
+    C --> D[Official scoring + probability metrics]
+    D --> E[Leaderboard + retained evidence]
+```
+
+## Latest Updates
+
+- **2026-10-18:** Published the initial implementation and evaluation results for
+  **18 model families**, with **65 passing tests**. Jev and OpenAI-Decisions have
+  implemented adapters; their live API measurements are pending.
+- **2026-10-18:** Focused the benchmark registry and leaderboard on **3 Jev-related
+  suites**. Additional decision-specific benchmarks are being surveyed in the
+  [benchmark research](docs/benchmarks.md#benchmark-research).
+
+## Quick Start
+
+### 1. Install
 
 ```bash
-python -m pip install -e .
+git clone https://github.com/Liuziyu77/JevalKit.git
+cd JevalKit
+python -m pip install -e '.[hf,data]'
+```
+
+The CLI and scorers require Python 3.10+. Model inference uses the dependencies
+specified by each author; some models require Python 3.12+ or a separate serving
+environment. See the [model catalog](docs/models.md) and
+[tested runtimes](docs/runtime-environments.md).
+
+### 2. Choose a model and prepare data
+
+Set a writable storage directory for datasets, media, checkpoints and results:
+
+```bash
+export JEVALKIT_DATA_ROOT=/path/to/jevalkit-data
 python -m jevalkit list models
 python -m jevalkit list benchmarks
-python -m pip install -e '.[hf,data,decision-index,test]'
+python -m jevalkit prepare JevBench
 ```
 
-Use the authors' pinned dependencies for each native model. The runner imports
-only the selected adapter so incompatible runtimes can use separate environments.
-See [tested environment versions](docs/runtime-environments.md) for the workspace runtimes.
-On this workspace, Valen's environment is available at
-`/mnt/shared-storage-user/liuziyu/My_Projects/Valen/.venv/bin/python`.
-
-## Data and checkpoints
-
-`JEVALKIT_DATA_ROOT` defaults to
-`/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit`. All newly downloaded
-weights, source data, media and caches are stored there. Existing model weights
-can be reused through `--option model=/absolute/path`.
+### 3. Run and compare
 
 ```bash
-export JEVALKIT_DATA_ROOT=/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit
-```
-
-```text
-$JEVALKIT_DATA_ROOT/
-  datasets/*.tsv                   retained benchmark data
-  datasets/*.manifest.json         hashes, source revisions, splits and counts
-  raw/                            original evaluation data and frozen suites
-  media/                          images and videos referenced by the TSVs
-  models/                         temporary downloaded model checkpoints
-  cache/                          runtime and download caches
-  results/                        prediction journals, manifests and metrics
-```
-
-```bash
-python -m jevalkit prepare JevBench AGNews Banking77 BoolQ SST2 When2Call
-python -m jevalkit prepare VisualDecisionBench
-python -m jevalkit prepare DecisionIndex --source /path/to/verified/suite-0.3
-python -m jevalkit verify JevBench VisualDecisionBench_Image --media
-```
-
-The workspace's existing public Valen snapshots can also be imported without
-changing their originals:
-
-```bash
-python scripts/prepare_local.py \
-  --valen-root /mnt/shared-storage-user/liuziyu/My_Projects/Valen \
-  --valen-data /mnt/shared-storage-user/mllm/liuziyu/share_data/Valen_Data
-```
-
-TSV rows contain `index`, `request`, `targets`, `meta` and `assets`. Nested cells
-are JSON, preserving option order and multi-question shared states. Only a copy
-of `request` is sent to inference; targets and provenance remain with the scorer.
-See [data protocols](docs/benchmarks.md) and [third-party terms](THIRD_PARTY.md).
-
-## Evaluate and resume
-
-```bash
-python -m jevalkit run --model Valen-0.8B \
-  --data JevBench VisualDecisionBench_Image VisualDecisionBench_Video \
-  --output "$JEVALKIT_DATA_ROOT/results/full"
-
-# Explicit smoke subset, excluded from full leaderboard rankings.
 python -m jevalkit run --model Valen-0.8B --data JevBench \
-  --limit 10 --output "$JEVALKIT_DATA_ROOT/results/smoke"
+  --output "$JEVALKIT_DATA_ROOT/results"
 
-# Same model, data, source, runtime and evaluation settings are required.
-python -m jevalkit run --model Valen-0.8B --data JevBench \
-  --output "$JEVALKIT_DATA_ROOT/results/full" --resume
+python -m jevalkit leaderboard "$JEVALKIT_DATA_ROOT/results" \
+  --output leaderboard
 ```
 
-The runner writes `manifest.json`, `predictions.jsonl` and `metrics.json` under
-`<output>/<model>/<benchmark>/`. It locks active outputs, recovers only a truncated
-last journal line, rejects changed resume inputs, and synchronizes GPU timing.
-Failures and unsupported questions stay in the hard-label accuracy denominator.
-Soft targets contribute probability metrics, not hard-label accuracy.
+Pass `--option model=/path/to/checkpoint` to reuse existing weights. Use
+`--limit 10` for a smoke test, or `--resume` to continue an interrupted run with
+the same settings. [Full usage guide →](docs/quickstart.md)
 
-`python -m jevalkit check --model MODEL --output /path/to/conformance.json` checks
-complete Choice/Noul/Score responses and JSON/null candidate descriptions with
-unlabeled synthetic requests. These interface checks produce no benchmark score.
-Matrix rows can use `"mode": "check"` to run them before benchmark evaluations.
+## Supported Models
 
-Stored predictions can be scored again after temporary checkpoints are deleted:
+Size variants and Clef/Clef-Flash count within their respective families.
+**Measured** means real inference has been verified for at least one registered
+variant; per-benchmark coverage is shown in the [leaderboard](leaderboard/README.md).
+
+| Family | Registered model IDs | Integration | Validation |
+|---|---|---|---|
+| [Valen](https://github.com/Liuziyu77/Valen) | `Valen-0.8B`, `Valen-2B`, `Valen-4B` | Native | Measured |
+| [Intern-Decision](https://github.com/InternLM/Intern-Decision) | `Intern-Decision-0.8B`, `Intern-Decision-2B`, `Intern-Decision-4B` | Native | Measured |
+| [Laya](https://github.com/NandhaKishorM/laya) | `Laya` | Native | Measured |
+| [Liquid d1](https://huggingface.co/LiquidAI/d1-3B) | `Liquid-d1-3B` | Native | Measured |
+| [vLLM Decision1](https://huggingface.co/vllm-sr/Decision-1.0-Kai-0.6B) | `Decision1-Kai` | Native | Measured |
+| [Clef](https://huggingface.co/Cloudflare/clef) | `Clef`, `Clef-Flash` | Native | Measured |
+| [Pplx-Decider](https://huggingface.co/perplexity-ai/pplx-decider-v1.1-27b) | `Pplx-Decider` | Native | Measured |
+| [JevK5](https://huggingface.co/alibiserikbay/JevK5) | `JevK5` | Native | Measured |
+| [StartLux](https://huggingface.co/startlux-models/StartLux-Decision-v1-0.8B) | `StartLux-0.8B` | Native | Measured |
+| [Crivo](https://huggingface.co/tardellirs/crivo-150m) | `Crivo-150M` | Native | Measured |
+| [RSI-Jev](https://github.com/Shanghua-Gao/RSI-Jev) | `RSI-Jev-v4` | Native | Measured |
+| [Vjev](https://huggingface.co/yah01/vjev-vision) | `Vjev-4B` | Native | Measured |
+| [QEV](https://github.com/ken-jo/qev) | `QEV` | Native | Measured |
+| [OmniJev](https://github.com/tinnel123666888/OmniJev) | `OmniJev` | Native | Measured |
+| [Visual-Jev](https://github.com/guanxuyu-sv/Visual-Jev) | `Visual-Jev` | Native | Measured |
+| [Kev](https://github.com/jaredpalmer/kev) | `Kev` | Author server | Measured |
+| [H2O-Lightning](https://huggingface.co/h2oai/h2o-lightning-4b) | `H2O-Lightning` | Author server | Measured |
+| [OpenJev](https://huggingface.co/openjev/openjev) | `OpenJev` | Author server | Measured |
+| [Jev](https://typesafe.ai) | `Jev` | Hosted API | Live evaluation pending |
+| [OpenAI Decisions](https://developers.openai.com/api/docs/guides/decisions) | `OpenAI-Decisions` | Hosted API | Live evaluation pending |
+
+The catalog also includes a `Uniform` diagnostic baseline. Author dependencies,
+context limits, supported question types and media contracts are documented in
+the [integration guide](docs/models.md).
+
+## Supported Benchmarks
+
+### Jev-related suites
+
+| Suite | Modality | Released evaluation | Main measurements |
+|---|---|---|---|
+| [VisualDecisionBench](https://huggingface.co/datasets/Valen-Team/VisualDecisionBench) | Image + video | 1,696 states; 9,143 questions | Accuracy, soft-target Brier/NLL, ordinal metrics |
+| [JevBench](https://github.com/fstandhartinger/jevbench) | Text | 231 public tasks across easy/original/hard tiers | Official task scores and calibration |
+| [Decision Index](https://huggingface.co/spaces/multimodalart/jev-decision-index) | Text | Edition 0.3 public suite; 43 constituent datasets | Official chance-corrected, weighted public index |
+
+VisualDecisionBench's image and video views belong to the same benchmark.
+Decision Index public scores and its private leaderboard components are reported
+separately. See the [frozen data inventory](docs/data-manifest.json) and
+[scoring protocols](docs/benchmarks.md).
+
+Additional candidates are documented in the [benchmark research](docs/benchmarks.md#benchmark-research).
+They are not included in the supported count until implemented.
+
+## Evaluation Results
+
+The current snapshot contains **68 retained run artifacts** and **40 eligible
+primary full scores**. The table below shows selected completed measurements;
+all entries have 100% question coverage.
+
+| Model | JevBench accuracy | VDB Image accuracy |
+|---|---:|---:|
+| Pplx-Decider | 89.18% | 86.88% |
+| OpenJev | 87.45% | 83.12% |
+| H2O-Lightning | 87.45% | 82.06% |
+| Valen-4B | 83.55% | 83.12% |
+| Clef-Flash | 82.68% | 82.24% |
+
+VDB Image accuracy uses its 1,700 hard-label questions; all 2,000 questions
+contribute probability metrics. The full board reports protocols, hardware,
+coverage and provenance, and selects the latest complete run for each matching
+model/data/protocol combination.
+
+**[Browse leaderboard →](leaderboard/README.md)** ·
+[Download TSV](leaderboard/leaderboard.tsv) ·
+[Download JSON](leaderboard/leaderboard.json) ·
+[Validation status](docs/STATUS.md)
+
+Scores here come from retained predictions. Author-reported benchmark numbers
+belong in the research notes, not in the measured leaderboard. Raw evidence paths
+refer to the evaluation workspace; the committed tables can be browsed without it.
+
+## Documentation
+
+| Guide | Contents |
+|---|---|
+| [Running evaluations](docs/quickstart.md) | Installation, preparation, resume, API runs, matrices and cluster execution |
+| [Model integrations](docs/models.md) | Native adapters, author servers, dependencies and input limits |
+| [Benchmark protocols](docs/benchmarks.md) | Splits, metrics, official scorers and benchmark research |
+| [Tested runtimes](docs/runtime-environments.md) | Model-specific environment versions |
+| [Validation status](docs/STATUS.md) | Verified results and remaining live API evaluations |
+| [Third-party terms](THIRD_PARTY.md) | Source attribution and dataset/model licensing |
+
+## Contributing
+
+Model adapters live in `jevalkit/models/` and are registered in
+[`jevalkit/config.py`](jevalkit/config.py). Benchmark loaders live in
+`jevalkit/datasets/`, with scoring in `jevalkit/scoring.py`. Contributions should
+preserve native probabilities, candidate order and the published scoring protocol.
+Include reproducible commands and the relevant validation when adding a model,
+dataset or result.
 
 ```bash
-python -m jevalkit score "$JEVALKIT_DATA_ROOT/results/full/Valen-0.8B/JevBench"
-```
-
-## Hosted and self-hosted APIs
-
-```bash
-# Read OPENAI_API_KEY from your environment; never put its value in CLI options.
-python -m jevalkit run --model OpenAI-Decisions --data JevBench \
-  --output "$JEVALKIT_DATA_ROOT/results/api"
-
-# Jev-compatible endpoint from the model author's server.
-python -m jevalkit run --model Kev --data JevBench \
-  --option endpoint=http://localhost:8008/v1/systemone \
-  --output "$JEVALKIT_DATA_ROOT/results/api"
-```
-
-OpenAI uses the documented **`POST /v1/decisions`** endpoint, with
-Noul → Predicate, Choice → choices and Score → ordered levels. It uses native
-probabilities and records refusals per question. It does not approximate this
-API with generated chat responses. See the [official OpenAI documentation](https://developers.openai.com/api/docs/guides/decisions).
-
-The [model catalog](docs/models.md) identifies native runtimes, author packages,
-HTTP endpoints and each release's media limits. Unsupported video is reported
-explicitly; no implicit blank image or frame mosaic is substituted.
-
-## GPU cluster and results
-
-`scripts/submit.sh` reuses Valen's existing local cluster configuration, freezes
-the submitted source, disables automatic restarts and enforces **32 GPUs total
-across cumulative job reservations**. It never modifies Valen's configuration.
-Workers default to offline Hugging Face loading, so prefetch checkpoints and any
-required base-model caches before submitting. Set `JEVAL_OFFLINE=0` only for a
-worker with intentional Hub network access.
-
-```bash
-bash scripts/submit.sh jevalkit-valen-eval-001 1 run \
-  --model Valen-0.8B --data JevBench --output "$JEVALKIT_DATA_ROOT/results/full"
-
-python -m jevalkit leaderboard "$JEVALKIT_DATA_ROOT/results" --output leaderboard
-```
-
-For several models on one GPU, edit [a matrix example](examples/matrix.json) and run
-`python -m jevalkit matrix examples/matrix.json`. Each row uses an isolated subprocess,
-can select its own Python interpreter, and retains its failure while later rows continue.
-The cluster wrapper also accepts `matrix CONFIG.json` and freezes the configuration with the code.
-Set `JEVAL_MEMORY_PER_GPU=98304` when a large model needs more host memory.
-
-[Managed local services](examples/served-model.json) can start the author's server before
-an HTTP evaluation. JevalKit checks its localhost readiness endpoint, fingerprints the
-specified weights/configuration/source, retains server logs, and stops the processes it
-started after the run. Configure credentials in the environment; matrix files contain
-only non-secret server settings. Existing servers can be used by supplying just an endpoint.
-
-`scripts/download_models.py CONFIG.json --status STATUS.json` downloads resumable snapshots
-under the shared root. Entries contain `model`, a full 40-character `revision`, and the
-path to saved Hub `metadata` obtained with `?blobs=true`; downloaded LFS files are verified
-against their published SHA-256 digests.
-Interrupted network transfers retry in place up to three times (`--attempts`),
-retaining completed and partial files. Integrity and storage errors stop immediately.
-
-`scripts/validation_queue.py QUEUE.json --status STATUS.json` submits evaluations when
-their verified model downloads and environment markers are ready. The queue contains
-`root` and `jobs`; each job specifies `name`, `matrix`, `python`, and `models` entries
-with `repo` and an immutable `revision`. Optional `ready_files` must contain `ready: true`.
-The queue submits each job once through the same cumulative GPU ledger. A previous
-reservation without a saved scheduler handle requires inspection before retrying.
-
-Leaderboards include Markdown, TSV and JSON. They retain dataset hashes,
-protocols, hardware, coverage and evidence paths; compare matching protocols and
-data versions. JevBench uses the pinned public official scorer. Decision Index
-delegates its weighted public index to the pinned upstream scorer; private
-leaderboard components are not inferred from public results.
-The Markdown overview uses the latest complete run per model, benchmark, data
-hash and protocol. It keeps every repeated measurement in the detailed table;
-it never selects the best repeat. JSON also exposes the selected `primary_results`.
-
-Existing upstream Decision Index predictions can be imported with
-`import-decision-index --model NAME --results RESULTS_JSONL --environment ENVIRONMENT_JSON... --output DIR`.
-Every frozen request ID and payload hash must match; all source shard identities
-must agree. Scores are recomputed from predictions and labeled **imported** in
-the leaderboard. No model-card scores are copied into measured results.
-
-```bash
+python -m pip install -e '.[test]'
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest -q
 ```
 
-This disables unrelated plugins in shared research environments. The tests cover
-TSV round trips, label isolation, malformed probabilities, soft targets,
-failure denominators, OpenAI schema mapping/refusals, resume integrity, record
-sharding and leaderboard evidence verification.
+Bug reports and contributions are welcome through
+[Issues](https://github.com/Liuziyu77/JevalKit/issues) and
+[Pull Requests](https://github.com/Liuziyu77/JevalKit/pulls).
+
+## License and Acknowledgements
+
+JevalKit is released under [Apache-2.0](LICENSE). Model weights, datasets and
+vendored code retain their own licenses; see [THIRD_PARTY.md](THIRD_PARTY.md).
+We thank [VLMEvalKit](https://github.com/open-compass/VLMEvalKit) for its evaluation
+toolkit design, and the authors of the integrated decision models and benchmarks.

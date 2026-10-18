@@ -9,11 +9,6 @@ BENCHMARKS = {
     "VisualDecisionBench_Video": {"family": "VisualDecisionBench", "modality": "video"},
     "JevBench": {"family": "JevBench", "modality": "text"},
     "DecisionIndex": {"family": "DecisionIndex", "modality": "text"},
-    "AGNews": {"family": "AGNews", "modality": "text"},
-    "Banking77": {"family": "Banking77", "modality": "text"},
-    "BoolQ": {"family": "BoolQ", "modality": "text"},
-    "SST2": {"family": "SST2", "modality": "text"},
-    "When2Call": {"family": "When2Call", "modality": "text"},
 }
 
 

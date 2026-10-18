@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from jevalkit.datasets import DecisionDataset
+from jevalkit.datasets import BENCHMARKS, DecisionDataset
 from jevalkit.datasets.prepare import commit_dataset
 from jevalkit.io import read_tsv, write_tsv
 from jevalkit.leaderboard import build_leaderboard
@@ -13,6 +13,11 @@ from jevalkit.models.base import UniformModel
 from jevalkit.models.http import OpenAIDecisions
 from jevalkit.runner import read_journal, run, selected_records
 from jevalkit.schema import answer_probabilities, distribution, inference_request
+
+
+@pytest.fixture(autouse=True)
+def register_decision_fixture(monkeypatch):
+    monkeypatch.setitem(BENCHMARKS, "DecisionFixture", {"family": "fixture", "modality": "text"})
 
 
 def record(index="one"):
@@ -246,19 +251,27 @@ def test_journal_recovery_and_corruption(tmp_path):
 
 def test_inference_resume_and_leaderboard_evidence(tmp_path):
     root, out = tmp_path / "data", tmp_path / "out"
-    commit_dataset("AGNews", [record()], root, {"fixture": True}, protocol="test")
-    result = run("Uniform", "AGNews", out, root=root, warmup=0)
+    commit_dataset("DecisionFixture", [record()], root, {"fixture": True}, protocol="test")
+    result = run("Uniform", "DecisionFixture", out, root=root, warmup=0)
     assert result["complete"] and not result["smoke"]
     assert result["metrics"]["overall"]["questions"] == 3
     assert result["metrics"]["overall"]["hard_questions"] == 2
     from jevalkit.runner import score_saved_run
     assert score_saved_run(out, root=root)["metrics"] == result["metrics"]
-    run("Uniform", "AGNews", out, root=root, warmup=0, resume=True)
+    run("Uniform", "DecisionFixture", out, root=root, warmup=0, resume=True)
     assert len((out / "predictions.jsonl").read_text().splitlines()) == 1
     with pytest.raises(ValueError, match="settings changed"):
-        run("Uniform", "AGNews", out, root=root, warmup=0, limit=1, resume=True)
+        run("Uniform", "DecisionFixture", out, root=root, warmup=0, limit=1, resume=True)
     board = build_leaderboard([out], tmp_path / "board")
     assert len(board) == 1 and board[0]["eligible"]
+    retired = tmp_path / "retired"
+    retired.mkdir()
+    retired_report = dict(result, benchmark="AGNews")
+    (retired / "metrics.json").write_text(json.dumps(retired_report))
+    board = build_leaderboard([out, retired], tmp_path / "board")
+    assert len(board) == 1 and board[0]["benchmark"] == "DecisionFixture"
+    assert build_leaderboard([retired], tmp_path / "board") == []
+    assert (tmp_path / "board" / "leaderboard.tsv").read_text() == ""
     with (out / "predictions.jsonl").open("a") as stream:
         stream.write("\n")
     with pytest.raises(ValueError, match="evidence changed"):
@@ -275,10 +288,10 @@ def test_leaderboard_overview_uses_latest_complete_run_instead_of_best(tmp_path)
             return {"answers": {qid: native_answer(q, {key: float(key == keys[qid]) for key in candidates(q)})
                                 for qid, q in request["questions"].items()}}
     root, output = tmp_path / "data", tmp_path / "results"
-    commit_dataset("AGNews", [record()], root, {}, protocol="fixture")
-    run("Uniform", "AGNews", output / "older", root=root, warmup=0, model_instance=FixedRuntime(True))
-    run("Uniform", "AGNews", output / "newer", root=root, warmup=0, model_instance=FixedRuntime(False))
-    run("Uniform", "AGNews", output / "smoke", root=root, warmup=0, limit=1, model_instance=FixedRuntime(True))
+    commit_dataset("DecisionFixture", [record()], root, {}, protocol="fixture")
+    run("Uniform", "DecisionFixture", output / "older", root=root, warmup=0, model_instance=FixedRuntime(True))
+    run("Uniform", "DecisionFixture", output / "newer", root=root, warmup=0, model_instance=FixedRuntime(False))
+    run("Uniform", "DecisionFixture", output / "smoke", root=root, warmup=0, limit=1, model_instance=FixedRuntime(True))
     build_leaderboard([output], tmp_path / "board")
     data = json.loads((tmp_path / "board" / "leaderboard.json").read_text())
     assert len(data["results"]) == 3 and len(data["primary_results"]) == 1
@@ -292,8 +305,8 @@ def test_known_input_contract_failure_stays_excluded_after_rescoring(tmp_path):
     from jevalkit.io import atomic_json
     from jevalkit.runner import score_saved_run
     root, output = tmp_path / "data", tmp_path / "output"
-    commit_dataset("AGNews", [record()], root, {}, protocol="fixture")
-    report = run("Uniform", "AGNews", output, root=root, warmup=0)
+    commit_dataset("DecisionFixture", [record()], root, {}, protocol="fixture")
+    report = run("Uniform", "DecisionFixture", output, root=root, warmup=0)
     report["validation"] = {"inference_input_conformant": False, "reason": "Fixture omitted supplied content"}
     atomic_json(output / "metrics.json", report)
     rescored = score_saved_run(output, root)
@@ -305,19 +318,19 @@ def test_known_input_contract_failure_stays_excluded_after_rescoring(tmp_path):
 
 def test_record_sharding_is_disjoint_and_complete(tmp_path):
     records = [record(str(i)) for i in range(40)]
-    commit_dataset("AGNews", records, tmp_path, {"fixture": True}, protocol="test")
-    dataset = DecisionDataset("AGNews", tmp_path)
+    commit_dataset("DecisionFixture", records, tmp_path, {"fixture": True}, protocol="test")
+    dataset = DecisionDataset("DecisionFixture", tmp_path)
     shards = [{r["index"] for r in selected_records(dataset, rank=i, world_size=4)} for i in range(4)]
     assert len(set.union(*shards)) == 40
     assert sum(map(len, shards)) == 40
 
 
 def test_dataset_tamper_rejected(tmp_path):
-    commit_dataset("AGNews", [record()], tmp_path, {}, protocol="test")
-    path = tmp_path / "datasets" / "AGNews.tsv"
+    commit_dataset("DecisionFixture", [record()], tmp_path, {}, protocol="test")
+    path = tmp_path / "datasets" / "DecisionFixture.tsv"
     path.write_text(path.read_text() + "\n")
     with pytest.raises(ValueError, match="checksum"):
-        DecisionDataset("AGNews", tmp_path)
+        DecisionDataset("DecisionFixture", tmp_path)
 
 
 def test_runner_stops_after_five_consecutive_errors_even_after_success(tmp_path):
@@ -330,10 +343,10 @@ def test_runner_stops_after_five_consecutive_errors_even_after_success(tmp_path)
             return super().predict(request)
         def close(self):
             self.closed = True
-    commit_dataset("AGNews", [record(str(i)) for i in range(8)], tmp_path / "data", {}, protocol="fixture")
+    commit_dataset("DecisionFixture", [record(str(i)) for i in range(8)], tmp_path / "data", {}, protocol="fixture")
     model = FailingRuntime()
     with pytest.raises(RuntimeError, match="Five consecutive"):
-        run("Uniform", "AGNews", tmp_path / "output", root=tmp_path / "data", warmup=0, model_instance=model)
+        run("Uniform", "DecisionFixture", tmp_path / "output", root=tmp_path / "data", warmup=0, model_instance=model)
     assert model.calls == 6 and model.closed
     journal = [json.loads(line) for line in (tmp_path / "output" / "predictions.jsonl").read_text().splitlines()]
     assert [row["status"] for row in journal] == ["ok"] + ["error"] * 5
@@ -351,13 +364,13 @@ def test_catalog_has_twenty_families_and_importable_adapters():
 def test_shard_merge_requires_exact_complete_partition(tmp_path):
     from jevalkit.runner import merge_shards
     root = tmp_path / "data"
-    commit_dataset("AGNews", [record(str(i)) for i in range(8)], root, {}, protocol="test")
+    commit_dataset("DecisionFixture", [record(str(i)) for i in range(8)], root, {}, protocol="test")
     folders = [tmp_path / ("shard" + str(i)) for i in range(2)]
     for rank in range(2):
-        run("Uniform", "AGNews", folders[rank], root=root, rank=rank, world_size=2, warmup=0)
+        run("Uniform", "DecisionFixture", folders[rank], root=root, rank=rank, world_size=2, warmup=0)
     with pytest.raises(ValueError, match="Missing shards"):
-        merge_shards("Uniform", "AGNews", folders[:1], tmp_path / "incomplete", root=root)
-    report = merge_shards("Uniform", "AGNews", folders, tmp_path / "merged", root=root)
+        merge_shards("Uniform", "DecisionFixture", folders[:1], tmp_path / "incomplete", root=root)
+    report = merge_shards("Uniform", "DecisionFixture", folders, tmp_path / "merged", root=root)
     assert report["complete"] and report["metrics"]["overall"]["questions"] == 24
     assert len(build_leaderboard([tmp_path / "merged"], tmp_path / "board")) == 1
 

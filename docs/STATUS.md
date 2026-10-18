@@ -1,15 +1,15 @@
 # Implementation and evaluation status
 
-Updated UTC: 2026-10-17T20:09:02.561215+00:00
+Updated UTC: 2026-10-18T06:18:37.941001+00:00
 
 The original goal is not complete. Public checkpoint validation is complete;
 live measurements for the two hosted APIs still require credentials.
 
-- Implemented: 20 model families, 3 Jev-related benchmark suites and 5 auxiliary text tasks / 10 retained TSV views.
+- Implemented: 20 model families, 3 Jev-related benchmark suites / 5 active TSV views.
 - Real inference verified: 18 families, including Valen and all public checkpoint integrations.
-- Results: 144 retained artifacts; 108 distinct eligible primary full scores.
+- Results: 68 retained artifacts in the active board; 40 distinct eligible primary full scores.
 - Checks: 65 tests passed. A fresh wheel matched all 30 source modules and bundled licenses; its CLI started using only the standard library.
-- Data: all 10 TSV views passed fresh schema, count, content-hash and media checks on 2026-10-17.
+- Data: the 5 active TSV views passed schema, count, content-hash and media checks on 2026-10-17; retired data remains archived.
 - GPU budget: 31/32 cumulative reservations, including failed/stopped/repeated attempts. All planned GPU tasks have finished.
 
 The [leaderboard](../leaderboard/README.md) selects the latest complete measurement
@@ -19,6 +19,11 @@ The [data inventory](data-manifest.json) records persistent TSV paths, hashes,
 sources and counts under `/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit`.
 The [requirement audit](validation-audit.json) records the original scope and pending evidence.
 The [runtime guide](runtime-environments.md) records the tested environments.
+
+The five auxiliary text tasks have been removed from the registry, preparation
+commands, examples and active leaderboard. A [survey of all 20 families](benchmarks.md#benchmark-research)
+identifies five decision-specific candidates for expansion; these are not yet
+implemented. The original 5–10-benchmark target is therefore pending.
 
 ## Latest completed evaluations
 
@@ -75,7 +80,7 @@ the corrected full result is 60.61%, with all 231 answers valid. QEV and Vjev al
 passed real GPU interface checks, which have no benchmark scores.
 
 The earliest Valen workers reported Failed after saving complete, hash-verified
-metrics for all eight requested views. Log retrieval failed with SSL errors, so
+metrics for all originally requested views. Log retrieval failed with SSL errors, so
 that wrapper exit cause remains unverified. New tasks freeze their worker scripts.
 All reservations, including a redundant early Vjev run, remain counted.
 

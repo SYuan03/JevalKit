@@ -1,6 +1,7 @@
 """Generate auditable local results; never fill missing scores from model cards."""
 import csv
 from pathlib import Path
+from .datasets import BENCHMARKS
 from .io import atomic_json, load_json, sha256
 
 
@@ -38,6 +39,8 @@ def build_leaderboard(inputs, output):
             report = load_json(path)
             if report.get("schema_version") != 1 or "dataset_sha256" not in report:
                 continue
+            if report.get("benchmark") not in BENCHMARKS:
+                continue
             manifest = path.parent / "manifest.json"
             predictions = path.parent / "predictions.jsonl"
             if not manifest.exists() or not predictions.exists():
@@ -74,12 +77,15 @@ def build_leaderboard(inputs, output):
                 "policy": "Only complete non-smoke runs without runtime failures are eligible. Compare identical dataset hashes and protocols; latency also requires matching hardware. Public Decision Index excludes private components."})
     if rows:
         with (output / "leaderboard.tsv").open("w", encoding="utf-8", newline="") as stream:
-            writer = csv.DictWriter(stream, fieldnames=list(rows[0]), delimiter="\t")
+            writer = csv.DictWriter(stream, fieldnames=list(rows[0]), delimiter="\t", lineterminator="\n")
             writer.writeheader()
             writer.writerows(rows)
+    else:
+        (output / "leaderboard.tsv").write_text("", encoding="utf-8")
     lines = ["# JevalKit local leaderboard", "",
              "The overview uses the latest complete run for each model, benchmark, data hash and protocol; repeated runs are never selected by their best score.",
              "Missing and fully unsupported evaluations have no score. The detailed table retains every run, including smoke tests and imported measurements.", ""]
+    lines += ["Only currently registered Jev-related benchmarks are included; retired tasks remain in the original result storage.", ""]
     columns = sorted({(r["benchmark"], r["dataset_sha256"], r["protocol"]) for r in primary})
     labels = [name if sum(c[0] == name for c in columns) == 1 else f"{name} [{digest[:8]} / {protocol}]"
               for name, digest, protocol in columns]

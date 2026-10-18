@@ -5,8 +5,7 @@ from pathlib import Path
 import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from jevalkit.datasets.prepare import (prepare_decision_index, prepare_jevbench,
-                                       prepare_visual, prepare_when2call)
+from jevalkit.datasets.prepare import prepare_decision_index, prepare_jevbench, prepare_visual
 from jevalkit.io import atomic_json
 from jevalkit.paths import data_root
 
@@ -21,7 +20,6 @@ def main():
     experiments = args.valen_root / "output" / "decision-index-20261016"
     tasks = [
         ("JevBench", lambda: prepare_jevbench(root, args.valen_data / "eval" / "JevBench")),
-        ("When2Call", lambda: prepare_when2call(root, experiments / "hf-when2call.jsonl")),
         ("VisualDecisionBench", lambda: prepare_visual(root, args.valen_data / "eval" / "VisualDecisionBench_local")),
         ("DecisionIndex", lambda: prepare_decision_index(root, experiments / "suite-0.3")),
     ]

@@ -2,48 +2,6 @@
   "root": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit",
   "datasets": [
     {
-      "name": "AGNews",
-      "records": 7600,
-      "questions": 7600,
-      "sha256": "fd25aef487de04ac61abdee47701865cdffc44d7925e83b0ae28cf8e9d2201ac",
-      "protocol": "held-out-test",
-      "path": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/datasets/AGNews.tsv",
-      "source": {
-        "repository": "https://huggingface.co/datasets/fancyzhx/ag_news",
-        "revision": "eb185aade064a813bc0b7f42de02595523103ca4",
-        "split": "test",
-        "license": "MIT"
-      }
-    },
-    {
-      "name": "Banking77",
-      "records": 3080,
-      "questions": 3080,
-      "sha256": "f13205c4b54dbed549afcb86e26759b257aab96b763ceb8c0346c4d61c4d03a5",
-      "protocol": "held-out-test",
-      "path": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/datasets/Banking77.tsv",
-      "source": {
-        "repository": "https://github.com/PolyAI-LDN/task-specific-datasets",
-        "revision": "57ec275d8078af65b7731c2a98be812d844a6d6b",
-        "license": "CC-BY-4.0",
-        "split": "test"
-      }
-    },
-    {
-      "name": "BoolQ",
-      "records": 3270,
-      "questions": 3270,
-      "sha256": "48b0dfa891a484f223529f11c4a7572eb55135d72b0fb610c9f7f893e25bed71",
-      "protocol": "held-out-validation",
-      "path": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/datasets/BoolQ.tsv",
-      "source": {
-        "repository": "https://huggingface.co/datasets/google/boolq",
-        "revision": "35b264d03638db9f4ce671b711558bf7ff0f80d5",
-        "split": "validation",
-        "license": "CC-BY-SA-3.0"
-      }
-    },
-    {
       "name": "DecisionIndex",
       "records": 140178,
       "questions": 312320,
@@ -67,20 +25,6 @@
         "revision": "bb05a335bc809e61b20c0f745d25499a82b326fc",
         "license": "MIT",
         "public_only": true
-      }
-    },
-    {
-      "name": "SST2",
-      "records": 872,
-      "questions": 872,
-      "sha256": "a5762e3682880e834e9c2300ee8554568e60b7bbf10d129d5cf9e00d1d2cc5a2",
-      "protocol": "held-out-validation",
-      "path": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/datasets/SST2.tsv",
-      "source": {
-        "repository": "https://huggingface.co/datasets/stanfordnlp/sst2",
-        "revision": "8d51e7e4887a4caaa95b3fbebbf53c0490b58bbb",
-        "split": "validation",
-        "license": "research dataset; see source"
       }
     },
     {
@@ -117,19 +61,6 @@
       "source": {
         "repository": "https://huggingface.co/datasets/Valen-Team/VisualDecisionBench",
         "license": "upstream datasets retain their own licenses"
-      }
-    },
-    {
-      "name": "When2Call",
-      "records": 3652,
-      "questions": 3652,
-      "sha256": "ce277ee3fa5aff14b4202fd439ce8c7e5f6d71340c01e5d8a8e648d5e2d77b99",
-      "protocol": "HF-DecisionIndex-MCQ-projection",
-      "path": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/datasets/When2Call.tsv",
-      "source": {
-        "repository": "https://huggingface.co/datasets/nvidia/When2Call",
-        "revision": "0582f7749df63a96fdc3070932e83e72396ace53",
-        "license": "CC-BY-4.0"
       }
     }
   ]
