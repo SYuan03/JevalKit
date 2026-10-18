@@ -49,8 +49,9 @@ flowchart LR
   implemented adapters; their live API measurements are pending.
 - **2026-10-18:** Added Typed-Decisions, DecisionBench, Procedural Typed Decisions,
   zh-decision-bench and JevAlt-Bench: **8 Jev-related suites / 10 dataset views**.
-  All new evaluation data is pinned and verified; full trained-model runs on the
-  new suites remain pending.
+  All new evaluation data is pinned and verified. Full trained-model evaluation
+  is running: **22 local configurations across 18 families × 5 suites**,
+  with 110 full runs on one H200 task. See [run status](docs/STATUS.md).
 
 ## Quick Start
 

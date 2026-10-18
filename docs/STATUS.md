@@ -1,16 +1,16 @@
 # Implementation and evaluation status
 
-Updated UTC: 2026-10-18T06:42:17.235658+00:00
+Updated UTC: 2026-10-18T07:00:28.949852+00:00
 
 The original goal is not complete. Public checkpoint validation is complete;
 live measurements for the two hosted APIs still require credentials.
 
 - Implemented: 20 model families, 8 Jev-related benchmark suites / 10 active TSV views.
 - Real inference verified: 18 families, including Valen and all public checkpoint integrations.
-- Results: 68 retained artifacts in the active board; 40 distinct eligible primary full scores.
+- Results before the new full matrix: 68 retained artifacts; 40 distinct eligible primary full scores. New verified results are added to the leaderboard as pairs finish.
 - Checks: 75 tests passed. A fresh wheel matched all 32 source modules and bundled licenses; its CLI started using only the standard library.
 - Data: the five new suites (45,794 states / 91,817 questions) passed full schema, count and content-hash checks. Existing media checks remain valid; retired data remains archived.
-- GPU budget: 31/32 cumulative reservations, including failed/stopped/repeated attempts. All planned GPU tasks have finished.
+- GPU budget: 32/32 cumulative reservations, including failed/stopped/repeated attempts. The final reservation runs the five new benchmark suites.
 
 The [leaderboard](../leaderboard/README.md) selects the latest complete measurement
 per model, data hash and protocol, without selecting the best repeat. It retains
@@ -27,9 +27,45 @@ with eight families. The five retired general NLP tasks remain excluded.
 
 CPU Uniform smoke runs passed inference, protocol scoring and re-scoring on all
 five new suites; these diagnostic records are outside the main leaderboard.
-No new trained-model full measurements are claimed. Upstream parity checks
+The full trained-model matrix is now running; completed scores will be
+added only after their prediction evidence passes verification. Upstream parity checks
 covered 39 DecisionBench cases plus JevOss/Chinese reference ECE conventions.
 The [protocol guide](benchmarks.md) describes soft labels and interface projections.
+
+## Active full evaluation of the five new suites
+
+Job: `jevalkit-decisions-full-261018a-40776756`, submitted on 2026-10-18.
+The H200 worker started at 06:59:28 UTC and wrote real model predictions for
+Valen-0.8B on ZhDecisionBench. The live pair status and progress evidence
+are retained with the job. The first full result is **Valen-0.8B /
+ZhDecisionBench: 82.44% accuracy, 467/467 valid questions, zero failures**;
+its 378 request IDs and raw-evidence hashes were verified.
+
+- Scope: **22 local model configurations covering all 18 available checkpoint
+  families × 5 suites = 110 full evaluations**, with no sample limits.
+- Variants: all three registered Valen and Intern-Decision sizes; Clef-Flash
+  represents the Clef family because the separate Clef checkpoint is unavailable.
+- Order: ZhDecisionBench, TypedDecisions, JevAltBench, DecisionBench,
+  ProceduralTypedDecisions, evaluating every local configuration on each suite.
+- Execution: one GPU, sequential isolated processes per model/benchmark pair;
+  a failed pair retains its journal and does not prevent later pairs from running.
+  The overall timeout is seven days, rather than the default three hours.
+- Coverage: visual-only releases may reject these text-only requests. Their
+  unsupported records remain visible and do not become valid scores.
+- Hosted models: Jev and OpenAI-Decisions remain pending their API environment.
+
+Before submission, all five full TSVs passed verification, the 40 source-gate
+hashes matched, and all configured interpreters, weights and source paths existed.
+Native author inference imports also passed for all three Intern-Decision sizes.
+The plan contains 1,007,468 request attempts / 2,019,974 questions, including
+requests that a release may report as unsupported.
+
+The frozen matrix, source hashes, worker log, scheduler handle and live pair
+status are retained under
+`artifacts/jobs/jevalkit-decisions-full-261018a/`; the pair status is
+`code/matrix.status.json`. Predictions and metrics are written to
+`/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/`.
+No further GPU reservations remain within the agreed cumulative limit.
 
 ## Latest completed evaluations
 
