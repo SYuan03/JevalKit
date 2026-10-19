@@ -44,6 +44,12 @@ flowchart LR
 
 ## Latest Updates
 
+- **2026-10-19:** Filling **22 previously untested model–benchmark pairs** (4/22 audited):
+  17 DecisionIndex runs plus five JevBench/image/video runs. The workload uses
+  **32 single-GPU workers**, including verified shard merges for larger runs,
+  within the **32 concurrent GPU** limit. **93 tests pass**. See
+  [coverage plan](docs/coverage-gapfill.json) and [live evaluation status](docs/STATUS.md).
+
 - **2026-10-19:** Launched the [interactive leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard)
   with **139 eligible full scores**, per-benchmark ranking, accuracy/calibration
   filters, model comparisons, measurement details and CSV downloads. Its pinned
@@ -54,7 +60,7 @@ flowchart LR
   new suites after 24 parallel repairs: **99 eligible scores**, 11 fully
   unsupported pairs, and **zero question errors** in the latest measurements.
   Frozen source, weights, request IDs and evidence hashes were verified.
-  **86 tests pass**. All evaluation GPUs are released; the limit remains
+  **86 tests passed** for that phase. Its 24 repair workers released their GPUs; the limit remains
   **32 concurrent GPUs**. See [evaluation status](docs/STATUS.md).
 
 - **2026-10-19:** The **10 verified TSV views** are available from

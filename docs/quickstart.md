@@ -143,6 +143,26 @@ can select its own Python interpreter, and retains its failure while later rows 
 The cluster wrapper also accepts `matrix CONFIG.json` and freezes the configuration with the code.
 Set `JEVAL_MEMORY_PER_GPU=98304` when a large model needs more host memory.
 
+For parallel evaluation of one model, assign each matrix row a unique integer
+`rank` from `0` through `world_size - 1`, with the same `world_size`, options and
+output root. Submit one worker per row. The CLI also accepts `--rank` and
+`--world-size` directly. Shards preserve request groups and write to separate
+`shard-NNN` folders; individual shards never count as complete scores.
+
+After every shard finishes, merge into a new empty result directory:
+
+```bash
+python -m jevalkit merge /path/to/shard-000 /path/to/shard-001 \
+  --model Pplx-Decider --data DecisionIndex --root "$JEVALKIT_DATA_ROOT" \
+  --output "$JEVALKIT_DATA_ROOT/results/merged/Pplx-Decider/DecisionIndex"
+```
+
+The merger rejects missing or overlapping requests, changed evidence, and
+mismatching checkpoints, code, settings or runtime. It then recomputes global
+metrics and the official index. Install `.[decision-index]` in both inference
+and merge environments. Managed HTTP services currently include per-worker
+manifest paths; use unsharded rows for those services.
+
 [Managed local services](../examples/served-model.json) can start the author's server before
 an HTTP evaluation. JevalKit checks its localhost readiness endpoint, fingerprints the
 specified weights/configuration/source, retains server logs, and stops the processes it

@@ -49,3 +49,21 @@ def test_matrix_supports_unscored_interface_checks():
     command = matrix_commands(config)[0]
     assert command[1:4] == ["-m", "jevalkit", "check"]
     assert "--data" not in command and command[-1] == "results/Uniform/conformance.json"
+
+
+def test_matrix_forwards_independent_shard_ranks():
+    config = {"schema_version": 1, "data": ["DecisionIndex"], "output": "results",
+              "runs": [{"model": "Uniform", "rank": rank, "world_size": 4} for rank in range(4)]}
+    commands = matrix_commands(config)
+    assert [command[command.index("--rank") + 1] for command in commands] == ["0", "1", "2", "3"]
+    assert all(command[command.index("--world-size") + 1] == "4" for command in commands)
+    assert all("--limit" not in command for command in commands)
+
+
+@pytest.mark.parametrize("settings", [{"rank": -1}, {"rank": 2, "world_size": 2},
+                                    {"world_size": 0}, {"world_size": 1.5}, {"rank": True}])
+def test_matrix_rejects_invalid_shards_before_submission(settings):
+    config = {"schema_version": 1, "data": ["DecisionIndex"], "output": "results",
+              "runs": [{"model": "Uniform", **settings}]}
+    with pytest.raises(ValueError, match="Matrix shards"):
+        matrix_commands(config)

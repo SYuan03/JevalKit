@@ -1,16 +1,17 @@
 # Implementation and evaluation status
 
-Updated UTC: 2026-10-19T04:20:22.819719+00:00
+Updated UTC: 2026-10-19T04:47:14.386300+00:00
 
-The original goal is not complete. Public checkpoint validation is complete;
-live measurements for the two hosted APIs still require credentials.
+Public checkpoint integrations are validated. A coverage audit found 22 compatible
+local model–benchmark pairs that had never been evaluated; these are being
+evaluated with 32 single-GPU workers. Hosted API measurements still require credentials.
 
 - Implemented: 20 model families, 8 Jev-related benchmark suites / 10 active TSV views.
 - Real inference verified: 18 families, including Valen and all public checkpoint integrations.
-- Results: 201 retained active artifacts; 139 distinct eligible primary full scores. All 110 pairs in the five-suite matrix are complete after repairs: 99 eligible scores and 11 fully unsupported pairs, with zero question errors in the latest measurements.
-- Checks: 86 regression tests passed after the input/capacity and parallel-limit fixes. The pre-run wheel check matched all 32 package modules and bundled licenses.
+- Results: 205 retained active artifacts; 143 distinct eligible primary full scores. Gap-fill audit: 4/22 complete. The five-suite matrix remains 110/110 complete (99 eligible, 11 fully unsupported).
+- Checks: 93 regression tests passed, including native question capacity, matrix shard validation and exact-partition merge checks. The pre-run wheel check matched all 32 package modules and bundled licenses.
 - Data: the five new suites (45,794 states / 91,817 questions) passed full schema, count and content-hash checks. Existing media checks remain valid; retired data remains archived.
-- GPU limit: at most 32 concurrent GPUs. All 24 single-GPU repair tasks succeeded and released their reservations; no evaluation GPUs remain active. Historical completed jobs do not consume parallel capacity.
+- GPU limit: at most32 concurrent GPUs. Gap-fill audit: 4/22 complete; latest worker states: 4 succeeded, 28 running. Historical completed jobs do not consume parallel capacity.
 
 The [leaderboard](../leaderboard/README.md) selects the latest complete measurement
 per model, data hash and protocol, without selecting the best repeat. It retains
@@ -41,6 +42,25 @@ artifacts and 77 eligible new scores; error-containing measurements remain exclu
 from the primary score table. Raw prediction and manifest hashes were verified. Upstream parity checks
 covered 39 DecisionBench cases plus JevOss/Chinese reference ECE conventions.
 The [protocol guide](benchmarks.md) describes soft labels and interface projections.
+
+## Missing-pair evaluation started on 2026-10-19
+
+The earlier 110/110 completion refers to the five new benchmark suites. It did
+not cover all older benchmarks. The [gap-fill plan](coverage-gapfill.json) lists
+all 22 newly scheduled pairs: 17 DecisionIndex models, Intern-Decision-2B/4B on
+JevBench and VisualDecisionBench_Image, and Clef-Flash on VisualDecisionBench_Video.
+
+Each DecisionIndex model evaluates all 140,178 states / 312,320 questions.
+Pplx-Decider uses four independent request shards; seven other larger runs use
+two shards each. Nine DecisionIndex models and the five shorter pairs use one
+worker each, for 32 single-GPU workers in total. No sample limit is applied.
+The existing merger checks exact, non-overlapping full request coverage and
+identical source, checkpoint, runtime and settings before global official scoring.
+
+Results are promoted only after evidence hashes, frozen source, request IDs and
+unchanged checkpoint hashes pass auditing. Local progress and audit files are
+retained in `artifacts/gapfill-progress.json` and `artifacts/gapfill-audit.json`.
+The existing leaderboard remains the latest published snapshot while jobs run.
 
 ## Full evaluation of the five new suites
 

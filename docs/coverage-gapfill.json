@@ -1,0 +1,277 @@
+{
+  "updated_utc": "2026-10-19T04:47:14.386300+00:00",
+  "parallel_gpu_limit": 32,
+  "logical_pairs": 22,
+  "single_gpu_workers": 32,
+  "initial_attempts": 32,
+  "replacement_workers": 5,
+  "verified_pairs": 4,
+  "complete": false,
+  "pairs": [
+    {
+      "model": "Intern-Decision-2B",
+      "benchmark": "VisualDecisionBench_Image",
+      "workers": 1,
+      "sampling_limit": null,
+      "worker_states": {
+        "succeeded": 1
+      },
+      "status": "verified",
+      "requests": 1402,
+      "questions": 2000,
+      "valid": 1999,
+      "unsupported": 1,
+      "failed": 0,
+      "coverage": 0.9995,
+      "accuracy": 0.7647058823529411,
+      "public_decision_index": null,
+      "weights_unchanged": true,
+      "source_verified": true,
+      "request_ids_and_hashes_verified": true
+    },
+    {
+      "model": "Intern-Decision-2B",
+      "benchmark": "JevBench",
+      "workers": 1,
+      "sampling_limit": null,
+      "worker_states": {
+        "succeeded": 1
+      },
+      "status": "verified",
+      "requests": 231,
+      "questions": 231,
+      "valid": 231,
+      "unsupported": 0,
+      "failed": 0,
+      "coverage": 1.0,
+      "accuracy": 0.7835497835497836,
+      "public_decision_index": null,
+      "weights_unchanged": true,
+      "source_verified": true,
+      "request_ids_and_hashes_verified": true
+    },
+    {
+      "model": "Intern-Decision-4B",
+      "benchmark": "VisualDecisionBench_Image",
+      "workers": 1,
+      "sampling_limit": null,
+      "worker_states": {
+        "succeeded": 1
+      },
+      "status": "verified",
+      "requests": 1402,
+      "questions": 2000,
+      "valid": 1999,
+      "unsupported": 1,
+      "failed": 0,
+      "coverage": 0.9995,
+      "accuracy": 0.7794117647058824,
+      "public_decision_index": null,
+      "weights_unchanged": true,
+      "source_verified": true,
+      "request_ids_and_hashes_verified": true
+    },
+    {
+      "model": "Intern-Decision-4B",
+      "benchmark": "JevBench",
+      "workers": 1,
+      "sampling_limit": null,
+      "worker_states": {
+        "succeeded": 1
+      },
+      "status": "verified",
+      "requests": 231,
+      "questions": 231,
+      "valid": 231,
+      "unsupported": 0,
+      "failed": 0,
+      "coverage": 1.0,
+      "accuracy": 0.8658008658008658,
+      "public_decision_index": null,
+      "weights_unchanged": true,
+      "source_verified": true,
+      "request_ids_and_hashes_verified": true
+    },
+    {
+      "model": "Clef-Flash",
+      "benchmark": "VisualDecisionBench_Video",
+      "workers": 1,
+      "sampling_limit": null,
+      "worker_states": {
+        "running": 1
+      },
+      "status": "in-progress"
+    },
+    {
+      "model": "Pplx-Decider",
+      "benchmark": "DecisionIndex",
+      "workers": 4,
+      "sampling_limit": null,
+      "worker_states": {
+        "running": 4
+      },
+      "status": "in-progress"
+    },
+    {
+      "model": "Intern-Decision-0.8B",
+      "benchmark": "DecisionIndex",
+      "workers": 1,
+      "sampling_limit": null,
+      "worker_states": {
+        "running": 1
+      },
+      "status": "in-progress"
+    },
+    {
+      "model": "Intern-Decision-2B",
+      "benchmark": "DecisionIndex",
+      "workers": 2,
+      "sampling_limit": null,
+      "worker_states": {
+        "running": 2
+      },
+      "status": "in-progress"
+    },
+    {
+      "model": "Intern-Decision-4B",
+      "benchmark": "DecisionIndex",
+      "workers": 2,
+      "sampling_limit": null,
+      "worker_states": {
+        "running": 2
+      },
+      "status": "in-progress"
+    },
+    {
+      "model": "Laya",
+      "benchmark": "DecisionIndex",
+      "workers": 1,
+      "sampling_limit": null,
+      "worker_states": {
+        "running": 1
+      },
+      "status": "in-progress"
+    },
+    {
+      "model": "Liquid-d1-3B",
+      "benchmark": "DecisionIndex",
+      "workers": 2,
+      "sampling_limit": null,
+      "worker_states": {
+        "running": 2
+      },
+      "status": "in-progress"
+    },
+    {
+      "model": "Decision1-Kai",
+      "benchmark": "DecisionIndex",
+      "workers": 1,
+      "sampling_limit": null,
+      "worker_states": {
+        "running": 1
+      },
+      "status": "in-progress"
+    },
+    {
+      "model": "Clef-Flash",
+      "benchmark": "DecisionIndex",
+      "workers": 2,
+      "sampling_limit": null,
+      "worker_states": {
+        "running": 2
+      },
+      "status": "in-progress"
+    },
+    {
+      "model": "JevK5",
+      "benchmark": "DecisionIndex",
+      "workers": 2,
+      "sampling_limit": null,
+      "worker_states": {
+        "running": 2
+      },
+      "status": "in-progress"
+    },
+    {
+      "model": "StartLux-0.8B",
+      "benchmark": "DecisionIndex",
+      "workers": 2,
+      "sampling_limit": null,
+      "worker_states": {
+        "running": 2
+      },
+      "status": "in-progress"
+    },
+    {
+      "model": "Crivo-150M",
+      "benchmark": "DecisionIndex",
+      "workers": 1,
+      "sampling_limit": null,
+      "worker_states": {
+        "running": 1
+      },
+      "status": "in-progress"
+    },
+    {
+      "model": "RSI-Jev-v4",
+      "benchmark": "DecisionIndex",
+      "workers": 1,
+      "sampling_limit": null,
+      "worker_states": {
+        "running": 1
+      },
+      "status": "in-progress"
+    },
+    {
+      "model": "Vjev-4B",
+      "benchmark": "DecisionIndex",
+      "workers": 2,
+      "sampling_limit": null,
+      "worker_states": {
+        "running": 2
+      },
+      "status": "in-progress"
+    },
+    {
+      "model": "QEV",
+      "benchmark": "DecisionIndex",
+      "workers": 1,
+      "sampling_limit": null,
+      "worker_states": {
+        "running": 1
+      },
+      "status": "in-progress"
+    },
+    {
+      "model": "Kev",
+      "benchmark": "DecisionIndex",
+      "workers": 1,
+      "sampling_limit": null,
+      "worker_states": {
+        "running": 1
+      },
+      "status": "in-progress"
+    },
+    {
+      "model": "H2O-Lightning",
+      "benchmark": "DecisionIndex",
+      "workers": 1,
+      "sampling_limit": null,
+      "worker_states": {
+        "running": 1
+      },
+      "status": "in-progress"
+    },
+    {
+      "model": "OpenJev",
+      "benchmark": "DecisionIndex",
+      "workers": 1,
+      "sampling_limit": null,
+      "worker_states": {
+        "running": 1
+      },
+      "status": "in-progress"
+    }
+  ],
+  "policy": "Full datasets, unchanged released checkpoints, frozen worker code. Exact request partitions and matching runtime are verified before official rescoring. Five Intern workers were replaced after adding an explicit16-question native capacity check; original failed evidence is preserved."
+}

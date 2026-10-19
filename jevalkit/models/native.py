@@ -33,6 +33,7 @@ class InternDecision(DecisionModel):
         self.device = device
         self.info = {"model": model, "path": str(folder), "revision": revision,
                      "max_options": len(self.module.ANSWER_SYMBOLS),
+                     "max_questions": 16,
                      "artifacts_sha256": inference_artifacts(folder),
                      "temperature": self.module.DEFAULT_TEMPERATURE,
                      "calibration": "author release default; no test-set fitting"}
@@ -44,6 +45,8 @@ class InternDecision(DecisionModel):
         # The release accepts images at the top level; text-only requests are unchanged.
         import copy
         from .media import state_parts
+        if len(request["questions"]) > 16:
+            raise Unsupported("Intern-Decision release supports at most 16 questions per request; all questions were retained")
         maximum = len(self.module.ANSWER_SYMBOLS)
         for question in request["questions"].values():
             if question["type"] != "noul" and len(question["criteria"]) > maximum:

@@ -197,6 +197,18 @@ def test_intern_capacity_preserves_all_supplied_candidates():
     assert request == before
 
 
+def test_intern_question_limit_preserves_the_complete_request():
+    from jevalkit.models.native import InternDecision
+    from jevalkit.schema import Unsupported
+    model = object.__new__(InternDecision)
+    request = {"state": "shared evidence", "questions": {
+        str(i): {"type": "noul", "instructions": "Check criterion " + str(i)} for i in range(17)}}
+    before = copy.deepcopy(request)
+    with pytest.raises(Unsupported, match="at most 16 questions per request"):
+        model.predict(request)
+    assert request == before and len(request["questions"]) == 17
+
+
 def test_openai_native_schema_and_refusal():
     model = OpenAIDecisions()
     source = record()

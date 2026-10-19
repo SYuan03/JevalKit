@@ -33,8 +33,14 @@ def matrix_commands(config, root=None):
         command = [python, "-m", "jevalkit", mode, "--model", run["model"]]
         if mode == "run":
             command.extend(["--data", *data, "--output", str(output)])
+            rank, world_size = run.get("rank", 0), run.get("world_size", 1)
+            if (type(rank) is not int or type(world_size) is not int
+                    or world_size < 1 or not 0 <= rank < world_size):
+                raise ValueError("Matrix shards require integer 0 <= rank < world_size")
+            if "rank" in run or "world_size" in run:
+                command.extend(["--rank", str(rank), "--world-size", str(world_size)])
         else:
-            if any(k in run for k in ("limit", "warmup", "resume")):
+            if any(k in run for k in ("limit", "warmup", "resume", "rank", "world_size")):
                 raise ValueError("Check mode does not accept benchmark sampling/resume settings")
             command.extend(["--output", str(Path(output) / run["model"] / "conformance.json")])
         if root:
