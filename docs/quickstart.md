@@ -1,5 +1,7 @@
 # Running evaluations
 
+**English** · [简体中文](quickstart_zh-CN.md)
+
 [Project overview](../README.md) · [Model integrations](models.md) · [Scoring protocols](benchmarks.md)
 
 ## Install
@@ -105,7 +107,7 @@ Use unsharded rows for managed HTTP services, whose manifests include worker pat
 ## Results
 
 ```bash
-python -m jevalkit leaderboard "$JEVALKIT_DATA_ROOT/results" --output leaderboard
+python -m jevalkit leaderboard "$JEVALKIT_DATA_ROOT/results" --output "$JEVALKIT_DATA_ROOT/leaderboard"
 ```
 
 [Open the leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard)

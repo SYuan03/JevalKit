@@ -1,12 +1,12 @@
 <h1 align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/branding/jevalkit-dark.svg">
-    <img src="assets/branding/jevalkit-light.svg" alt="JevalKit — a unified evaluation toolkit for decision models" width="680">
+    <img src="assets/branding/jevalkit-light.svg" alt="JevalKit evaluation toolkit for decision models" width="680">
   </picture>
 </h1>
 
 <p align="center">
-  <b>A unified evaluation toolkit for Jev-like decision models.</b><br>
+  <b>A toolkit for evaluating Jev-like decision models.</b><br>
   Text · Image · Video → Choice · Noul · Score
 </p>
 
@@ -25,37 +25,41 @@
   <a href="#introduction">Introduction</a> · <a href="#latest-updates">News</a> · <a href="#quick-start">Quick Start</a> · <a href="#supported-models">Models</a> · <a href="#supported-benchmarks">Benchmarks</a> · <a href="#evaluation-results">Results</a> · <a href="#documentation">Docs</a>
 </p>
 
+<p align="center">
+  <b>English</b> · <a href="README_zh-CN.md">简体中文</a>
+</p>
+
 <a id="introduction"></a>
 
 ## ✨ Introduction
 
 JevalKit evaluates models that return **probabilities over decisions defined at
 request time**: a yes/no judgment, a choice among named options, or a rating on an
-ordered scale. It brings model adapters, benchmark preparation, scoring and result
-comparison into one workflow, following the registry-based design of
+ordered scale. It provides model adapters, benchmark preparation, scoring and result
+comparison, using the registry design of
 [VLMEvalKit](https://github.com/open-compass/VLMEvalKit).
 
 <a id="highlights"></a>
 
 ## 🎯 Highlights
 
-- **20 model families in one registry.** Run open checkpoints through their native
-  decision interfaces and hosted models through their published APIs.
-- **Text, image and video evidence.** Preserve shared states, multiple questions,
-  candidate order and model-specific modality limits.
-- **Evaluate the whole distribution.** Report accuracy alongside Brier, NLL,
-  calibration and ordinal metrics, with benchmark-specific official scorers.
-- **Reproduce and resume.** Retain dataset hashes, raw predictions, runtime
-  provenance, failures and coverage; resume interrupted runs or score them again.
-- **Compare measured results.** Browse Markdown, TSV and JSON leaderboards, with
-  smoke tests, imported predictions and complete runs identified separately.
+- Evaluate 20 model families through native checkpoint interfaces or published
+  APIs for hosted models.
+- Use text, image and video while preserving shared states, multiple questions,
+  candidate order and each model's modality limits.
+- Score complete probability distributions with accuracy, Brier, NLL, calibration
+  and ordinal metrics, including benchmark-specific official scorers.
+- Retain dataset hashes, raw predictions, runtime provenance, failures and coverage
+  to resume interrupted runs or score saved answers again.
+- Browse measured results and export Markdown, TSV or JSON, with smoke tests,
+  imported predictions and complete runs identified separately.
 
 <a id="latest-updates"></a>
 
 ## 📰 Latest Updates
 
 <!-- jevalkit:coverage:start -->
-- **2026-10-19:** Filling **22 missing model–benchmark pairs**, with **18/22 audited**.
+- **2026-10-19:** Filling **22 missing model/benchmark pairs**, with **18/22 audited**.
   Full datasets run in parallel within the **32 concurrent GPU** limit; verified
   results are published as they finish on the [leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard).
 <!-- jevalkit:coverage:end -->
@@ -66,7 +70,7 @@ comparison into one workflow, following the registry-based design of
   with pinned sources and scoring protocols in the [dataset packages](jevalkit/datasets/).
 - **2026-10-19:** Completed **110/110 pairs** across the five new suites:
   99 eligible scores and 11 fully unsupported pairs. Source, checkpoint hashes
-  and complete request coverage were verified; details are in the [leaderboard](leaderboard/README.md).
+  and complete request coverage were verified; details are in the [leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard).
 
 <details>
 <summary>Earlier updates</summary>
@@ -118,7 +122,7 @@ python -m jevalkit run --model Valen-0.8B --data JevBench \
   --output "$JEVALKIT_DATA_ROOT/results"
 
 python -m jevalkit leaderboard "$JEVALKIT_DATA_ROOT/results" \
-  --output leaderboard
+  --output "$JEVALKIT_DATA_ROOT/leaderboard"
 ```
 
 Pass `--option model=/path/to/checkpoint` to reuse existing weights. Use
@@ -131,7 +135,7 @@ the same settings. [Full usage guide →](docs/quickstart.md)
 
 Size variants and Clef/Clef-Flash count within their respective families.
 **Measured** means real inference has been verified for at least one registered
-variant; per-benchmark coverage is shown in the [leaderboard](leaderboard/README.md).
+variant; per-benchmark coverage is shown in the [leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard).
 
 <details>
 <summary>View supported models (20 families)</summary>
@@ -203,10 +207,6 @@ The current snapshot contains **157 eligible full scores** and **235 retained
 run artifacts**. It covers **18 measured model families**; the two hosted API
 families remain pending. [🤗 Open the leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard).
 <!-- jevalkit:results-summary:end -->
-
-[Markdown leaderboard](leaderboard/README.md) ·
-[Download TSV](leaderboard/leaderboard.tsv) ·
-[Download JSON](leaderboard/leaderboard.json)
 
 <a id="documentation"></a>
 

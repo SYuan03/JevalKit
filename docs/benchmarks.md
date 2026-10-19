@@ -1,5 +1,9 @@
 # Benchmark protocols
 
+**English** · [简体中文](benchmarks_zh-CN.md)
+
+[Project overview](../README.md) · [Running evaluations](quickstart.md) · [Model integrations](models.md)
+
 Eight Jev-related benchmark families are implemented, exposed through ten TSV views. The Image/Video
 views are subdivisions of VisualDecisionBench, not additional benchmark families.
 

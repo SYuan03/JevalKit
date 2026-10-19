@@ -13,3 +13,5 @@ __pycache__/
 /work_dirs/
 /build/
 /dist/
+
+/leaderboard/

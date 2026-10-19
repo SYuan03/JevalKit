@@ -1,5 +1,9 @@
 # Model integrations
 
+**English** · [简体中文](models_zh-CN.md)
+
+[Project overview](../README.md) · [Running evaluations](quickstart.md) · [Scoring protocols](benchmarks.md)
+
 Twenty families are registered; size variants do not increase that count.
 Native adapters invoke the author release. HTTP adapters require the author server or hosted API.
 Registration is not evidence of a successful weight-level evaluation: consult the leaderboard and its manifests.
