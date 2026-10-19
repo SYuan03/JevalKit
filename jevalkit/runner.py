@@ -245,6 +245,7 @@ def merge_shards(model_name, benchmark, shard_dirs, output, *, root=None):
     from .io import jsonl
 
     dataset = DecisionDataset(benchmark, root)
+    records = list(dataset)
     manifests, predictions, seen, ranks = [], [], set(), set()
     first = None
     for folder in map(Path, shard_dirs):
@@ -270,7 +271,7 @@ def merge_shards(model_name, benchmark, shard_dirs, output, *, root=None):
         if rank in ranks:
             raise ValueError("Duplicate shard rank")
         ranks.add(rank)
-        expected = {r["index"] for r in selected_records(dataset, rank=rank, world_size=world)}
+        expected = {r["index"] for r in selected_records(records, rank=rank, world_size=world)}
         rows = list(jsonl(folder / "predictions.jsonl"))
         actual = {r["index"] for r in rows}
         if len(rows) != len(actual) or actual != expected or seen & actual:
@@ -284,7 +285,6 @@ def merge_shards(model_name, benchmark, shard_dirs, output, *, root=None):
     output.mkdir(parents=True, exist_ok=True)
     if any(output.iterdir()):
         raise ValueError("Merged output must be a new empty directory")
-    records = list(dataset)
     positions = {r["index"]: i for i, r in enumerate(records)}
     predictions.sort(key=lambda r: positions[r["index"]])
     atomic_json(
