@@ -53,7 +53,7 @@ JevalKit 用于评测 Jev 类决策模型。这类模型接收请求中指定的
 ## 📰 最近更新
 
 <!-- jevalkit:coverage:start -->
-- **2026-10-19：** 正在补测 22 组缺失的模型与基准组合，已核验 **19/22** 组。
+- **2026-10-19：** 正在补测 22 组缺失的模型与基准组合，已核验 **20/22** 组。
   全量数据并行评测，GPU 并发不超过 **32 张**；通过核验的结果陆续发布到[排行榜](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard)。
 <!-- jevalkit:coverage:end -->
 - **2026-10-19：** 发布 [🤗 排行榜](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard)，支持基准筛选、模型比较、概率指标查看，以及 CSV/JSON 下载。
@@ -181,7 +181,7 @@ VisualDecisionBench 的图像和视频视图属于同一个基准。Decision Ind
 ## 📊 评测结果
 
 <!-- jevalkit:results-summary:start -->
-当前快照包含 **158 条有效完整成绩**，保留 **236 份运行记录**，覆盖 **18 个已实测模型家族**。
+当前快照包含 **159 条有效完整成绩**，保留 **239 份运行记录**，覆盖 **18 个已实测模型家族**。
 两个托管 API 家族仍待实际评测。[🤗 打开排行榜](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard)。
 <!-- jevalkit:results-summary:end -->
 
