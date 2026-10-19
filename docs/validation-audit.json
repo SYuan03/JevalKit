@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-10-19T03:39:19.632532+00:00",
+  "updated_utc": "2026-10-19T03:44:00.211142+00:00",
   "goal_complete": false,
   "scope": {
     "model_families": 20,
@@ -1243,16 +1243,17 @@
     },
     {
       "requirement": "Publish all active JevalKit TSV datasets to the user-specified Hugging Face repository and push",
-      "state": "published-and-remote-checksums-verified",
+      "state": "published-simplified-and-remote-checksums-verified",
       "repository": "https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets",
-      "commit": "0cb9f0e98dd705ce8e75558eb225664f2703301e",
+      "commit": "f15fd94eaea9106720e9473f84544e12454c593c",
       "tsv_views": 10,
       "benchmark_families": 8,
-      "verified_payload_files": 37,
+      "verified_payload_files": 12,
       "evidence": [
         "artifacts/hf-dataset-publication.json",
         "README.md"
-      ]
+      ],
+      "layout": "10 TSVs, README.md, .gitattributes"
     }
   ],
   "tested_source_current": true,
@@ -1304,10 +1305,14 @@
   "gpu_limit_clarification": "32 is maximum parallel peak, not historical cumulative usage, per explicit user instruction2026-10-19.",
   "dataset_publication": {
     "repository": "Valen-Team/JevalKit_Datasets",
-    "commit": "0cb9f0e98dd705ce8e75558eb225664f2703301e",
-    "verified_files": 37,
-    "verified_lfs_files": 13,
+    "url": "https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets",
+    "commit": "f15fd94eaea9106720e9473f84544e12454c593c",
+    "verified_files": 12,
+    "verified_lfs_files": 10,
     "tsv_files": 10,
-    "url": "https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets"
+    "removed_files": 27,
+    "removed_bytes": 83670764,
+    "tsv_content_unchanged": true,
+    "layout": "10 TSVs, README.md, .gitattributes"
   }
 }

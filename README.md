@@ -51,9 +51,10 @@ flowchart LR
   **86 tests pass**. All evaluation GPUs are released; the limit remains
   **32 concurrent GPUs**. See [evaluation status](docs/STATUS.md).
 
-- **2026-10-19:** The **10 verified TSV views** and their source manifests,
-  checksums and official Decision Index scoring files are available from
+- **2026-10-19:** The **10 verified TSV views** are available from
   [JevalKit Datasets on Hugging Face](https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets).
+  Source revisions, checksums and preparation protocols are documented in the
+  [data inventory](docs/data-manifest.json) and toolkit implementation.
 
 - **2026-10-18:** Published the initial implementation and evaluation results for
   **18 model families**, with **75 passing tests**. Jev and OpenAI-Decisions have
@@ -90,18 +91,18 @@ python -m jevalkit list benchmarks
 python -m jevalkit prepare JevBench
 ```
 
-To reuse the verified TSV snapshots instead of preparing each source dataset:
+The TSV snapshots are also available for direct loading through Hugging Face:
 
 ```python
-import os
-from huggingface_hub import snapshot_download
+from datasets import load_dataset
 
-snapshot_download("Valen-Team/JevalKit_Datasets", repo_type="dataset",
-                  local_dir=os.environ["JEVALKIT_DATA_ROOT"])
+data = load_dataset("Valen-Team/JevalKit_Datasets", "JevBench", split="test")
 ```
 
 The [dataset card](https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets)
-lists the ten configurations, schema, checksums and separate visual-media download.
+lists the ten configurations, schema, sources and separate visual-media download.
+For native toolkit evaluation, the `prepare` command above creates the local
+manifests and retrieves any official scoring inputs.
 
 ### 3. Run and compare
 

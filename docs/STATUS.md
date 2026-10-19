@@ -1,6 +1,6 @@
 # Implementation and evaluation status
 
-Updated UTC: 2026-10-19T03:39:41.371202+00:00
+Updated UTC: 2026-10-19T03:44:00.211142+00:00
 
 The original goal is not complete. Public checkpoint validation is complete;
 live measurements for the two hosted APIs still require credentials.
@@ -25,11 +25,11 @@ ProceduralTypedDecisions, ZhDecisionBench and JevAltBench. Their complete pinned
 TSVs are retained in shared storage. The original 5–10-benchmark scope is met
 with eight families. The five retired general NLP tasks remain excluded.
 
-The ten active TSV views, portable manifests, checksums, upstream attribution and
-official Decision Index suite files are also published in
+The ten active TSV views and a concise dataset card are published in
 [Valen-Team/JevalKit_Datasets](https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets).
-Visual media remain in the original VisualDecisionBench repository; the dataset
-card documents the matching relative asset layout.
+Source revisions and checksums remain in this toolkit's data inventory; local
+manifests and official scoring inputs are created by `jevalkit prepare`.
+Visual media remain in the original VisualDecisionBench repository.
 
 CPU Uniform smoke runs passed inference, protocol scoring and re-scoring on all
 five new suites; these diagnostic records are outside the main leaderboard.
