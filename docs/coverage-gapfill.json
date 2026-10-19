@@ -1,11 +1,11 @@
 {
-  "updated_utc": "2026-10-19T05:25:31.756414+00:00",
+  "updated_utc": "2026-10-19T05:36:17.411099+00:00",
   "parallel_gpu_limit": 32,
   "logical_pairs": 22,
   "single_gpu_workers": 32,
   "initial_attempts": 32,
   "replacement_workers": 6,
-  "verified_pairs": 10,
+  "verified_pairs": 11,
   "complete": false,
   "pairs": [
     {
@@ -160,7 +160,7 @@
       "workers": 2,
       "sampling_limit": null,
       "worker_states": {
-        "running": 2
+        "succeeded": 2
       },
       "status": "in-progress"
     },
@@ -253,9 +253,20 @@
       "workers": 2,
       "sampling_limit": null,
       "worker_states": {
-        "running": 2
+        "succeeded": 2
       },
-      "status": "in-progress"
+      "status": "verified",
+      "requests": 140178,
+      "questions": 312320,
+      "valid": 312320,
+      "unsupported": 0,
+      "failed": 0,
+      "coverage": 1.0,
+      "accuracy": 0.7079444695193862,
+      "public_decision_index": 38.48,
+      "weights_unchanged": true,
+      "source_verified": true,
+      "request_ids_and_hashes_verified": true
     },
     {
       "model": "Crivo-150M",
