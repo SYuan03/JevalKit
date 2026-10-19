@@ -77,6 +77,10 @@ class HttpDecisionModel(DecisionModel):
         self.media_format = media_format
         self.server_manifest = server_manifest
 
+    def unsupported_http_reason(self, error):
+        """Return a safe capacity reason for a known server contract, if any."""
+        return None
+
     def post(self, payload):
         headers = {"Content-Type": "application/json"}
         token = os.environ.get(self.token_env)
@@ -88,6 +92,9 @@ class HttpDecisionModel(DecisionModel):
                 with urlopen(req, timeout=self.timeout) as response:
                     return json.load(response)
             except HTTPError as exc:
+                reason = self.unsupported_http_reason(exc)
+                if reason is not None:
+                    raise Unsupported(reason) from None
                 # Never persist response text that may echo authorization or input data.
                 if exc.code not in {429, 500, 502, 503, 504} or attempt == self.retries:
                     raise RuntimeError(f"Decision API HTTP {exc.code}") from None

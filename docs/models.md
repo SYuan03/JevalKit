@@ -24,6 +24,7 @@ Registration is not evidence of a successful weight-level evaluation: consult th
 | Pplx-Decider | Pplx-Decider | native | Python 3.12+; author requirements.txt | [source](https://huggingface.co/perplexity-ai/pplx-decider-v1.1-27b) |
 | JevK5 | JevK5 | native | jevk5 | [source](https://huggingface.co/alibiserikbay/JevK5) |
 | StartLux-0.8B | StartLux | native | author requirements.txt | [source](https://huggingface.co/startlux-models/StartLux-Decision-v1-0.8B) |
+| StartLux-v1.1-{0.8B,2B,4B,9B,27B}-Instant | StartLux | http | startlux-decide; STARTLUX_ENDPOINT | [source](https://github.com/StartLuxLabs/StartLux-Decision) |
 | Crivo-150M | Crivo | native | jevalkit[hf,decision-index] | [source](https://huggingface.co/tardellirs/crivo-150m) |
 | RSI-Jev-v4 | RSI-Jev | native | author rsijev package; `--option source=<checkout>` | [source](https://github.com/Shanghua-Gao/RSI-Jev) |
 | Vjev-4B | Vjev | native | author requirements.txt | [source](https://huggingface.co/yah01/vjev-vision) |
@@ -48,7 +49,7 @@ Intern-Decision's released symbol table limits it to 62 candidates; QEV's SDK pe
 16 candidates and one image. Inputs beyond these limits are recorded as unsupported,
 with every original option retained in the saved benchmark. Clef uses the native
 encoder and head with a complete-input length check instead of the convenience
-wrapper's silent state slicing. StartLux can explicitly enable the author's slow
+wrapper's silent state slicing. StartLux v1 can explicitly enable the author's slow
 Torch path with `--option allow_slow=true --option graphs=false`; metadata records
 kernel availability, graph use and calibration.
 Decision1-Kai and StartLux allow at most ten Score levels. Vjev and OmniJev have
@@ -99,6 +100,12 @@ test sets; the service provenance records all selected settings.
 Intern-Decision accepts at most 16 questions in a shared request. Decision1-Kai
 requires nonempty state text. Requests outside these released SDK limits are
 recorded as unsupported with the original request preserved.
+
+StartLux v1.1 Instant uses the author’s `startlux-decide serve` with `STARTLUX_ENDPOINT`
+(the full `/v1/systemone` URL) and optional `STARTLUX_API_KEY`. The service must load
+the selected checkpoint; a custom service name requires `--option expected_response_model=NAME`.
+Requests fix `think_mode=never`, `allow_none=false` and `none_check=true`, recorded in the manifest.
+Use the [managed-service example](../examples/served-model.json) to record weights and author source.
 
 ## Tested runtimes
 

@@ -35,10 +35,19 @@ def decision_server(monkeypatch):
                 self.send_header("Retry-After", "0")
                 self.end_headers()
                 return
+            if self.path.startswith("/error/"):
+                self.send_response(int(self.path.rsplit("/", 1)[-1]))
+                self.send_header("Content-Type", "application/json")
+                self.end_headers()
+                body = calls[-1][2]["state"]
+                self.wfile.write(body.encode() if isinstance(body, str) else json.dumps(body).encode())
+                return
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
             self.end_headers()
             response = {"answers": {"check": {"type": "noul", "noul": 0.75}}}
+            if calls[-1][2].get("model", "").startswith("startlux-models/"):
+                response["model"] = calls[-1][2]["model"].split("/")[-1]
             if self.path == "/v1/decisions":
                 response = {
                     "model": "fixture-decisions",
@@ -90,7 +99,8 @@ def test_transport_retries_and_reads_token_without_persisting_it(decision_server
     assert "test-credential" not in json.dumps(model.metadata())
 
 
-@pytest.mark.parametrize("model_name", ["Jev", "Kev", "H2O-Lightning", "OpenJev"])
+@pytest.mark.parametrize("model_name", ["Jev", "Kev", "H2O-Lightning", "OpenJev",
+                                       "StartLux-v1.1-4B-Instant"])
 def test_registered_systemone_api_uses_named_questions(decision_server, model_name):
     endpoint, calls = decision_server
     model = build_model(model_name, endpoint=endpoint + "/v1/systemone")
@@ -99,6 +109,63 @@ def test_registered_systemone_api_uses_named_questions(decision_server, model_na
     assert model.predict(source)["answers"]["check"]["type"] == "noul"
     assert calls[0][0] == "/v1/systemone" and calls[0][2]["questions"] == source["questions"]
     assert source == before
+
+
+def startlux_rejection(message, location=None):
+    return {"error": message, "detail": [{"loc": location or ["body", "questions", "check"],
+                                           "msg": message, "type": "value_error"}]}
+
+
+@pytest.mark.parametrize("body,reason", [
+    (startlux_rejection("the engine refused this question: prompt has 5000 tokens, exceeding the context length of 4096"), "context limit"),
+    (startlux_rejection("the engine refused this question: This model's maximum context length is 4096 tokens. However, you requested 5000 tokens."), "context limit"),
+    (startlux_rejection("the engine refused this question: The decoder prompt (length 5000) is longer than the maximum model length of 4096."), "context limit"),
+    (startlux_rejection("this model folder has no vision tower: it reads text only", ["body", "images"]), "image input"),
+    (startlux_rejection("at most 2 images per request, not 3", ["body", "images"]), "image limit"),
+])
+def test_startlux_http_capacity_rejections_are_unsupported(decision_server, body, reason):
+    endpoint, calls = decision_server
+    model = build_model("StartLux-v1.1-4B-Instant", endpoint=endpoint + "/error/422")
+    with pytest.raises(Unsupported, match=reason) as error:
+        model.predict(request(body))
+    assert len(calls) == 1
+    assert body["error"] not in str(error.value)
+
+
+@pytest.mark.parametrize("code,body", [
+    (422, startlux_rejection("instructions are required for choice and score questions")),
+    (422, startlux_rejection("the engine refused this question: invalid tensor shape; PRIVATE_SENTINEL")),
+    (422, "PRIVATE_SENTINEL not JSON"),
+    (422, ["PRIVATE_SENTINEL"]),
+    (422, {"error": "PRIVATE_SENTINEL", "detail": [None]}),
+    (401, startlux_rejection("the engine refused this question: prompt has 5000 tokens, exceeding context length 4096")),
+])
+def test_startlux_http_other_errors_stay_errors_without_response_content(decision_server, code, body):
+    endpoint, _ = decision_server
+    model = build_model("StartLux-v1.1-4B-Instant", endpoint=endpoint + f"/error/{code}")
+    with pytest.raises(RuntimeError) as error:
+        model.predict(request(body))
+    assert str(error.value) == f"Decision API HTTP {code}"
+
+
+def test_startlux_capacity_rejections_do_not_abort_warmup_or_full_run(tmp_path, monkeypatch, decision_server):
+    from jevalkit.datasets import BENCHMARKS
+    from jevalkit.datasets._shared import commit_dataset
+    from jevalkit.runner import run
+
+    endpoint, calls = decision_server
+    benchmark = "StartLuxCapacityFixture"
+    monkeypatch.setitem(BENCHMARKS, benchmark, {"family": "fixture", "modality": "text"})
+    body = startlux_rejection("the engine refused this question: prompt has 5000 tokens, exceeding context length 4096")
+    records = [{"index": str(i), "request": request(body), "targets": {"check": {"label": True}},
+                "meta": {}, "assets": []} for i in range(6)]
+    commit_dataset(benchmark, records, tmp_path, {"kind": "synthetic HTTP fixture"}, protocol="fixture")
+    output = tmp_path / "run"
+    report = run("StartLux-v1.1-4B-Instant", benchmark, output, root=tmp_path,
+                 model_options={"endpoint": endpoint + "/error/422"})
+    predictions = [json.loads(line) for line in (output / "predictions.jsonl").read_text().splitlines()]
+    assert report["complete"] and len(predictions) == 6 and len(calls) == 7
+    assert all(row["status"] == "unsupported" for row in predictions)
 
 
 def test_openjev_screenshot_uses_author_state_image_field(tmp_path, decision_server):

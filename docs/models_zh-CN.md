@@ -24,6 +24,7 @@
 | Pplx-Decider | Pplx-Decider | 原生接口 | Python 3.12+; 作者的 requirements.txt | [源码](https://huggingface.co/perplexity-ai/pplx-decider-v1.1-27b) |
 | JevK5 | JevK5 | 原生接口 | jevk5 | [源码](https://huggingface.co/alibiserikbay/JevK5) |
 | StartLux-0.8B | StartLux | 原生接口 | 作者的 requirements.txt | [源码](https://huggingface.co/startlux-models/StartLux-Decision-v1-0.8B) |
+| StartLux-v1.1-{0.8B,2B,4B,9B,27B}-Instant | StartLux | HTTP | startlux-decide；STARTLUX_ENDPOINT | [源码](https://github.com/StartLuxLabs/StartLux-Decision) |
 | Crivo-150M | Crivo | 原生接口 | jevalkit[hf,decision-index] | [源码](https://huggingface.co/tardellirs/crivo-150m) |
 | RSI-Jev-v4 | RSI-Jev | 原生接口 | 作者的 rsijev 包； `--option source=<checkout>` | [源码](https://github.com/Shanghua-Gao/RSI-Jev) |
 | Vjev-4B | Vjev | 原生接口 | 作者的 requirements.txt | [源码](https://huggingface.co/yah01/vjev-vision) |
@@ -46,7 +47,7 @@ Crivo 发布的 Decision Index 引擎仅支持文本 Choice/Noul。不支持的�
 Intern-Decision 的符号表最多支持 62 个候选项；QEV 最多支持 16 个候选项和一张图像。
 超限输入标记为 unsupported，保存的基准仍保留全部原始选项。Clef 使用原生编码器和输出头，
 在推理前检查完整输入长度，避免便捷封装静默截断状态文本。
-StartLux 可通过 `--option allow_slow=true --option graphs=false` 显式启用作者的慢速 Torch 路径；
+StartLux v1 可通过 `--option allow_slow=true --option graphs=false` 显式启用作者的慢速 Torch 路径；
 元信息记录内核可用性、计算图使用情况和校准设置。
 
 Decision1-Kai 和 StartLux 最多支持十个 Score 等级。Vjev 和 OmniJev 的 Noul 输出头只接收指令，
@@ -86,6 +87,12 @@ OpenJev 应使用固定版本推荐的 `READOUT_TARGETED=1` 路径，读取每�
 
 Intern-Decision 每个共享请求最多接受 16 个问题，Decision1-Kai 要求状态文本非空。
 超出发布版 SDK 限制的请求记为 unsupported，原始请求完整保留。
+
+StartLux v1.1 Instant 使用作者的 `startlux-decide serve` 服务，通过 `STARTLUX_ENDPOINT`
+配置完整的 `/v1/systemone` 地址，鉴权可用 `STARTLUX_API_KEY`。服务必须加载所选型号的权重；
+自定义服务名称需设置 `--option expected_response_model=NAME`。请求固定使用
+`think_mode=never`、`allow_none=false`、`none_check=true`，并写入运行记录。
+权重和作者源码指纹可通过现有的[托管服务示例](../examples/served-model.json)保存。
 
 <a id="tested-runtimes"></a>
 

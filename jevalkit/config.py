@@ -103,6 +103,18 @@ register(
     "https://huggingface.co/startlux-models/StartLux-Decision-v1-0.8B",
     requirements="author requirements.txt",
 )
+for size in ("0.8B", "2B", "4B", "9B", "27B"):
+    checkpoint = "startlux-models/StartLux-Decision-v1.1-" + size + "-Instant"
+    register(
+        "StartLux-v1.1-" + size + "-Instant",
+        "StartLux",
+        "jevalkit.models.startlux:StartLuxInstant",
+        checkpoint,
+        "https://huggingface.co/" + checkpoint,
+        options={"endpoint_env": "STARTLUX_ENDPOINT", "token_env": "STARTLUX_API_KEY"},
+        transport="http",
+        requirements="author startlux-decide server; STARTLUX_ENDPOINT (full /v1/systemone URL)",
+    )
 register(
     "Crivo-150M",
     "Crivo",
