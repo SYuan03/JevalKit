@@ -44,6 +44,10 @@ flowchart LR
 
 ## Latest Updates
 
+- **2026-10-19:** Resumed all **24 repair evaluations in parallel**. The GPU
+  limit is **32 concurrent GPUs**; completed job history does not consume it.
+  **86 tests pass**, including reservation-limit regressions.
+
 - **2026-10-19:** Finished the first full pass on the five new suites: **109
   complete artifacts / 110 planned runs**, with **77 eligible new scores**.
   Input/capacity compatibility fixes pass **83 tests**; 24 affected pairs are
@@ -166,7 +170,7 @@ projection. Other candidates remain in the [benchmark research](docs/benchmarks.
 
 ## Evaluation Results
 
-The current snapshot contains **177 retained run artifacts** and **117 eligible
+The first-pass snapshot contains **177 retained run artifacts** and **117 eligible
 primary full scores**. The table below shows selected completed measurements;
 all entries have 100% question coverage.
 

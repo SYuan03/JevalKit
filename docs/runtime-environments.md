@@ -45,5 +45,6 @@ passed, releasing the queued H2O-Lightning task. Package checks and actual GPU
 serving are separate evidence; consult [the current status](STATUS.md) for server results.
 
 GPU tasks retain `hardware.csv`, frozen source, scheduler handles and logs under
-`artifacts/jobs/`. The cumulative reservation ledger is
-`artifacts/gpu-ledger.json`; failed and stopped attempts count toward 32 GPUs.
+`artifacts/jobs/`. The reservation history is kept in `artifacts/gpu-ledger.json`. The limit is
+32 concurrent GPUs, as clarified by the user; finished jobs release their slots.
+Failed and stopped attempts remain in the historical record.

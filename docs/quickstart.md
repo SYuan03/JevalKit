@@ -124,8 +124,8 @@ explicitly; no implicit blank image or frame mosaic is substituted.
 ## GPU cluster and results
 
 `scripts/submit.sh` reuses Valen's existing local cluster configuration, freezes
-the submitted source, disables automatic restarts and enforces **32 GPUs total
-across cumulative job reservations**. It never modifies Valen's configuration.
+the submitted source, disables automatic restarts and enforces **a maximum of 32 concurrent GPU reservations**. Finished workers
+release their slots; historical submissions stay in the ledger. It never modifies Valen's configuration.
 Workers default to offline Hugging Face loading, so prefetch checkpoints and any
 required base-model caches before submitting. Set `JEVAL_OFFLINE=0` only for a
 worker with intentional Hub network access.
@@ -160,7 +160,7 @@ retaining completed and partial files. Integrity and storage errors stop immedia
 their verified model downloads and environment markers are ready. The queue contains
 `root` and `jobs`; each job specifies `name`, `matrix`, `python`, and `models` entries
 with `repo` and an immutable `revision`. Optional `ready_files` must contain `ready: true`.
-The queue submits each job once through the same cumulative GPU ledger. A previous
+The queue submits each job once through the same concurrent GPU ledger. A previous
 reservation without a saved scheduler handle requires inspection before retrying.
 
 Leaderboards include Markdown, TSV and JSON. They retain dataset hashes,

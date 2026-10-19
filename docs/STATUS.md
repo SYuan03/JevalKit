@@ -1,6 +1,6 @@
 # Implementation and evaluation status
 
-Updated UTC: 2026-10-19T02:49:19.225360+00:00
+Updated UTC: 2026-10-19T03:09:32.286487+00:00
 
 The original goal is not complete. Public checkpoint validation is complete;
 live measurements for the two hosted APIs still require credentials.
@@ -8,9 +8,9 @@ live measurements for the two hosted APIs still require credentials.
 - Implemented: 20 model families, 8 Jev-related benchmark suites / 10 active TSV views.
 - Real inference verified: 18 families, including Valen and all public checkpoint integrations.
 - Results: 177 retained active artifacts; 117 distinct eligible primary full scores, including 77 new scores from the five-suite matrix.
-- Checks: 83 regression tests passed after the input/capacity fixes. The pre-run wheel check matched all 32 package modules and bundled licenses.
+- Checks: 86 regression tests passed after the input/capacity and parallel-limit fixes. The pre-run wheel check matched all 32 package modules and bundled licenses.
 - Data: the five new suites (45,794 states / 91,817 questions) passed full schema, count and content-hash checks. Existing media checks remain valid; retired data remains archived.
-- GPU budget: 32/32 cumulative reservations, including failed/stopped/repeated attempts. The final full-matrix worker has ended; no GPU jobs remain running.
+- GPU limit: at most 32 concurrent GPUs. Historical completed jobs do not consume parallel capacity. Twenty-four independent single-GPU repair tasks have been submitted.
 
 The [leaderboard](../leaderboard/README.md) selects the latest complete measurement
 per model, data hash and protocol, without selecting the best repeat. It retains
@@ -94,8 +94,23 @@ ProceduralTypedDecisions. It writes a new result directory and preserves the
 first-pass evidence. The matrix is retained locally at
 `artifacts/matrices/decision-benchmarks-repair-261019a.json`.
 
-No repair GPU task has been submitted. The user's cumulative 32-GPU cap is fully
-used; one additional reservation would require explicitly raising that limit.
+### Parallel repairs resumed on 2026-10-19
+
+The user clarified that **32 GPUs is the maximum concurrent peak**, rather than
+an historical cumulative allowance. The earlier interpretation was incorrect.
+The reservation guard now releases completed workers and retains every historical
+submission; uncertain jobs keep their slot until completion is proven. Three new
+regression tests cover historical reuse, the 32-GPU boundary, terminal scheduler
+evidence and duplicate-name protection. **86 tests pass** in total.
+
+All 24 prepared repair pairs have been submitted as independent one-GPU tasks,
+`jevalkit-repair-261019a-00` through `jevalkit-repair-261019a-23`.
+The planned peak is 24 GPUs, below the 32-GPU limit. Each pair freezes its source,
+uses its verified model environment, runs without a sampling limit, and writes
+to the separate repair directory. The live submission map and evidence monitor
+are retained in `artifacts/repair-parallel-submissions.json` and
+`artifacts/repair-parallel-progress.json`. Valid full results enter the board only
+after raw-evidence hashes pass verification.
 
 ## Latest completed evaluations
 

@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-10-19T02:51:58.324288+00:00",
+  "updated_utc": "2026-10-19T03:09:32.286487+00:00",
   "goal_complete": false,
   "scope": {
     "model_families": 20,
@@ -22,7 +22,8 @@
         "jevalkit/scoring.py",
         "jevalkit/leaderboard.py",
         "artifacts/validated-source.json",
-        "artifacts/validation-tests-full-run-repairs.log"
+        "artifacts/validation-tests-full-run-repairs.log",
+        "artifacts/validation-tests-parallel-gpu-limit.log"
       ]
     },
     {
@@ -1072,16 +1073,17 @@
       ]
     },
     {
-      "requirement": "Use Valen environments and cluster helpers; cumulative GPU count at most 32",
+      "requirement": "Use Valen environments and cluster helpers; maximum concurrent GPU peak at most32",
       "state": "verified",
-      "reserved_gpus": 32,
       "limit": 32,
       "evidence": [
         "scripts/submit.sh",
         "scripts/gpu_reserve.py",
         "artifacts/gpu-ledger.json",
         "docs/runtime-environments.md"
-      ]
+      ],
+      "limit_mode": "max_parallel",
+      "historical_reservations_retained": true
     },
     {
       "requirement": "Aggregate actual benchmark measurements into a leaderboard",
@@ -1121,11 +1123,11 @@
     "artifacts/gpu-ledger.json": "eb25b3f35808f27d5a9df7f8e0efb8e95ddbdd9b770b70366c0b00b30533020d"
   },
   "remaining_benchmark_work": [
-    "First full pass attempted110 pairs and ended with109 complete artifacts:77 eligible full scores,9 fully unsupported pairs,23 completed pairs with errors; Laya/DecisionBench is incomplete.",
-    "83 regression tests pass for prepared input/capacity/cache fixes. New24-pair full rerun matrix is validated but not submitted; cumulative GPU cap32/32 needs user authorization before one additional GPU reservation.",
-    "Jev and OpenAI-Decisions live validation remains pending API credential environment."
+    "All24 independent single-GPU full repair jobs are submitted under the user-clarified maximum32 parallel GPUs. Historical completed jobs release their slots; history stays intact.",
+    "Monitor exact model/benchmark coverage, preserve failures, and aggregate only actual complete error-free measured scores.",
+    "Jev/OpenAI-Decisions hosted live validation remains pending API environment."
   ],
-  "tests_passed": 83,
+  "tests_passed": 86,
   "new_benchmark_full_matrix": {
     "job": "jevalkit-decisions-full-261018a-40776756",
     "state": "ended-with-errors",
@@ -1142,6 +1144,9 @@
     "native_sdk_request_validation": "artifacts/native-request-repair-validation.json",
     "regression_log": "artifacts/validation-tests-full-run-repairs.log",
     "final_audit": "artifacts/jobs/jevalkit-decisions-full-261018a/final-audit.json",
-    "verified_requests": 989140
-  }
+    "verified_requests": 989140,
+    "repair_state": "24-independent-GPU-jobs-submitted",
+    "repair_submission_report": "artifacts/repair-parallel-submissions.json"
+  },
+  "gpu_limit_clarification": "32 is maximum parallel peak, not historical cumulative usage, per explicit user instruction2026-10-19."
 }
