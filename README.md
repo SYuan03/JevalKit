@@ -63,7 +63,7 @@ flowchart LR
 ## 📰 Latest Updates
 
 <!-- jevalkit:coverage:start -->
-- **2026-10-19:** Filling **22 missing model–benchmark pairs**, with **6/22 audited**.
+- **2026-10-19:** Filling **22 missing model–benchmark pairs**, with **7/22 audited**.
   Full datasets run in parallel within the **32 concurrent GPU** limit; verified
   results are published as they finish. See [evaluation status](docs/STATUS.md).
 <!-- jevalkit:coverage:end -->
@@ -214,7 +214,7 @@ projection. Other candidates remain in the [benchmark research](docs/benchmarks.
 ## 📊 Evaluation Results
 
 <!-- jevalkit:results-summary:start -->
-The current snapshot contains **145 eligible full scores** and **209 retained
+The current snapshot contains **146 eligible full scores** and **211 retained
 run artifacts**. It covers **18 measured model families**; the two hosted API
 families remain pending. [🤗 Open the interactive leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard).
 <!-- jevalkit:results-summary:end -->

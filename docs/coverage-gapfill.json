@@ -1,11 +1,11 @@
 {
-  "updated_utc": "2026-10-19T05:06:05.431999+00:00",
+  "updated_utc": "2026-10-19T05:18:39.756684+00:00",
   "parallel_gpu_limit": 32,
   "logical_pairs": 22,
   "single_gpu_workers": 32,
   "initial_attempts": 32,
   "replacement_workers": 6,
-  "verified_pairs": 6,
+  "verified_pairs": 7,
   "complete": false,
   "pairs": [
     {
@@ -139,7 +139,8 @@
       "workers": 2,
       "sampling_limit": null,
       "worker_states": {
-        "running": 2
+        "running": 1,
+        "succeeded": 1
       },
       "status": "in-progress"
     },
@@ -159,9 +160,20 @@
       "workers": 1,
       "sampling_limit": null,
       "worker_states": {
-        "running": 1
+        "succeeded": 1
       },
-      "status": "in-progress"
+      "status": "verified",
+      "requests": 140178,
+      "questions": 312320,
+      "valid": 304820,
+      "unsupported": 7500,
+      "failed": 0,
+      "coverage": 0.9759861680327869,
+      "accuracy": 0.5392091201607385,
+      "public_decision_index": 5.11,
+      "weights_unchanged": true,
+      "source_verified": true,
+      "request_ids_and_hashes_verified": true
     },
     {
       "model": "Liquid-d1-3B",
