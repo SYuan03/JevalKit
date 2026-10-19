@@ -1,13 +1,13 @@
 """Resolve local evidence without dropping any media or textual content."""
 from pathlib import Path
 from ..io import dumps
-from ..schema import Unsupported
+from ..schema import Unsupported, is_message_state
 
 
 def state_parts(state, root=None):
     if isinstance(state, str):
         return state, [], []
-    if not isinstance(state, dict) or "messages" not in state:
+    if not is_message_state(state):
         return dumps(state), [], []
     text, images, videos = [], [], []
     for message in state["messages"]:

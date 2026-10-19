@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-10-18T06:44:26.431967+00:00",
+  "updated_utc": "2026-10-19T02:51:58.324288+00:00",
   "goal_complete": false,
   "scope": {
     "model_families": 20,
@@ -22,7 +22,7 @@
         "jevalkit/scoring.py",
         "jevalkit/leaderboard.py",
         "artifacts/validated-source.json",
-        "artifacts/package-final-check.json"
+        "artifacts/validation-tests-full-run-repairs.log"
       ]
     },
     {
@@ -56,6 +56,30 @@
               "benchmark": "VisualDecisionBench_Image",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round4/Clef-Flash/VisualDecisionBench_Image/metrics.json"
+            },
+            {
+              "model": "Clef-Flash",
+              "benchmark": "DecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Clef-Flash/DecisionBench/metrics.json"
+            },
+            {
+              "model": "Clef-Flash",
+              "benchmark": "ProceduralTypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Clef-Flash/ProceduralTypedDecisions/metrics.json"
+            },
+            {
+              "model": "Clef-Flash",
+              "benchmark": "TypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Clef-Flash/TypedDecisions/metrics.json"
+            },
+            {
+              "model": "Clef-Flash",
+              "benchmark": "ZhDecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Clef-Flash/ZhDecisionBench/metrics.json"
             }
           ],
           "smoke_evidence": [
@@ -75,6 +99,24 @@
               "benchmark": "JevBench",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Crivo-150M/JevBench/metrics.json"
+            },
+            {
+              "model": "Crivo-150M",
+              "benchmark": "DecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Crivo-150M/DecisionBench/metrics.json"
+            },
+            {
+              "model": "Crivo-150M",
+              "benchmark": "ProceduralTypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Crivo-150M/ProceduralTypedDecisions/metrics.json"
+            },
+            {
+              "model": "Crivo-150M",
+              "benchmark": "ZhDecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Crivo-150M/ZhDecisionBench/metrics.json"
             }
           ],
           "smoke_evidence": [
@@ -99,6 +141,30 @@
               "benchmark": "VisualDecisionBench_Image",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/served-round4/H2O-Lightning/VisualDecisionBench_Image/metrics.json"
+            },
+            {
+              "model": "H2O-Lightning",
+              "benchmark": "DecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/H2O-Lightning/DecisionBench/metrics.json"
+            },
+            {
+              "model": "H2O-Lightning",
+              "benchmark": "ProceduralTypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/H2O-Lightning/ProceduralTypedDecisions/metrics.json"
+            },
+            {
+              "model": "H2O-Lightning",
+              "benchmark": "TypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/H2O-Lightning/TypedDecisions/metrics.json"
+            },
+            {
+              "model": "H2O-Lightning",
+              "benchmark": "ZhDecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/H2O-Lightning/ZhDecisionBench/metrics.json"
             }
           ],
           "smoke_evidence": []
@@ -123,6 +189,78 @@
               "benchmark": "VisualDecisionBench_Image",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Intern-Decision-0.8B/VisualDecisionBench_Image/metrics.json"
+            },
+            {
+              "model": "Intern-Decision-4B",
+              "benchmark": "DecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Intern-Decision-4B/DecisionBench/metrics.json"
+            },
+            {
+              "model": "Intern-Decision-2B",
+              "benchmark": "DecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Intern-Decision-2B/DecisionBench/metrics.json"
+            },
+            {
+              "model": "Intern-Decision-0.8B",
+              "benchmark": "DecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Intern-Decision-0.8B/DecisionBench/metrics.json"
+            },
+            {
+              "model": "Intern-Decision-4B",
+              "benchmark": "ProceduralTypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Intern-Decision-4B/ProceduralTypedDecisions/metrics.json"
+            },
+            {
+              "model": "Intern-Decision-2B",
+              "benchmark": "ProceduralTypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Intern-Decision-2B/ProceduralTypedDecisions/metrics.json"
+            },
+            {
+              "model": "Intern-Decision-0.8B",
+              "benchmark": "ProceduralTypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Intern-Decision-0.8B/ProceduralTypedDecisions/metrics.json"
+            },
+            {
+              "model": "Intern-Decision-4B",
+              "benchmark": "TypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Intern-Decision-4B/TypedDecisions/metrics.json"
+            },
+            {
+              "model": "Intern-Decision-2B",
+              "benchmark": "TypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Intern-Decision-2B/TypedDecisions/metrics.json"
+            },
+            {
+              "model": "Intern-Decision-0.8B",
+              "benchmark": "TypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Intern-Decision-0.8B/TypedDecisions/metrics.json"
+            },
+            {
+              "model": "Intern-Decision-4B",
+              "benchmark": "ZhDecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Intern-Decision-4B/ZhDecisionBench/metrics.json"
+            },
+            {
+              "model": "Intern-Decision-0.8B",
+              "benchmark": "ZhDecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Intern-Decision-0.8B/ZhDecisionBench/metrics.json"
+            },
+            {
+              "model": "Intern-Decision-2B",
+              "benchmark": "ZhDecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Intern-Decision-2B/ZhDecisionBench/metrics.json"
             }
           ],
           "smoke_evidence": [
@@ -151,6 +289,30 @@
               "benchmark": "JevBench",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round4/JevK5/JevBench/metrics.json"
+            },
+            {
+              "model": "JevK5",
+              "benchmark": "DecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/JevK5/DecisionBench/metrics.json"
+            },
+            {
+              "model": "JevK5",
+              "benchmark": "ProceduralTypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/JevK5/ProceduralTypedDecisions/metrics.json"
+            },
+            {
+              "model": "JevK5",
+              "benchmark": "TypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/JevK5/TypedDecisions/metrics.json"
+            },
+            {
+              "model": "JevK5",
+              "benchmark": "ZhDecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/JevK5/ZhDecisionBench/metrics.json"
             }
           ],
           "smoke_evidence": [
@@ -169,6 +331,30 @@
               "benchmark": "JevBench",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/served-round4/Kev/JevBench/metrics.json"
+            },
+            {
+              "model": "Kev",
+              "benchmark": "DecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Kev/DecisionBench/metrics.json"
+            },
+            {
+              "model": "Kev",
+              "benchmark": "ProceduralTypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Kev/ProceduralTypedDecisions/metrics.json"
+            },
+            {
+              "model": "Kev",
+              "benchmark": "TypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Kev/TypedDecisions/metrics.json"
+            },
+            {
+              "model": "Kev",
+              "benchmark": "ZhDecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Kev/ZhDecisionBench/metrics.json"
             }
           ],
           "smoke_evidence": []
@@ -185,6 +371,24 @@
               "benchmark": "JevBench",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Laya/JevBench/metrics.json"
+            },
+            {
+              "model": "Laya",
+              "benchmark": "ProceduralTypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Laya/ProceduralTypedDecisions/metrics.json"
+            },
+            {
+              "model": "Laya",
+              "benchmark": "TypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Laya/TypedDecisions/metrics.json"
+            },
+            {
+              "model": "Laya",
+              "benchmark": "ZhDecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Laya/ZhDecisionBench/metrics.json"
             }
           ],
           "smoke_evidence": []
@@ -207,6 +411,30 @@
               "benchmark": "VisualDecisionBench_Image",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/Liquid-d1-3B/VisualDecisionBench_Image/metrics.json"
+            },
+            {
+              "model": "Liquid-d1-3B",
+              "benchmark": "DecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Liquid-d1-3B/DecisionBench/metrics.json"
+            },
+            {
+              "model": "Liquid-d1-3B",
+              "benchmark": "ProceduralTypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Liquid-d1-3B/ProceduralTypedDecisions/metrics.json"
+            },
+            {
+              "model": "Liquid-d1-3B",
+              "benchmark": "TypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Liquid-d1-3B/TypedDecisions/metrics.json"
+            },
+            {
+              "model": "Liquid-d1-3B",
+              "benchmark": "ZhDecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Liquid-d1-3B/ZhDecisionBench/metrics.json"
             }
           ],
           "smoke_evidence": [
@@ -266,6 +494,30 @@
               "benchmark": "VisualDecisionBench_Image",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/served-round4/OpenJev/VisualDecisionBench_Image/metrics.json"
+            },
+            {
+              "model": "OpenJev",
+              "benchmark": "DecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/OpenJev/DecisionBench/metrics.json"
+            },
+            {
+              "model": "OpenJev",
+              "benchmark": "ProceduralTypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/OpenJev/ProceduralTypedDecisions/metrics.json"
+            },
+            {
+              "model": "OpenJev",
+              "benchmark": "TypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/OpenJev/TypedDecisions/metrics.json"
+            },
+            {
+              "model": "OpenJev",
+              "benchmark": "ZhDecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/OpenJev/ZhDecisionBench/metrics.json"
             }
           ],
           "smoke_evidence": []
@@ -288,6 +540,30 @@
               "benchmark": "VisualDecisionBench_Image",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round4/Pplx-Decider/VisualDecisionBench_Image/metrics.json"
+            },
+            {
+              "model": "Pplx-Decider",
+              "benchmark": "DecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Pplx-Decider/DecisionBench/metrics.json"
+            },
+            {
+              "model": "Pplx-Decider",
+              "benchmark": "ProceduralTypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Pplx-Decider/ProceduralTypedDecisions/metrics.json"
+            },
+            {
+              "model": "Pplx-Decider",
+              "benchmark": "TypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Pplx-Decider/TypedDecisions/metrics.json"
+            },
+            {
+              "model": "Pplx-Decider",
+              "benchmark": "ZhDecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Pplx-Decider/ZhDecisionBench/metrics.json"
             }
           ],
           "smoke_evidence": [
@@ -313,6 +589,30 @@
               "benchmark": "VisualDecisionBench_Image",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round2/QEV/VisualDecisionBench_Image/metrics.json"
+            },
+            {
+              "model": "QEV",
+              "benchmark": "DecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/QEV/DecisionBench/metrics.json"
+            },
+            {
+              "model": "QEV",
+              "benchmark": "ProceduralTypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/QEV/ProceduralTypedDecisions/metrics.json"
+            },
+            {
+              "model": "QEV",
+              "benchmark": "TypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/QEV/TypedDecisions/metrics.json"
+            },
+            {
+              "model": "QEV",
+              "benchmark": "ZhDecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/QEV/ZhDecisionBench/metrics.json"
             }
           ],
           "smoke_evidence": [
@@ -338,6 +638,30 @@
               "benchmark": "VisualDecisionBench_Image",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round2/RSI-Jev-v4/VisualDecisionBench_Image/metrics.json"
+            },
+            {
+              "model": "RSI-Jev-v4",
+              "benchmark": "DecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/RSI-Jev-v4/DecisionBench/metrics.json"
+            },
+            {
+              "model": "RSI-Jev-v4",
+              "benchmark": "ProceduralTypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/RSI-Jev-v4/ProceduralTypedDecisions/metrics.json"
+            },
+            {
+              "model": "RSI-Jev-v4",
+              "benchmark": "TypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/RSI-Jev-v4/TypedDecisions/metrics.json"
+            },
+            {
+              "model": "RSI-Jev-v4",
+              "benchmark": "ZhDecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/RSI-Jev-v4/ZhDecisionBench/metrics.json"
             }
           ],
           "smoke_evidence": [
@@ -363,6 +687,24 @@
               "benchmark": "VisualDecisionBench_Image",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/StartLux-0.8B/VisualDecisionBench_Image/metrics.json"
+            },
+            {
+              "model": "StartLux-0.8B",
+              "benchmark": "DecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/StartLux-0.8B/DecisionBench/metrics.json"
+            },
+            {
+              "model": "StartLux-0.8B",
+              "benchmark": "TypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/StartLux-0.8B/TypedDecisions/metrics.json"
+            },
+            {
+              "model": "StartLux-0.8B",
+              "benchmark": "ZhDecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/StartLux-0.8B/ZhDecisionBench/metrics.json"
             }
           ],
           "smoke_evidence": [
@@ -450,6 +792,78 @@
               "benchmark": "VisualDecisionBench_Video",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Valen-0.8B/VisualDecisionBench_Video/metrics.json"
+            },
+            {
+              "model": "Valen-4B",
+              "benchmark": "DecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Valen-4B/DecisionBench/metrics.json"
+            },
+            {
+              "model": "Valen-2B",
+              "benchmark": "DecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Valen-2B/DecisionBench/metrics.json"
+            },
+            {
+              "model": "Valen-0.8B",
+              "benchmark": "DecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Valen-0.8B/DecisionBench/metrics.json"
+            },
+            {
+              "model": "Valen-4B",
+              "benchmark": "ProceduralTypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Valen-4B/ProceduralTypedDecisions/metrics.json"
+            },
+            {
+              "model": "Valen-2B",
+              "benchmark": "ProceduralTypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Valen-2B/ProceduralTypedDecisions/metrics.json"
+            },
+            {
+              "model": "Valen-0.8B",
+              "benchmark": "ProceduralTypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Valen-0.8B/ProceduralTypedDecisions/metrics.json"
+            },
+            {
+              "model": "Valen-4B",
+              "benchmark": "TypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Valen-4B/TypedDecisions/metrics.json"
+            },
+            {
+              "model": "Valen-2B",
+              "benchmark": "TypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Valen-2B/TypedDecisions/metrics.json"
+            },
+            {
+              "model": "Valen-0.8B",
+              "benchmark": "TypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Valen-0.8B/TypedDecisions/metrics.json"
+            },
+            {
+              "model": "Valen-4B",
+              "benchmark": "ZhDecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Valen-4B/ZhDecisionBench/metrics.json"
+            },
+            {
+              "model": "Valen-2B",
+              "benchmark": "ZhDecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Valen-2B/ZhDecisionBench/metrics.json"
+            },
+            {
+              "model": "Valen-0.8B",
+              "benchmark": "ZhDecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Valen-0.8B/ZhDecisionBench/metrics.json"
             }
           ],
           "smoke_evidence": [
@@ -494,6 +908,30 @@
               "benchmark": "VisualDecisionBench_Image",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/Vjev-4B/VisualDecisionBench_Image/metrics.json"
+            },
+            {
+              "model": "Vjev-4B",
+              "benchmark": "DecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Vjev-4B/DecisionBench/metrics.json"
+            },
+            {
+              "model": "Vjev-4B",
+              "benchmark": "ProceduralTypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Vjev-4B/ProceduralTypedDecisions/metrics.json"
+            },
+            {
+              "model": "Vjev-4B",
+              "benchmark": "TypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Vjev-4B/TypedDecisions/metrics.json"
+            },
+            {
+              "model": "Vjev-4B",
+              "benchmark": "ZhDecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Vjev-4B/ZhDecisionBench/metrics.json"
             }
           ],
           "smoke_evidence": [
@@ -512,6 +950,30 @@
               "benchmark": "JevBench",
               "origin": "jevalkit-inference",
               "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round3/Decision1-Kai/JevBench/metrics.json"
+            },
+            {
+              "model": "Decision1-Kai",
+              "benchmark": "DecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Decision1-Kai/DecisionBench/metrics.json"
+            },
+            {
+              "model": "Decision1-Kai",
+              "benchmark": "ProceduralTypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Decision1-Kai/ProceduralTypedDecisions/metrics.json"
+            },
+            {
+              "model": "Decision1-Kai",
+              "benchmark": "TypedDecisions",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Decision1-Kai/TypedDecisions/metrics.json"
+            },
+            {
+              "model": "Decision1-Kai",
+              "benchmark": "ZhDecisionBench",
+              "origin": "jevalkit-inference",
+              "evidence": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Decision1-Kai/ZhDecisionBench/metrics.json"
             }
           ],
           "smoke_evidence": [
@@ -523,13 +985,15 @@
     },
     {
       "requirement": "Five to ten benchmarks, including VisualDecisionBench, JevBench and DecisionIndex",
-      "state": "verified-data-and-pipeline; new-trained-model-runs-pending",
+      "state": "full-pass-ended; 24-pair-repair-pending",
       "evidence": [
         "docs/data-manifest.json",
         "docs/benchmarks.md",
         "artifacts/benchmark-integration-all-data-verification.jsonl",
         "artifacts/benchmark-protocol-parity.json",
-        "artifacts/new-benchmark-smoke-validation.json"
+        "artifacts/new-benchmark-smoke-validation.json",
+        "artifacts/jobs/jevalkit-decisions-full-261018a/code/matrix.status.json",
+        "artifacts/jobs/jevalkit-decisions-full-261018a/progress.json"
       ],
       "datasets": [
         {
@@ -610,7 +1074,7 @@
     {
       "requirement": "Use Valen environments and cluster helpers; cumulative GPU count at most 32",
       "state": "verified",
-      "reserved_gpus": 31,
+      "reserved_gpus": 32,
       "limit": 32,
       "evidence": [
         "scripts/submit.sh",
@@ -622,8 +1086,8 @@
     {
       "requirement": "Aggregate actual benchmark measurements into a leaderboard",
       "state": "verified-for-completed-runs",
-      "retained_artifacts": 68,
-      "primary_eligible_scores": 40,
+      "retained_artifacts": 177,
+      "primary_eligible_scores": 117,
       "evidence": [
         "leaderboard/README.md",
         "leaderboard/leaderboard.tsv",
@@ -652,11 +1116,32 @@
   ],
   "evidence_sha256": {
     "artifacts/goal-audit-data.jsonl": "befde6782c804138551a504415b3d08fe5bd7d2cc66ac54f5037710a07b3e326",
-    "artifacts/validated-source.json": "3969111c75c85e416836d7a0971ede61e282c3b6797edb79c778bf1333dc4940",
-    "leaderboard/leaderboard.json": "8dd68ee017af178afe155b3bcfc0327033a04f1e479ec6344c03a51c18ab439e",
-    "artifacts/gpu-ledger.json": "4ebcc0cf8dfbc8dcafb0e843d697421c749324a0f40f208cf1fa07a2af5d416e"
+    "artifacts/validated-source.json": "7104dd4884951adca301035ee0270135b5941f58de602734a65a6fe8975845ce",
+    "leaderboard/leaderboard.json": "47167729d8dde102b12981a58c1fa578c8ea9ea0f9be9ee9d94f3b419e74d886",
+    "artifacts/gpu-ledger.json": "eb25b3f35808f27d5a9df7f8e0efb8e95ddbdd9b770b70366c0b00b30533020d"
   },
   "remaining_benchmark_work": [
-    "Full trained-model evaluation on the five new suites is not yet measured; data and CPU pipeline integration are verified."
-  ]
+    "First full pass attempted110 pairs and ended with109 complete artifacts:77 eligible full scores,9 fully unsupported pairs,23 completed pairs with errors; Laya/DecisionBench is incomplete.",
+    "83 regression tests pass for prepared input/capacity/cache fixes. New24-pair full rerun matrix is validated but not submitted; cumulative GPU cap32/32 needs user authorization before one additional GPU reservation.",
+    "Jev and OpenAI-Decisions live validation remains pending API credential environment."
+  ],
+  "tests_passed": 83,
+  "new_benchmark_full_matrix": {
+    "job": "jevalkit-decisions-full-261018a-40776756",
+    "state": "ended-with-errors",
+    "worker_exit_code": 1,
+    "ended_utc": "2026-10-19T02:32:20Z",
+    "attempted_pairs": 110,
+    "complete_artifacts": 109,
+    "eligible_scores": 77,
+    "fully_unsupported": 9,
+    "completed_with_errors": 23,
+    "incomplete_pairs": 1,
+    "repairs_prepared": 24,
+    "repair_matrix": "artifacts/matrices/decision-benchmarks-repair-261019a.json",
+    "native_sdk_request_validation": "artifacts/native-request-repair-validation.json",
+    "regression_log": "artifacts/validation-tests-full-run-repairs.log",
+    "final_audit": "artifacts/jobs/jevalkit-decisions-full-261018a/final-audit.json",
+    "verified_requests": 989140
+  }
 }

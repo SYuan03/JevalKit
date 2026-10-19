@@ -51,6 +51,38 @@ def test_null_optional_noul_criteria_roundtrip_and_inference(tmp_path):
     assert restored == source and probabilities == {"false": 0.5, "true": 0.5}
 
 
+@pytest.mark.parametrize("state", [
+    {"ticket_id": "42", "messages": [{"timestamp": "today", "sender": "patient", "text": "Need a visit"}]},
+    {"messages": [{"timestamp": "today", "sender": "patient", "text": "Need a visit"}]},
+    {"ticket_id": "42", "messages": [{"role": "user", "content": "Need a visit"}]},
+])
+def test_business_messages_remain_complete_json_evidence(state):
+    from jevalkit.models.http import api_state
+    from jevalkit.models.media import state_parts
+    source = record()
+    source["request"]["state"] = state
+    before = copy.deepcopy(source)
+    assert json.loads(inference_request(source)["state"]) == state
+    text, images, videos = state_parts(state)
+    assert json.loads(text) == state and not images and not videos
+    assert json.loads(api_state(state, None)) == state
+    assert json.loads(api_state(state, None, openai=True)) == state
+    assert source == before
+
+
+def test_real_chat_envelope_keeps_media_and_is_not_serialized(tmp_path):
+    from jevalkit.models.media import state_parts
+    (tmp_path / "evidence.png").write_bytes(b"image fixture")
+    source = record()
+    state = {"messages": [{"role": "user", "content": [
+        {"type": "text", "text": "Inspect this"},
+        {"type": "image_url", "image_url": {"url": "evidence.png"}},
+    ]}]}
+    source["request"]["state"] = state
+    assert inference_request(source)["state"] == state
+    assert state_parts(state, tmp_path) == ("Inspect this", [str(tmp_path / "evidence.png")], [])
+
+
 def test_vjev_native_renderer_keeps_rubrics_and_structured_descriptions():
     from types import SimpleNamespace
     from jevalkit.models.systemone import VjevModel
@@ -86,6 +118,15 @@ def test_strict_native_schema_gets_text_without_losing_noul_criteria():
     assert source["route"]["criteria"]["a"] is None
 
 
+@pytest.mark.parametrize("criteria", [None, {}])
+def test_strict_sdk_uses_its_noul_defaults_for_absent_rubrics(criteria):
+    from jevalkit.models.hf import render_criteria
+    source = {"q": {"type": "noul", "instructions": "Is it true?", "criteria": criteria}}
+    before = copy.deepcopy(source)
+    assert render_criteria(source) == {"q": {"type": "noul", "instructions": "Is it true?"}}
+    assert source == before
+
+
 @pytest.mark.parametrize("p", [{"a": 0.5}, {"a": float("nan"), "b": 0},
                               {"a": True, "b": 0}, {"a": 0.2, "b": 0.3}, {"a": -0.1, "b": 1.1}])
 def test_reject_invalid_distributions(p):
@@ -108,7 +149,10 @@ def test_soft_targets_and_failed_denominator():
 @pytest.mark.parametrize("message", ["Example has 8795 tokens, above 8192; truncation is forbidden",
                                      "Question branch exceeds the 8192-token limit; no input was truncated.",
                                      "question 'Which response': 4131 tokens is over the limit",
-                                     "score needs 2..10 levels"])
+                                     "score needs 2..10 levels",
+                                     "question 'decision': only 126 of its 151 option markers fit in max_len=512 with "
+                                     "head_max_len=192 spent on the question; lower head_max_len, raise max_len, "
+                                     "or use fewer options"])
 def test_capacity_rejection_is_unsupported_not_runtime_failure(message):
     from jevalkit.runner import score_predictions
     source = record()
@@ -116,6 +160,27 @@ def test_capacity_rejection_is_unsupported_not_runtime_failure(message):
                     "error": message, "latency_s": .1}]
     metrics = summarize(score_predictions([source], predictions))
     assert metrics["failed"] == 0 and metrics["unsupported"] == 3 and metrics["coverage"] == 0
+
+
+def test_repeated_laya_capacity_rejections_do_not_abort_other_requests(tmp_path):
+    class CapacityLimited(UniformModel):
+        def predict(self, request, **kwargs):
+            if request["state"] == "too many candidates":
+                raise ValueError("question 'decision': only 126 of its 151 option markers fit in max_len=512 with "
+                                 "head_max_len=192 spent on the question; lower head_max_len, raise max_len, "
+                                 "or use fewer options")
+            return super().predict(request)
+    records = [record(str(i)) for i in range(7)]
+    for row in records[:6]:
+        row["request"]["state"] = "too many candidates"
+    root = tmp_path / "data"
+    commit_dataset("DecisionFixture", records, root, {}, protocol="fixture")
+    result = run("Uniform", "DecisionFixture", tmp_path / "results", root=root,
+                 warmup=0, model_instance=CapacityLimited())
+    assert result["complete"] and result["attempted_requests"] == 7
+    assert result["metrics"]["overall"]["failed"] == 0
+    assert result["metrics"]["overall"]["unsupported"] == 18
+    assert result["metrics"]["overall"]["valid"] == 3
 
 
 def test_intern_capacity_preserves_all_supplied_candidates():

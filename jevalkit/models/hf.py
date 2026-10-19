@@ -7,7 +7,7 @@ from .base import DecisionModel
 from .provenance import inference_artifacts, runtime_versions
 from ..io import dumps, sha256
 from ..paths import data_root
-from ..schema import Unsupported
+from ..schema import Unsupported, is_message_state
 
 
 def resolve_model(model, revision="main", root=None):
@@ -30,9 +30,12 @@ def render_criteria(questions):
                              for k, v in q["criteria"].items()}
         elif q["type"] == "score":
             q["criteria"] = [v if isinstance(v, str) else dumps(v) for v in q["criteria"]]
-        elif q.get("criteria"):
-            q["criteria"] = {k: k.capitalize() if v is None else v if isinstance(v, str) else dumps(v)
-                             for k, v in q["criteria"].items()}
+        elif q["type"] == "noul":
+            if not q.get("criteria"):
+                q.pop("criteria", None)
+            else:
+                q["criteria"] = {k: k.capitalize() if v is None else v if isinstance(v, str) else dumps(v)
+                                 for k, v in q["criteria"].items()}
     return out
 
 
@@ -74,7 +77,7 @@ class ValenModel(DecisionModel):
     def predict(self, request, *, media_root=None, assets=None):
         request = copy.deepcopy(request)
         state = request["state"]
-        if not isinstance(state, str) and not (isinstance(state, dict) and "messages" in state):
+        if not isinstance(state, str) and not is_message_state(state):
             request["state"] = dumps(state)
         request["questions"] = render_questions(request["questions"])
         try:

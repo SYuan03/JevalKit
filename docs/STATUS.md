@@ -1,16 +1,16 @@
 # Implementation and evaluation status
 
-Updated UTC: 2026-10-18T16:38:08.765019+00:00
+Updated UTC: 2026-10-19T02:49:19.225360+00:00
 
 The original goal is not complete. Public checkpoint validation is complete;
 live measurements for the two hosted APIs still require credentials.
 
 - Implemented: 20 model families, 8 Jev-related benchmark suites / 10 active TSV views.
 - Real inference verified: 18 families, including Valen and all public checkpoint integrations.
-- Results before the new full matrix: 68 retained artifacts; 40 distinct eligible primary full scores. New verified results are added to the leaderboard as pairs finish.
-- Checks: 75 tests passed. A fresh wheel matched all 32 source modules and bundled licenses; its CLI started using only the standard library.
+- Results: 177 retained active artifacts; 117 distinct eligible primary full scores, including 77 new scores from the five-suite matrix.
+- Checks: 83 regression tests passed after the input/capacity fixes. The pre-run wheel check matched all 32 package modules and bundled licenses.
 - Data: the five new suites (45,794 states / 91,817 questions) passed full schema, count and content-hash checks. Existing media checks remain valid; retired data remains archived.
-- GPU budget: 32/32 cumulative reservations, including failed/stopped/repeated attempts. The final reservation runs the five new benchmark suites.
+- GPU budget: 32/32 cumulative reservations, including failed/stopped/repeated attempts. The final full-matrix worker has ended; no GPU jobs remain running.
 
 The [leaderboard](../leaderboard/README.md) selects the latest complete measurement
 per model, data hash and protocol, without selecting the best repeat. It retains
@@ -27,79 +27,75 @@ with eight families. The five retired general NLP tasks remain excluded.
 
 CPU Uniform smoke runs passed inference, protocol scoring and re-scoring on all
 five new suites; these diagnostic records are outside the main leaderboard.
-The full trained-model matrix is now running; completed scores will be
-added only after their prediction evidence passes verification. Upstream parity checks
+The first full trained-model matrix has ended. It produced 109 complete metric
+artifacts and 77 eligible new scores; error-containing measurements remain excluded
+from the primary score table. Raw prediction and manifest hashes were verified. Upstream parity checks
 covered 39 DecisionBench cases plus JevOss/Chinese reference ECE conventions.
 The [protocol guide](benchmarks.md) describes soft labels and interface projections.
 
-## Active full evaluation of the five new suites
+## Full evaluation of the five new suites
 
-Job: `jevalkit-decisions-full-261018a-40776756`, submitted on 2026-10-18.
-The H200 worker started at 06:59:28 UTC and wrote real model predictions for
-Valen-0.8B on ZhDecisionBench. The live pair status and progress evidence
-are retained with the job. The first full result is **Valen-0.8B /
-ZhDecisionBench: 82.44% accuracy, 467/467 valid questions, zero failures**;
-its 378 request IDs and raw-evidence hashes were verified.
+Job: `jevalkit-decisions-full-261018a-40776756`, one H200, 22 local model
+configurations covering 18 families × 5 suites = 110 planned full evaluations.
+It started on 2026-10-18 at 06:59:28 UTC and ended on 2026-10-19 at 02:32:20 UTC
+(10:32 Hong Kong time), after about 19.5 hours. Every pair was attempted.
 
-- Scope: **22 local model configurations covering all 18 available checkpoint
-  families × 5 suites = 110 full evaluations**, with no sample limits.
-- Variants: all three registered Valen and Intern-Decision sizes; Clef-Flash
-  represents the Clef family because the separate Clef checkpoint is unavailable.
-- Order: ZhDecisionBench, TypedDecisions, JevAltBench, DecisionBench,
-  ProceduralTypedDecisions, evaluating every local configuration on each suite.
-- Execution: one GPU, sequential isolated processes per model/benchmark pair;
-  a failed pair retains its journal and does not prevent later pairs from running.
-  The overall timeout is seven days, rather than the default three hours.
-- Coverage: visual-only releases may reject these text-only requests. Their
-  unsupported records remain visible and do not become valid scores.
-- Hosted models: Jev and OpenAI-Decisions remain pending their API environment.
+**109 pairs produced complete metric artifacts.** Of those, 77 have eligible full
+scores, nine are fully unsupported, and 23 contain question errors. One additional
+pair, Laya / DecisionBench, stopped before finishing. The scheduler correctly
+reports **Failed**, with worker exit code 1 from that failed pair; this does not
+invalidate the independently completed, hash-verified measurements.
 
-Before submission, all five full TSVs passed verification, the 40 source-gate
-hashes matched, and all configured interpreters, weights and source paths existed.
-Native author inference imports also passed for all three Intern-Decision sizes.
-The plan contains 1,007,468 request attempts / 2,019,974 questions, including
-requests that a release may report as unsupported.
+| New suite | Complete artifacts | Eligible scores | Unresolved work |
+|---|---:|---:|---|
+| ZhDecisionBench | 22/22 | 20 | Two visual-only releases unsupported |
+| TypedDecisions | 22/22 | 19 | Three native capability exclusions |
+| JevAltBench | 22/22 | 0 | Compatibility errors; rerun all 22 configurations |
+| DecisionBench | 21/22 | 19 | Laya incomplete; two visual-only releases unsupported |
+| ProceduralTypedDecisions | 22/22 | 19 | StartLux cache errors; two visual-only releases unsupported |
 
-The frozen matrix, source hashes, worker log, scheduler handle and live pair
-status are retained under
-`artifacts/jobs/jevalkit-decisions-full-261018a/`; the pair status is
-`code/matrix.status.json`. Predictions and metrics are written to
+Full runs had no sample limits. All three registered Valen and Intern-Decision
+sizes were included. Clef-Flash represents Clef because the separate Clef
+checkpoint is unavailable. Hosted Jev and OpenAI-Decisions still require their
+API environment. Released modality, candidate and context limits remain visible;
+unsupported questions were not removed from the scoring denominator.
+
+The frozen matrix, source hashes, worker log, scheduler handle and final pair
+status remain under `artifacts/jobs/jevalkit-decisions-full-261018a/`.
+Predictions and metrics are retained at
 `/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/`.
-No further GPU reservations remain within the agreed cumulative limit.
+All five TSVs and the 40-file source gate were verified before submission.
+The original datasets, frozen worker and prediction journals are unchanged.
 
-### Progress snapshot: 2026-10-19 00:37 Hong Kong time
+### Repairs prepared after the full pass
 
-The scheduler still reports **Running**. Of 110 planned pairs, **84 have complete
-metric artifacts**, one stopped with an error, one is running, and 24 are pending.
-The completed artifacts contain **55 eligible full scores**, seven fully
-unsupported evaluations, and 22 evaluations with question errors that remain
-excluded from the primary score table.
+- Structured business records containing a `messages` field are serialized as
+  complete JSON evidence. Only an explicit role/content chat envelope is treated
+  as chat; ticket fields and message text are preserved.
+- Strict author SDKs receive their native Noul defaults when the optional rubric
+  is null/empty. Supplied structured rubric values remain present as JSON text.
+- Laya's explicit option-marker capacity rejection is classified as unsupported,
+  so repeated representational limits do not abort later supported requests.
+  Its failed run stopped at 5,572/23,900 requests when 151 markers could not fit
+  the released 512-token budget with a 192-token question head.
+- StartLux uses its full native forward by default, bypassing an incompatible
+  prefix-cache optimization whose tensor assumption fails with dictionary-valued
+  linear-attention cache state in the tested Transformers environment. No prompt
+  tokens, options or native calibration values are changed.
 
-| New suite | Complete metric artifacts | Remaining work |
-|---|---:|---|
-| ZhDecisionBench | 22/22 | Complete, with native modality limits retained |
-| TypedDecisions | 22/22 | Complete, with native question/modality limits retained |
-| JevAltBench | 22/22 | Input compatibility errors require repair before promotion |
-| DecisionBench | 18/22 | Kev running at about 15,000/23,900 requests; Laya stopped; two later models pending |
-| ProceduralTypedDecisions | 0/22 | Pending in the same live GPU queue |
+**83 regression tests pass.** Real upstream QEV and RSI-Jev schemas also accepted
+all 50 previously failing requests (134 question schemas) after rendering.
+StartLux long-input inference still needs GPU verification; its CPU diagnostic
+exceeded a 240-second timeout and produced no benchmark score.
+These fixes do not turn the previous errors into
+passing model scores. A separate full rerun matrix is prepared for 24 pairs:
+all 22 JevAltBench configurations, Laya / DecisionBench, and StartLux /
+ProceduralTypedDecisions. It writes a new result directory and preserves the
+first-pass evidence. The matrix is retained locally at
+`artifacts/matrices/decision-benchmarks-repair-261019a.json`.
 
-The shared JevAltBench failure is a structured ticket containing a `messages`
-field with timestamp/sender/text entries. It was mistaken for a chat-message
-envelope, causing a missing role/content error across releases. Some author SDKs
-also reject null or structured Noul criteria. Original journals remain intact;
-these measurements are not presented as passing full scores.
-
-Laya stopped after 5,572/23,900 requests because 151 candidate markers do not fit
-its released 512-token budget; only 126 fit with the question head. The capacity
-rejection was classified as an error, triggering the consecutive-error stop.
-The incomplete journal is retained. Neither candidates nor failed requests were
-removed to manufacture a full result. The frozen running worker and its input
-datasets remain unchanged while the independent pairs continue.
-
-The leaderboard now retains 152 active artifacts in total, including the 84 new
-completed measurements. Its primary table admits 55 new eligible scores; the
-complete error and unsupported records remain in the detailed results. The live
-monitor continues to verify prediction/manifest hashes before aggregation.
+No repair GPU task has been submitted. The user's cumulative 32-GPU cap is fully
+used; one additional reservation would require explicitly raising that limit.
 
 ## Latest completed evaluations
 

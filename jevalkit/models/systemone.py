@@ -179,7 +179,7 @@ class JevK5Model(NativeRuntime):
 class StartLuxModel(NativeRuntime):
     modalities = frozenset({"text", "image"})
 
-    def __init__(self, model, allow_slow=False, graphs=True, **options):
+    def __init__(self, model, allow_slow=False, graphs=True, share_prefix=False, **options):
         super().__init__(model, **options)
         sys.path.insert(0, str(self.folder))
         from startlux_decision import StartLuxDecision
@@ -188,6 +188,10 @@ class StartLuxModel(NativeRuntime):
             os.environ["STARTLUX_ALLOW_SLOW"] = "1"
         try:
             self.engine = StartLuxDecision(str(self.folder), device=self.device, graphs=graphs)
+            # The release's prefix cache assumes tensor-valued linear-attention
+            # state. Recent Transformers uses dictionaries; full native forward
+            # avoids that incompatible optimization without truncating prompts.
+            self.engine.share = bool(share_prefix)
         finally:
             if previous is None:
                 os.environ.pop("STARTLUX_ALLOW_SLOW", None)
@@ -195,7 +199,7 @@ class StartLuxModel(NativeRuntime):
                 os.environ["STARTLUX_ALLOW_SLOW"] = previous
         self.info.update(allow_slow=bool(allow_slow), fast_kernels=self.engine.fast_kernels,
                          cuda_graphs=bool(self.engine.graphs), temperature=self.engine.temperature,
-                         max_score_levels=10)
+                         max_score_levels=10, prefix_sharing=bool(share_prefix))
 
     def predict(self, request, *, media_root=None, assets=None):
         state, images, videos = state_parts(request["state"], media_root)
@@ -251,7 +255,7 @@ class RSIJevModel(NativeRuntime):
             text = "\n".join(["<image>"] * len(images)) + "\n" + text
         from rsijev.encode import InputTooLong
         try:
-            response = self.engine.request(text, request["questions"], images=images)
+            response = self.engine.request(text, render_criteria(request["questions"]), images=images)
         except InputTooLong as exc:
             raise Unsupported(str(exc)) from exc
         cut = response.get("truncated")

@@ -11,7 +11,7 @@ from urllib.request import Request, urlopen
 
 from .base import DecisionModel
 from ..io import dumps
-from ..schema import Unsupported
+from ..schema import Unsupported, is_message_state
 
 
 def media_data_url(url, root):
@@ -25,7 +25,7 @@ def media_data_url(url, root):
 def api_state(state, root, openai=False):
     if isinstance(state, str):
         return state
-    if not isinstance(state, dict) or "messages" not in state:
+    if not is_message_state(state):
         return dumps(state)
     messages = []
     for message in copy.deepcopy(state["messages"]):

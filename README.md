@@ -44,14 +44,19 @@ flowchart LR
 
 ## Latest Updates
 
+- **2026-10-19:** Finished the first full pass on the five new suites: **109
+  complete artifacts / 110 planned runs**, with **77 eligible new scores**.
+  Input/capacity compatibility fixes pass **83 tests**; 24 affected pairs are
+  prepared for rerunning. See [evaluation status](docs/STATUS.md).
+
 - **2026-10-18:** Published the initial implementation and evaluation results for
   **18 model families**, with **75 passing tests**. Jev and OpenAI-Decisions have
   implemented adapters; their live API measurements are pending.
 - **2026-10-18:** Added Typed-Decisions, DecisionBench, Procedural Typed Decisions,
   zh-decision-bench and JevAlt-Bench: **8 Jev-related suites / 10 dataset views**.
   All new evaluation data is pinned and verified. Full trained-model evaluation
-  is running: **22 local configurations across 18 families × 5 suites**,
-  with 110 full runs on one H200 task. See [run status](docs/STATUS.md).
+  covered **22 local configurations across 18 families × 5 suites**,
+  with 110 attempted full runs on one H200 task. See [run status](docs/STATUS.md).
 
 ## Quick Start
 
@@ -161,7 +166,7 @@ projection. Other candidates remain in the [benchmark research](docs/benchmarks.
 
 ## Evaluation Results
 
-The current snapshot contains **68 retained run artifacts** and **40 eligible
+The current snapshot contains **177 retained run artifacts** and **117 eligible
 primary full scores**. The table below shows selected completed measurements;
 all entries have 100% question coverage.
 

@@ -16,6 +16,9 @@ def is_capacity_error(message):
             message.endswith("-token limit; no input was truncated.")
             or re.fullmatch(r"question .+: \d+ tokens is over the limit", message) is not None
             or re.fullmatch(r"score needs 2\.\.\d+ levels", message) is not None
+            or re.fullmatch(r"question .+: only \d+ of its \d+ option markers fit in max_len=\d+ with "
+                            r"head_max_len=\d+ spent on the question; lower head_max_len, raise max_len, "
+                            r"or use fewer options", message) is not None
             or message.startswith("request has ") and "tokens, exceeding " in message
             and "reduce input size explicitly" in message)
 
@@ -120,9 +123,22 @@ def validate_record(record):
     return record
 
 
+def is_message_state(state):
+    """Recognize the explicit chat envelope, not business records named messages."""
+    return (isinstance(state, dict) and set(state) == {"messages"}
+            and isinstance(state["messages"], list)
+            and all(isinstance(message, dict) and isinstance(message.get("role"), str)
+                    and "content" in message for message in state["messages"]))
+
+
 def inference_request(record):
     """A copy prevents runtimes from mutating labels or subsequent benchmark inputs."""
-    return copy.deepcopy(record["request"])
+    request = copy.deepcopy(record["request"])
+    state = request["state"]
+    if isinstance(state, dict) and "messages" in state and not is_message_state(state):
+        from .io import dumps
+        request["state"] = dumps(state)
+    return request
 
 
 def answer_probabilities(question, answer):
