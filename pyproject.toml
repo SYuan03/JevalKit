@@ -24,6 +24,7 @@ jeval = "jevalkit.cli:main"
 include = ["jevalkit*"]
 
 [tool.setuptools.package-data]
+"jevalkit.datasets" = ["catalog.json"]
 "jevalkit.datasets._jevbench" = ["LICENSE"]
 
 [tool.setuptools]

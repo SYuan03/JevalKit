@@ -426,6 +426,39 @@ def test_dataset_tamper_rejected(tmp_path):
         DecisionDataset("DecisionFixture", tmp_path)
 
 
+@pytest.mark.parametrize("tamper", [False, True])
+def test_downloaded_tsv_runs_without_a_local_manifest(tmp_path, monkeypatch, tamper):
+    import jevalkit.datasets as datasets
+    root = tmp_path / "data"
+    manifest = commit_dataset("DecisionFixture", [record()], root, {}, protocol="published-fixture")
+    local_manifest = root / "datasets/DecisionFixture.manifest.json"
+    local_manifest.unlink()
+    monkeypatch.setattr(datasets, "published_manifest", lambda name: manifest)
+    if tamper:
+        path = root / "datasets/DecisionFixture.tsv"
+        path.write_text(path.read_text() + "\n")
+        with pytest.raises(ValueError, match="checksum"):
+            DecisionDataset("DecisionFixture", root)
+    else:
+        report = run("Uniform", "DecisionFixture", tmp_path / "result", root=root, warmup=0)
+        assert report["complete"] and report["metrics"]["overall"]["failed"] == 0
+        assert report["dataset_sha256"] == manifest["sha256"]
+        assert not local_manifest.exists()
+
+
+def test_published_catalog_covers_registered_views_and_official_scoring_inputs():
+    from jevalkit.datasets import published_manifest
+    catalog = json.loads((Path(__file__).parents[1] / "jevalkit/datasets/catalog.json").read_text())
+    assert {m["name"] for m in catalog["datasets"]} == set(BENCHMARKS) - {"DecisionFixture"}
+    for manifest in catalog["datasets"]:
+        assert manifest["schema_version"] == 1 and manifest["records"] > 0
+        assert len(manifest["sha256"]) == 64 and manifest["protocol"]
+    assert "/mnt/" not in json.dumps(catalog)
+    assert published_manifest("DecisionIndex")["source"]["edition"] == "0.3"
+    assert published_manifest("DecisionIndex")["suite_dir"] == "../raw/DecisionIndex-0.3"
+    assert published_manifest("VisualDecisionBench_Image")["media_root"] == "../media/VisualDecisionBench"
+
+
 def test_runner_stops_after_five_consecutive_errors_even_after_success(tmp_path):
     class FailingRuntime(UniformModel):
         calls, closed = 0, False

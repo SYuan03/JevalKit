@@ -17,13 +17,23 @@ BENCHMARKS = {
 }
 
 
+def published_manifest(name):
+    """Describe the ready-to-use TSV release shipped on Hugging Face."""
+    catalog = load_json(Path(__file__).with_name("catalog.json"))
+    for manifest in catalog["datasets"]:
+        if manifest["name"] == name:
+            return manifest
+    raise FileNotFoundError("No published dataset metadata or local manifest for: " + name)
+
+
 class DecisionDataset:
     def __init__(self, name, root=None):
         self.name = name
         self.root = data_root(root)
         self.path = self.root / "datasets" / (name + ".tsv")
         self.manifest_path = self.path.with_suffix(".manifest.json")
-        self.manifest = load_json(self.manifest_path)
+        self.manifest = (load_json(self.manifest_path) if self.manifest_path.is_file()
+                         else published_manifest(name))
         if self.manifest["name"] != name or sha256(self.path) != self.manifest["sha256"]:
             raise ValueError("Dataset identity or TSV checksum mismatch: " + name)
         self.media_root = (self.path.parent / self.manifest.get("media_root", ".")).resolve()

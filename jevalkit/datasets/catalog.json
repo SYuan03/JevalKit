@@ -1,51 +1,59 @@
 {
-  "root": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit",
+  "schema_version": 1,
+  "repository": "Valen-Team/JevalKit_Datasets",
+  "revision": "f15fd94eaea9106720e9473f84544e12454c593c",
   "datasets": [
     {
+      "schema_version": 1,
       "name": "VisualDecisionBench",
+      "media_root": "../media/VisualDecisionBench",
+      "protocol": "native-shared-state",
       "records": 1696,
       "questions": 9143,
       "sha256": "7caa026b69ba1b160f2aa23776b31d4d6162cdb95592810411ce4c905e1a1b44",
-      "protocol": "native-shared-state",
       "source": {
         "repository": "https://huggingface.co/datasets/Valen-Team/VisualDecisionBench",
         "license": "upstream datasets retain their own licenses",
         "eval_jsonl_sha256": "23eec19993613f9fb1cc6671dbbdf3afb99525c58097f3ac6bd752ae3f34d7e9"
-      },
-      "path": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/datasets/VisualDecisionBench.tsv"
+      }
     },
     {
+      "schema_version": 1,
       "name": "VisualDecisionBench_Image",
+      "media_root": "../media/VisualDecisionBench",
+      "protocol": "native-shared-state",
       "records": 1402,
       "questions": 2000,
       "sha256": "4db5a36bb084f5143d537a107e1685a2d01a3cbd7bf7c8717dd414d91e9aa67a",
-      "protocol": "native-shared-state",
       "source": {
         "repository": "https://huggingface.co/datasets/Valen-Team/VisualDecisionBench",
         "license": "upstream datasets retain their own licenses",
         "eval_jsonl_sha256": "23eec19993613f9fb1cc6671dbbdf3afb99525c58097f3ac6bd752ae3f34d7e9"
-      },
-      "path": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/datasets/VisualDecisionBench_Image.tsv"
+      }
     },
     {
+      "schema_version": 1,
       "name": "VisualDecisionBench_Video",
+      "media_root": "../media/VisualDecisionBench",
+      "protocol": "native-shared-state",
       "records": 294,
       "questions": 7143,
       "sha256": "72a0d2421a439212fa749a320df5d90570d87ad37570561a5dd06d3d5f3be7ed",
-      "protocol": "native-shared-state",
       "source": {
         "repository": "https://huggingface.co/datasets/Valen-Team/VisualDecisionBench",
         "license": "upstream datasets retain their own licenses",
         "eval_jsonl_sha256": "23eec19993613f9fb1cc6671dbbdf3afb99525c58097f3ac6bd752ae3f34d7e9"
-      },
-      "path": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/datasets/VisualDecisionBench_Video.tsv"
+      }
     },
     {
+      "schema_version": 1,
       "name": "JevBench",
+      "media_root": ".",
+      "protocol": "public-231",
+      "official_scorer": "jevalkit.datasets._jevbench",
       "records": 231,
       "questions": 231,
       "sha256": "ca68a699a439c8be56a7fc02be718585482bea6ccf1d08a761cc57bd3b6d578c",
-      "protocol": "public-231",
       "source": {
         "repository": "https://github.com/fstandhartinger/jevbench",
         "revision": "bb05a335bc809e61b20c0f745d25499a82b326fc",
@@ -64,27 +72,32 @@
             "89e9e6becb33ed88c1de7d42dcc87531b2fb64cfaef4e1986faf7c37b3f80ebb"
           ]
         }
-      },
-      "path": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/datasets/JevBench.tsv"
+      }
     },
     {
+      "schema_version": 1,
       "name": "DecisionIndex",
+      "media_root": ".",
+      "protocol": "official-public-0.3",
+      "suite_dir": "../raw/DecisionIndex-0.3",
       "records": 140178,
       "questions": 312320,
       "sha256": "9cc55d90b70b0aeca387abffed2957d740a11246be6dc480dfd41e0cc9b7368f",
-      "protocol": "official-public-0.3",
       "source": {
         "repository": "https://github.com/apolinario/decision-index",
         "edition": "0.3"
-      },
-      "path": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/datasets/DecisionIndex.tsv"
+      }
     },
     {
+      "schema_version": 1,
       "name": "TypedDecisions",
+      "media_root": ".",
+      "protocol": "test-400-shared-state-soft-gold-v1",
+      "reference_normalization": "sum-normalized only within 0.001 of one; original sum retained",
+      "tie_break": "first upstream candidate; explicit mapping retained per question",
       "records": 400,
       "questions": 2000,
       "sha256": "043b3089dac5ab2045e717d3899afe7bfc073e30e66da3cb47b8ebca17277cfe",
-      "protocol": "test-400-shared-state-soft-gold-v1",
       "source": {
         "repository": "https://huggingface.co/datasets/LocalLLaMA/typed-decisions",
         "revision": "7189f46b02248bd2569df7325c9df8e3b24e90a7",
@@ -93,15 +106,18 @@
         "files": {
           "all/test-00000-of-00001.parquet": "4f294f218ea1da27f3efef936359389c62ea4d3973a41457732990f1d31b647c"
         }
-      },
-      "path": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/datasets/TypedDecisions.tsv"
+      }
     },
     {
+      "schema_version": 1,
       "name": "DecisionBench",
+      "media_root": ".",
+      "protocol": "standard-eval-systemone-native-v1",
+      "reference_normalization": "sum-normalized only within 0.001 of one; original sum retained",
+      "tie_break": "first upstream candidate; explicit mapping retained per question",
       "records": 23900,
       "questions": 23900,
       "sha256": "c99000b66862ef3781aa65f1d4edf267c605a519e619b9975a1509de428fefec",
-      "protocol": "standard-eval-systemone-native-v1",
       "source": {
         "repository": "https://huggingface.co/datasets/Hanno-Labs/decision-bench",
         "revision": "071b7b2d2e1504c89e1e5a811a3f82e1bfe3aedb",
@@ -110,15 +126,18 @@
         "files": {
           "data/eval-00000-of-00001.parquet": "d9dd5be8e0944a7ceadfcac6cf8f9d17aab256093acff23c6de6a037ad6e55f6"
         }
-      },
-      "path": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/datasets/DecisionBench.tsv"
+      }
     },
     {
+      "schema_version": 1,
       "name": "ProceduralTypedDecisions",
+      "media_root": ".",
+      "protocol": "18-tasks-test-native-probability-v1",
+      "reference_normalization": "sum-normalized only within 0.001 of one; original sum retained",
+      "tie_break": "first upstream candidate; explicit mapping retained per question",
       "records": 18000,
       "questions": 57016,
       "sha256": "4809d20dc7aa54a6d15d7edf352044e658898e46232cb42bba9acb15f1fd8faf",
-      "protocol": "18-tasks-test-native-probability-v1",
       "source": {
         "repository": "https://huggingface.co/datasets/tasksource/procedural-typed-decisions",
         "revision": "e4b21b7b55f6cc9e76e33563e9d604ac5fcd25ad",
@@ -127,15 +146,18 @@
         "files": {
           "all/test-00000-of-00001.parquet": "9f16b7415fef05a01654c1fb4b743d6c43fd09e86d4d5b96b510a260239fbe9e"
         }
-      },
-      "path": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/datasets/ProceduralTypedDecisions.tsv"
+      }
     },
     {
+      "schema_version": 1,
       "name": "ZhDecisionBench",
+      "media_root": ".",
+      "protocol": "v0.2-validation-378-native-v1",
+      "reference_normalization": "sum-normalized only within 0.001 of one; original sum retained",
+      "tie_break": "first upstream candidate; explicit mapping retained per question",
       "records": 378,
       "questions": 467,
       "sha256": "d99704fc055c8f767813786ce6184089a5ebc8aa4f88a5cc21075108bafbe099",
-      "protocol": "v0.2-validation-378-native-v1",
       "source": {
         "repository": "https://huggingface.co/datasets/CodyQin/zh-decision-bench",
         "revision": "c4f90cdd973f5f5c0793c30a2ff3b77ea42d2266",
@@ -145,15 +167,18 @@
           "voice_routing.jsonl": "3be12956bd7cbf23a09056d55a741178466f3214f4e03dbb4dda9581ac9b8cba",
           "business_scenarios.jsonl": "4a48af57e67e6977f47d4180b1d3392d938eb2ccf0318a2c273fb85ce2f71f30"
         }
-      },
-      "path": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/datasets/ZhDecisionBench.tsv"
+      }
     },
     {
+      "schema_version": 1,
       "name": "JevAltBench",
+      "media_root": ".",
+      "protocol": "test-en-tr-de-explicit-unknown-v1",
+      "reference_normalization": "sum-normalized only within 0.001 of one; original sum retained",
+      "tie_break": "first upstream candidate; explicit mapping retained per question",
       "records": 3116,
       "questions": 8434,
       "sha256": "58cd34780da758315050609a716ea22e53519122513343327614d956ed08c49a",
-      "protocol": "test-en-tr-de-explicit-unknown-v1",
       "source": {
         "repository": "https://huggingface.co/datasets/mertkayacs/jevalt-bench",
         "revision": "950b95fac0950d85b6383dccbe3445726c1ccc3c",
@@ -164,8 +189,7 @@
           "data/tr/test.jsonl": "fa02b3d392da2febf3579f99dcf0bc063bbb72347e74d6f47d5453ba01475e44",
           "data/de/test.jsonl": "6904b1f96bf76fecf50558f40285d899568074f48ef35c1308d945265f1bd6d7"
         }
-      },
-      "path": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/datasets/JevAltBench.tsv"
+      }
     }
   ]
 }

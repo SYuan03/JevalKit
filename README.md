@@ -15,7 +15,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-80A51B?style=flat&amp;labelColor=555555" alt="License: Apache 2.0"></a>
   <a href="pyproject.toml"><img src="https://img.shields.io/badge/Python-3.10%2B-1683BB?style=flat&amp;logo=python&amp;logoColor=FFD43B&amp;labelColor=555555" alt="Python 3.10+"></a>
   <br>
-  <a href="https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard"><img src="https://img.shields.io/badge/Space-Leaderboard-009C83?style=flat&amp;logo=huggingface&amp;logoColor=FFD21E&amp;labelColor=555555" alt="Hugging Face Space: interactive leaderboard"></a>
+  <a href="https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard"><img src="https://img.shields.io/badge/Space-Leaderboard-009C83?style=flat&amp;logo=huggingface&amp;logoColor=FFD21E&amp;labelColor=555555" alt="Hugging Face Space: leaderboard"></a>
   <a href="https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets"><img src="https://img.shields.io/badge/Datasets-10_TSV_views-2185B5?style=flat&amp;logo=huggingface&amp;logoColor=FFD21E&amp;labelColor=555555" alt="Hugging Face: 10 dataset views"></a>
   <a href="#supported-models"><img src="https://img.shields.io/badge/Models-20_families-8A63B8?style=flat&amp;labelColor=555555" alt="20 model families"></a>
   <a href="#supported-benchmarks"><img src="https://img.shields.io/badge/Benchmarks-8_suites-E88B23?style=flat&amp;labelColor=555555" alt="8 Jev-related benchmark suites"></a>
@@ -50,31 +50,23 @@ comparison into one workflow, following the registry-based design of
 - **Compare measured results.** Browse Markdown, TSV and JSON leaderboards, with
   smoke tests, imported predictions and complete runs identified separately.
 
-```mermaid
-flowchart LR
-    A[Benchmark TSV + media] --> B[Native model or API]
-    B --> C[Choice / Noul / Score probabilities]
-    C --> D[Official scoring + probability metrics]
-    D --> E[Leaderboard + retained evidence]
-```
-
 <a id="latest-updates"></a>
 
 ## 📰 Latest Updates
 
 <!-- jevalkit:coverage:start -->
-- **2026-10-19:** Filling **22 missing model–benchmark pairs**, with **12/22 audited**.
+- **2026-10-19:** Filling **22 missing model–benchmark pairs**, with **13/22 audited**.
   Full datasets run in parallel within the **32 concurrent GPU** limit; verified
-  results are published as they finish. See [evaluation status](docs/STATUS.md).
+  results are published as they finish on the [leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard).
 <!-- jevalkit:coverage:end -->
-- **2026-10-19:** Released the [🤗 interactive leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard)
+- **2026-10-19:** Released the [🤗 leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard)
   with benchmark filters, model comparison, probability metrics and CSV/JSON downloads.
 - **2026-10-19:** Published all **10 TSV views** in
   [🤗 JevalKit Datasets](https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets),
-  with pinned sources and scoring protocols in the [data inventory](docs/data-manifest.json).
+  with pinned sources and scoring protocols in the [dataset catalog](jevalkit/datasets/catalog.json).
 - **2026-10-19:** Completed **110/110 pairs** across the five new suites:
   99 eligible scores and 11 fully unsupported pairs. Source, checkpoint hashes
-  and complete request coverage were verified; details are in the [run history](docs/STATUS.md).
+  and complete request coverage were verified; details are in the [leaderboard](leaderboard/README.md).
 
 <details>
 <summary>Earlier updates</summary>
@@ -100,37 +92,29 @@ python -m pip install -e '.[hf,data]'
 
 The CLI and scorers require Python 3.10+. Model inference uses the dependencies
 specified by each author; some models require Python 3.12+ or a separate serving
-environment. See the [model catalog](docs/models.md) and
-[tested runtimes](docs/runtime-environments.md).
+environment. See the [model integration guide](docs/models.md).
 
-### 2. Choose a model and prepare data
-
-Set a writable storage directory for datasets, media, checkpoints and results:
+### 2. Download a model and dataset
 
 ```bash
-export JEVALKIT_DATA_ROOT=/path/to/jevalkit-data
-python -m jevalkit list models
-python -m jevalkit list benchmarks
-python -m jevalkit prepare JevBench
+export JEVALKIT_DATA_ROOT="$PWD/data"
+
+hf download Valen-Team/Valen-0.8B \
+  --local-dir "$JEVALKIT_DATA_ROOT/models/Valen-0.8B"
+
+hf download Valen-Team/JevalKit_Datasets --repo-type dataset \
+  --include "datasets/JevBench.tsv" --local-dir "$JEVALKIT_DATA_ROOT"
 ```
 
-The TSV snapshots are also available for direct loading through Hugging Face:
-
-```python
-from datasets import load_dataset
-
-data = load_dataset("Valen-Team/JevalKit_Datasets", "JevBench", split="test")
-```
-
-The [dataset card](https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets)
-lists the ten configurations, schema, sources and separate visual-media download.
-For native toolkit evaluation, the `prepare` command above creates the local
-manifests and retrieves any official scoring inputs.
+The published TSVs are ready to evaluate. To download all ten views, replace
+`datasets/JevBench.tsv` with `datasets/*.tsv`. Visual media and Decision Index
+scoring inputs have separate downloads in the [usage guide](docs/quickstart.md#download-data).
 
 ### 3. Run and compare
 
 ```bash
 python -m jevalkit run --model Valen-0.8B --data JevBench \
+  --option model="$JEVALKIT_DATA_ROOT/models/Valen-0.8B" \
   --output "$JEVALKIT_DATA_ROOT/results"
 
 python -m jevalkit leaderboard "$JEVALKIT_DATA_ROOT/results" \
@@ -193,56 +177,26 @@ the [integration guide](docs/models.md).
 
 VisualDecisionBench's image and video views belong to the same benchmark.
 Decision Index public scores and its private leaderboard components are reported
-separately. See the [frozen data inventory](docs/data-manifest.json) and
+separately. See the [dataset catalog](jevalkit/datasets/catalog.json) and
 [scoring protocols](docs/benchmarks.md).
 
-Prepare the five new suites together:
-
-```bash
-python -m jevalkit prepare TypedDecisions DecisionBench ProceduralTypedDecisions \
-  ZhDecisionBench JevAltBench
-```
-
-Use the [matrix example](examples/decision-benchmarks.json) for a full evaluation.
-The new suites have passed complete data checks and CPU pipeline smoke checks;
-those diagnostics do not add trained-model scores to the leaderboard. Protocol
-notes cover soft references, candidate mappings, and JevAlt's explicit `unknown`
-projection. Other candidates remain in the [benchmark research](docs/benchmarks.md#benchmark-research).
+Download the prepared TSVs from [🤗 JevalKit Datasets](https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets).
+Use the [matrix example](examples/decision-benchmarks.json) to evaluate several
+models and benchmarks. Protocol details are in the [scoring guide](docs/benchmarks.md).
 
 <a id="evaluation-results"></a>
 
 ## 📊 Evaluation Results
 
 <!-- jevalkit:results-summary:start -->
-The current snapshot contains **151 eligible full scores** and **221 retained
+The current snapshot contains **152 eligible full scores** and **222 retained
 run artifacts**. It covers **18 measured model families**; the two hosted API
-families remain pending. [🤗 Open the interactive leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard).
+families remain pending. [🤗 Open the leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard).
 <!-- jevalkit:results-summary:end -->
 
-Selected measurements are shown below. All listed runs have 100% question coverage.
-
-| Model | JevBench accuracy | VDB Image accuracy |
-|---|---:|---:|
-| Pplx-Decider | 89.18% | 86.88% |
-| OpenJev | 87.45% | 83.12% |
-| H2O-Lightning | 87.45% | 82.06% |
-| Valen-4B | 83.55% | 83.12% |
-| Clef-Flash | 82.68% | 82.24% |
-
-VDB Image accuracy uses its 1,700 hard-label questions; all 2,000 questions
-contribute probability metrics. The full board reports protocols, hardware,
-coverage and provenance, and selects the latest complete run for each matching
-model/data/protocol combination.
-
-**[🤗 Interactive leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard)** ·
 [Markdown leaderboard](leaderboard/README.md) ·
 [Download TSV](leaderboard/leaderboard.tsv) ·
-[Download JSON](leaderboard/leaderboard.json) ·
-[Validation status](docs/STATUS.md)
-
-Scores here come from retained predictions. Author-reported benchmark numbers
-belong in the research notes, not in the measured leaderboard. Raw evidence paths
-refer to the evaluation workspace; the committed tables can be browsed without it.
+[Download JSON](leaderboard/leaderboard.json)
 
 <a id="documentation"></a>
 
@@ -250,12 +204,9 @@ refer to the evaluation workspace; the committed tables can be browsed without i
 
 | Guide | Contents |
 |---|---|
-| [Running evaluations](docs/quickstart.md) | Installation, preparation, resume, API runs, matrices and cluster execution |
-| [Model integrations](docs/models.md) | Native adapters, author servers, dependencies and input limits |
-| [Benchmark protocols](docs/benchmarks.md) | Splits, metrics, official scorers and benchmark research |
-| [Tested runtimes](docs/runtime-environments.md) | Model-specific environment versions |
-| [Validation status](docs/STATUS.md) | Verified results and remaining live API evaluations |
-| [Third-party terms](THIRD_PARTY.md) | Source attribution and dataset/model licensing |
+| [Running evaluations](docs/quickstart.md) | Downloads, evaluation commands, resume, APIs and parallel runs |
+| [Model integrations](docs/models.md) | Author SDKs, runtime dependencies and input limits |
+| [Scoring protocols](docs/benchmarks.md) | Dataset definitions, probability metrics and official scorers |
 
 <a id="contributing"></a>
 

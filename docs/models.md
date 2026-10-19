@@ -6,11 +6,11 @@ Registration is not evidence of a successful weight-level evaluation: consult th
 
 | Name | Family | Runtime | Setup | Source |
 |---|---|---|---|---|
-| Valen-0.8B | Valen | native | jevalkit[hf] | [source](https://github.com/Liuziyu77/Valen) |
+| Valen-0.8B | Valen | native | jevalkit[hf] | [source](https://github.com/Valen-Team/Valen) |
 | Intern-Decision-0.8B | Intern-Decision | native | Python 3.12+; author requirements.txt | [source](https://github.com/InternLM/Intern-Decision) |
-| Valen-2B | Valen | native | jevalkit[hf] | [source](https://github.com/Liuziyu77/Valen) |
+| Valen-2B | Valen | native | jevalkit[hf] | [source](https://github.com/Valen-Team/Valen) |
 | Intern-Decision-2B | Intern-Decision | native | Python 3.12+; author requirements.txt | [source](https://github.com/InternLM/Intern-Decision) |
-| Valen-4B | Valen | native | jevalkit[hf] | [source](https://github.com/Liuziyu77/Valen) |
+| Valen-4B | Valen | native | jevalkit[hf] | [source](https://github.com/Valen-Team/Valen) |
 | Intern-Decision-4B | Intern-Decision | native | Python 3.12+; author requirements.txt | [source](https://github.com/InternLM/Intern-Decision) |
 | Laya | Laya | native | laya | [source](https://github.com/NandhaKishorM/laya) |
 | Liquid-d1-3B | Liquid-d1 | native | transformers>=5.14; author dependencies | [source](https://huggingface.co/LiquidAI/d1-3B) |
@@ -64,7 +64,7 @@ Jev uses JEV_ENDPOINT and TYPESAFE_API_KEY. OpenAI uses OPENAI_API_KEY.
 Tokens are read from environment variables and never included in result manifests.
 Once these variables are configured, the [hosted API matrix](../examples/hosted-apis.json)
 runs full JevBench for both services with `python -m jevalkit matrix examples/hosted-apis.json`.
-This matrix has no stored credentials. Its live measurements remain pending in this workspace.
+This matrix has no stored credentials. Live API evaluation requires credentials for each service.
 OpenJev's single screenshot is sent through the author's `state.image` field;
 H2O-Lightning uses its top-level `images` field. Protocol/localhost fixture tests
 are distinct from actual server-weight evaluations and never create leaderboard scores.
@@ -95,3 +95,16 @@ test sets; the service provenance records all selected settings.
 Intern-Decision accepts at most 16 questions in a shared request. Decision1-Kai
 requires nonempty state text. Requests outside these released SDK limits are
 recorded as unsupported with the original request preserved.
+
+## Tested runtimes
+
+| Runtime | Python | PyTorch / CUDA | Transformers |
+|---|---|---|---|
+| Valen | 3.10 | 2.6.0 / 12.4 | 5.4.0 |
+| Native author SDKs | 3.12 | 2.10.0 / 12.8 | 5.14.1 |
+| H2O-Lightning / OpenJev services | Separate vLLM 0.30.0 environment | 2.13.0 / 13.0 | 5.19.0 |
+
+Use separate environments where author dependencies differ. Matrix rows can
+select an absolute `python` path; SDK source checkouts use `--option source=PATH`.
+Each result manifest records the actual library versions, weights and native
+source fingerprints. See [running evaluations](quickstart.md) for usage.
