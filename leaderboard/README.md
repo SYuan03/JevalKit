@@ -7,7 +7,7 @@ Only currently registered Jev-related benchmarks are included; retired tasks rem
 
 | Model | DecisionBench | DecisionIndex | JevAltBench | JevBench | ProceduralTypedDecisions | TypedDecisions | VisualDecisionBench_Image | VisualDecisionBench_Video | ZhDecisionBench |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Clef-Flash | 78.47% | — | 90.11% | 82.68% | 67.94% | 70.20% | 82.24% | — | 90.79% |
+| Clef-Flash | 78.47% | — | 90.11% | 82.68% | 67.94% | 70.20% | 82.24% | 87.81% | 90.79% |
 | Crivo-150M | 61.66% | — | 59.77% | 48.48% | 16.46% | — | — | — | 17.77% |
 | Decision1-Kai | 33.60% | — | 58.79% | 49.35% | 28.88% | 32.15% | — | — | 78.16% |
 | H2O-Lightning | 77.42% | — | 88.56% | 87.45% | 84.23% | 71.50% | 82.06% | — | 90.58% |
@@ -211,6 +211,7 @@ Accuracy is shown as a percentage. DecisionIndex uses the upstream weighted publ
 | Liquid-d1-3B | VisualDecisionBench_Image | 50.00% | accuracy | 100.00% | smoke | 8 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/smoke-round3/Liquid-d1-3B/VisualDecisionBench_Image/metrics.json>) |
 | OmniJev | VisualDecisionBench_Image | 50.00% | accuracy | 100.00% | smoke | 8 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/smoke/OmniJev/VisualDecisionBench_Image/metrics.json>) |
 | Valen-0.8B | VisualDecisionBench_Image | 50.00% | accuracy | 100.00% | smoke | 8 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/smoke/Valen-0.8B/VisualDecisionBench_Image/metrics.json>) |
+| Clef-Flash | VisualDecisionBench_Video | 87.81% | accuracy | 99.57% | full | 7143 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/workers/Clef-Flash/VisualDecisionBench_Video/metrics.json>) |
 | Valen-4B | VisualDecisionBench_Video | 87.43% | accuracy | 100.00% | full | 7143 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Valen-4B/VisualDecisionBench_Video/metrics.json>) |
 | Valen-2B | VisualDecisionBench_Video | 82.74% | accuracy | 100.00% | full | 7143 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Valen-2B/VisualDecisionBench_Video/metrics.json>) |
 | Valen-0.8B | VisualDecisionBench_Video | 79.01% | accuracy | 100.00% | full | 7143 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/full/Valen-0.8B/VisualDecisionBench_Video/metrics.json>) |

@@ -1,11 +1,11 @@
 {
-  "updated_utc": "2026-10-19T04:47:14.386300+00:00",
+  "updated_utc": "2026-10-19T04:50:33.606448+00:00",
   "parallel_gpu_limit": 32,
   "logical_pairs": 22,
   "single_gpu_workers": 32,
   "initial_attempts": 32,
   "replacement_workers": 5,
-  "verified_pairs": 4,
+  "verified_pairs": 5,
   "complete": false,
   "pairs": [
     {
@@ -98,9 +98,20 @@
       "workers": 1,
       "sampling_limit": null,
       "worker_states": {
-        "running": 1
+        "succeeded": 1
       },
-      "status": "in-progress"
+      "status": "verified",
+      "requests": 294,
+      "questions": 7143,
+      "valid": 7112,
+      "unsupported": 31,
+      "failed": 0,
+      "coverage": 0.995660086798264,
+      "accuracy": 0.878062438751225,
+      "public_decision_index": null,
+      "weights_unchanged": true,
+      "source_verified": true,
+      "request_ids_and_hashes_verified": true
     },
     {
       "model": "Pplx-Decider",
@@ -168,7 +179,7 @@
       "workers": 1,
       "sampling_limit": null,
       "worker_states": {
-        "running": 1
+        "failed": 1
       },
       "status": "in-progress"
     },
