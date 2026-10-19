@@ -11,7 +11,7 @@ Text, images and video in. Choice, Noul and Score probabilities out.
 [![Model families: 20](https://img.shields.io/badge/Model_families-20-6366f1.svg)](#supported-models)
 [![Core suites: 8](https://img.shields.io/badge/Core_suites-8-16a34a.svg)](#supported-benchmarks)
 
-[Leaderboard](leaderboard/README.md) · [Quick Start](#quick-start) · [Models](#supported-models) · [Benchmarks](#supported-benchmarks) · [Documentation](#documentation) · [Contributing](#contributing)
+[Leaderboard](leaderboard/README.md) · [Datasets](https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets) · [Quick Start](#quick-start) · [Models](#supported-models) · [Benchmarks](#supported-benchmarks) · [Documentation](#documentation) · [Contributing](#contributing)
 
 </div>
 
@@ -44,14 +44,16 @@ flowchart LR
 
 ## Latest Updates
 
-- **2026-10-19:** Resumed all **24 repair evaluations in parallel**. The GPU
-  limit is **32 concurrent GPUs**; completed job history does not consume it.
-  **86 tests pass**, including reservation-limit regressions.
+- **2026-10-19:** Completed all **110/110 model–benchmark pairs** on the five
+  new suites after 24 parallel repairs: **99 eligible scores**, 11 fully
+  unsupported pairs, and **zero question errors** in the latest measurements.
+  Frozen source, weights, request IDs and evidence hashes were verified.
+  **86 tests pass**. All evaluation GPUs are released; the limit remains
+  **32 concurrent GPUs**. See [evaluation status](docs/STATUS.md).
 
-- **2026-10-19:** Finished the first full pass on the five new suites: **109
-  complete artifacts / 110 planned runs**, with **77 eligible new scores**.
-  Input/capacity compatibility fixes pass **83 tests**; 24 affected pairs are
-  prepared for rerunning. See [evaluation status](docs/STATUS.md).
+- **2026-10-19:** The **10 verified TSV views** and their source manifests,
+  checksums and official Decision Index scoring files are available from
+  [JevalKit Datasets on Hugging Face](https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets).
 
 - **2026-10-18:** Published the initial implementation and evaluation results for
   **18 model families**, with **75 passing tests**. Jev and OpenAI-Decisions have
@@ -87,6 +89,19 @@ python -m jevalkit list models
 python -m jevalkit list benchmarks
 python -m jevalkit prepare JevBench
 ```
+
+To reuse the verified TSV snapshots instead of preparing each source dataset:
+
+```python
+import os
+from huggingface_hub import snapshot_download
+
+snapshot_download("Valen-Team/JevalKit_Datasets", repo_type="dataset",
+                  local_dir=os.environ["JEVALKIT_DATA_ROOT"])
+```
+
+The [dataset card](https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets)
+lists the ten configurations, schema, checksums and separate visual-media download.
 
 ### 3. Run and compare
 

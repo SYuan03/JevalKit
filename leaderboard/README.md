@@ -5,30 +5,30 @@ Missing and fully unsupported evaluations have no score. The detailed table reta
 
 Only currently registered Jev-related benchmarks are included; retired tasks remain in the original result storage.
 
-| Model | DecisionBench | DecisionIndex | JevBench | ProceduralTypedDecisions | TypedDecisions | VisualDecisionBench_Image | VisualDecisionBench_Video | ZhDecisionBench |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| Clef-Flash | 78.47% | — | 82.68% | 67.94% | 70.20% | 82.24% | — | 90.79% |
-| Crivo-150M | 61.66% | — | 48.48% | 16.46% | — | — | — | 17.77% |
-| Decision1-Kai | 33.60% | — | 49.35% | 28.88% | 32.15% | — | — | 78.16% |
-| H2O-Lightning | 77.42% | — | 87.45% | 84.23% | 71.50% | 82.06% | — | 90.58% |
-| Intern-Decision-0.8B | 48.97% | — | 71.00% | 42.79% | 77.70% | 66.35% | — | 89.94% |
-| Intern-Decision-2B | 55.24% | — | — | 47.52% | 79.35% | — | — | 87.58% |
-| Intern-Decision-4B | 60.53% | — | — | 60.98% | 80.50% | — | — | 91.65% |
-| JevK5 | 76.06% | — | 88.74% | 61.51% | 62.85% | — | — | 87.37% |
-| Kev | 74.66% | — | 74.03% | 63.13% | 66.20% | — | — | 87.15% |
-| Laya | — | — | 58.87% | 32.80% | 37.75% | — | — | 69.38% |
-| Liquid-d1-3B | 72.92% | — | 74.89% | 65.08% | 65.40% | 81.82% | — | 82.01% |
-| OmniJev | — | — | — | — | — | 62.18% | 63.36% | — |
-| OpenJev | 71.83% | — | 87.45% | 82.12% | 69.75% | 83.12% | — | 87.79% |
-| Pplx-Decider | 74.70% | — | 89.18% | 94.59% | 73.55% | 86.88% | — | 91.22% |
-| QEV | 49.66% | — | 61.47% | 41.37% | 75.90% | 73.59% | — | 80.30% |
-| RSI-Jev-v4 | 70.08% | — | 70.13% | 61.16% | 78.40% | 80.18% | — | 90.36% |
-| StartLux-0.8B | 74.12% | — | 76.62% | — | 75.05% | 71.59% | — | 87.58% |
-| Valen-0.8B | 61.18% | 20.71 (imported) | 77.49% | 58.66% | 58.35% | 75.82% | 79.01% | 82.44% |
-| Valen-2B | 62.50% | 27.20 (imported) | 82.68% | 61.96% | 62.95% | 80.47% | 82.74% | 86.72% |
-| Valen-4B | 67.23% | 38.54 (imported) | 83.55% | 68.86% | 69.55% | 83.12% | 87.43% | 87.15% |
-| Visual-Jev | — | — | — | — | — | 77.94% | — | — |
-| Vjev-4B | 54.25% | — | 60.61% | 56.50% | 57.70% | 74.24% | — | 79.87% |
+| Model | DecisionBench | DecisionIndex | JevAltBench | JevBench | ProceduralTypedDecisions | TypedDecisions | VisualDecisionBench_Image | VisualDecisionBench_Video | ZhDecisionBench |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Clef-Flash | 78.47% | — | 90.11% | 82.68% | 67.94% | 70.20% | 82.24% | — | 90.79% |
+| Crivo-150M | 61.66% | — | 59.77% | 48.48% | 16.46% | — | — | — | 17.77% |
+| Decision1-Kai | 33.60% | — | 58.79% | 49.35% | 28.88% | 32.15% | — | — | 78.16% |
+| H2O-Lightning | 77.42% | — | 88.56% | 87.45% | 84.23% | 71.50% | 82.06% | — | 90.58% |
+| Intern-Decision-0.8B | 48.97% | — | 77.51% | 71.00% | 42.79% | 77.70% | 66.35% | — | 89.94% |
+| Intern-Decision-2B | 55.24% | — | 78.60% | — | 47.52% | 79.35% | — | — | 87.58% |
+| Intern-Decision-4B | 60.53% | — | 88.97% | — | 60.98% | 80.50% | — | — | 91.65% |
+| JevK5 | 76.06% | — | 86.97% | 88.74% | 61.51% | 62.85% | — | — | 87.37% |
+| Kev | 74.66% | — | 86.47% | 74.03% | 63.13% | 66.20% | — | — | 87.15% |
+| Laya | 32.82% | — | 44.91% | 58.87% | 32.80% | 37.75% | — | — | 69.38% |
+| Liquid-d1-3B | 72.92% | — | 84.88% | 74.89% | 65.08% | 65.40% | 81.82% | — | 82.01% |
+| OmniJev | — | — | — | — | — | — | 62.18% | 63.36% | — |
+| OpenJev | 71.83% | — | 89.82% | 87.45% | 82.12% | 69.75% | 83.12% | — | 87.79% |
+| Pplx-Decider | 74.70% | — | 92.25% | 89.18% | 94.59% | 73.55% | 86.88% | — | 91.22% |
+| QEV | 49.66% | — | 59.88% | 61.47% | 41.37% | 75.90% | 73.59% | — | 80.30% |
+| RSI-Jev-v4 | 70.08% | — | 88.81% | 70.13% | 61.16% | 78.40% | 80.18% | — | 90.36% |
+| StartLux-0.8B | 74.12% | — | 86.22% | 76.62% | 65.94% | 75.05% | 71.59% | — | 87.58% |
+| Valen-0.8B | 61.18% | 20.71 (imported) | 82.74% | 77.49% | 58.66% | 58.35% | 75.82% | 79.01% | 82.44% |
+| Valen-2B | 62.50% | 27.20 (imported) | 85.27% | 82.68% | 61.96% | 62.95% | 80.47% | 82.74% | 86.72% |
+| Valen-4B | 67.23% | 38.54 (imported) | 88.14% | 83.55% | 68.86% | 69.55% | 83.12% | 87.43% | 87.15% |
+| Visual-Jev | — | — | — | — | — | — | 77.94% | — | — |
+| Vjev-4B | 54.25% | — | 75.49% | 60.61% | 56.50% | 57.70% | 74.24% | — | 79.87% |
 
 Accuracy is shown as a percentage. DecisionIndex uses the upstream weighted public index (0–100).
 
@@ -53,11 +53,32 @@ Accuracy is shown as a percentage. DecisionIndex uses the upstream weighted publ
 | QEV | DecisionBench | 49.66% | accuracy | 76.28% | full | 23900 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/QEV/DecisionBench/metrics.json>) |
 | Intern-Decision-0.8B | DecisionBench | 48.97% | accuracy | 83.48% | full | 23900 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Intern-Decision-0.8B/DecisionBench/metrics.json>) |
 | Decision1-Kai | DecisionBench | 33.60% | accuracy | 75.11% | full | 23900 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Decision1-Kai/DecisionBench/metrics.json>) |
+| Laya | DecisionBench | 32.82% | accuracy | 90.79% | full | 23900 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-repair-20261019/Laya/DecisionBench/metrics.json>) |
 | OmniJev | DecisionBench | — | accuracy | 0.00% | unsupported | 23900 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/OmniJev/DecisionBench/metrics.json>) |
 | Visual-Jev | DecisionBench | — | accuracy | 0.00% | unsupported | 23900 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Visual-Jev/DecisionBench/metrics.json>) |
 | Valen-4B | DecisionIndex | 38.54 | public index | 99.99% | imported full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/imported/Valen-4B/DecisionIndex/metrics.json>) |
 | Valen-2B | DecisionIndex | 27.20 | public index | 99.99% | imported full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/imported/Valen-2B/DecisionIndex/metrics.json>) |
 | Valen-0.8B | DecisionIndex | 20.71 | public index | 99.99% | imported full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/imported/Valen-0.8B/DecisionIndex/metrics.json>) |
+| Pplx-Decider | JevAltBench | 92.25% | accuracy | 100.00% | full | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-repair-20261019/Pplx-Decider/JevAltBench/metrics.json>) |
+| Clef-Flash | JevAltBench | 90.11% | accuracy | 100.00% | full | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-repair-20261019/Clef-Flash/JevAltBench/metrics.json>) |
+| OpenJev | JevAltBench | 89.82% | accuracy | 100.00% | full | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-repair-20261019/OpenJev/JevAltBench/metrics.json>) |
+| Intern-Decision-4B | JevAltBench | 88.97% | accuracy | 100.00% | full | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-repair-20261019/Intern-Decision-4B/JevAltBench/metrics.json>) |
+| RSI-Jev-v4 | JevAltBench | 88.81% | accuracy | 100.00% | full | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-repair-20261019/RSI-Jev-v4/JevAltBench/metrics.json>) |
+| H2O-Lightning | JevAltBench | 88.56% | accuracy | 100.00% | full | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-repair-20261019/H2O-Lightning/JevAltBench/metrics.json>) |
+| Valen-4B | JevAltBench | 88.14% | accuracy | 100.00% | full | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-repair-20261019/Valen-4B/JevAltBench/metrics.json>) |
+| JevK5 | JevAltBench | 86.97% | accuracy | 100.00% | full | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-repair-20261019/JevK5/JevAltBench/metrics.json>) |
+| Kev | JevAltBench | 86.47% | accuracy | 100.00% | full | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-repair-20261019/Kev/JevAltBench/metrics.json>) |
+| StartLux-0.8B | JevAltBench | 86.22% | accuracy | 100.00% | full | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-repair-20261019/StartLux-0.8B/JevAltBench/metrics.json>) |
+| Valen-2B | JevAltBench | 85.27% | accuracy | 100.00% | full | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-repair-20261019/Valen-2B/JevAltBench/metrics.json>) |
+| Liquid-d1-3B | JevAltBench | 84.88% | accuracy | 100.00% | full | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-repair-20261019/Liquid-d1-3B/JevAltBench/metrics.json>) |
+| Valen-0.8B | JevAltBench | 82.74% | accuracy | 100.00% | full | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-repair-20261019/Valen-0.8B/JevAltBench/metrics.json>) |
+| Intern-Decision-2B | JevAltBench | 78.60% | accuracy | 100.00% | full | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-repair-20261019/Intern-Decision-2B/JevAltBench/metrics.json>) |
+| Intern-Decision-0.8B | JevAltBench | 77.51% | accuracy | 100.00% | full | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-repair-20261019/Intern-Decision-0.8B/JevAltBench/metrics.json>) |
+| Vjev-4B | JevAltBench | 75.49% | accuracy | 99.54% | full | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-repair-20261019/Vjev-4B/JevAltBench/metrics.json>) |
+| QEV | JevAltBench | 59.88% | accuracy | 77.71% | full | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-repair-20261019/QEV/JevAltBench/metrics.json>) |
+| Crivo-150M | JevAltBench | 59.77% | accuracy | 81.61% | full | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-repair-20261019/Crivo-150M/JevAltBench/metrics.json>) |
+| Decision1-Kai | JevAltBench | 58.79% | accuracy | 94.53% | full | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-repair-20261019/Decision1-Kai/JevAltBench/metrics.json>) |
+| Laya | JevAltBench | 44.91% | accuracy | 100.00% | full | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-repair-20261019/Laya/JevAltBench/metrics.json>) |
 | Pplx-Decider | JevAltBench | 92.16% | accuracy | 99.99% | partial/errors | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Pplx-Decider/JevAltBench/metrics.json>) |
 | Clef-Flash | JevAltBench | 90.12% | accuracy | 99.99% | partial/errors | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Clef-Flash/JevAltBench/metrics.json>) |
 | OpenJev | JevAltBench | 89.79% | accuracy | 99.99% | partial/errors | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/OpenJev/JevAltBench/metrics.json>) |
@@ -79,7 +100,9 @@ Accuracy is shown as a percentage. DecisionIndex uses the upstream weighted publ
 | Decision1-Kai | JevAltBench | 58.77% | accuracy | 94.52% | partial/errors | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Decision1-Kai/JevAltBench/metrics.json>) |
 | Laya | JevAltBench | 44.91% | accuracy | 99.99% | partial/errors | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Laya/JevAltBench/metrics.json>) |
 | OmniJev | JevAltBench | 0.00% | accuracy | 0.00% | partial/errors | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/OmniJev/JevAltBench/metrics.json>) |
+| OmniJev | JevAltBench | — | accuracy | 0.00% | unsupported | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-repair-20261019/OmniJev/JevAltBench/metrics.json>) |
 | Visual-Jev | JevAltBench | 0.00% | accuracy | 0.00% | partial/errors | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Visual-Jev/JevAltBench/metrics.json>) |
+| Visual-Jev | JevAltBench | — | accuracy | 0.00% | unsupported | 8434 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-repair-20261019/Visual-Jev/JevAltBench/metrics.json>) |
 | Pplx-Decider | JevBench | 89.18% | accuracy | 100.00% | full | 231 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round4/Pplx-Decider/JevBench/metrics.json>) |
 | JevK5 | JevBench | 88.74% | accuracy | 100.00% | full | 231 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/round4/JevK5/JevBench/metrics.json>) |
 | H2O-Lightning | JevBench | 87.45% | accuracy | 100.00% | full | 231 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/served-round4/H2O-Lightning/JevBench/metrics.json>) |
@@ -117,6 +140,7 @@ Accuracy is shown as a percentage. DecisionIndex uses the upstream weighted publ
 | OpenJev | ProceduralTypedDecisions | 82.12% | accuracy | 100.00% | full | 57016 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/OpenJev/ProceduralTypedDecisions/metrics.json>) |
 | Valen-4B | ProceduralTypedDecisions | 68.86% | accuracy | 100.00% | full | 57016 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Valen-4B/ProceduralTypedDecisions/metrics.json>) |
 | Clef-Flash | ProceduralTypedDecisions | 67.94% | accuracy | 100.00% | full | 57016 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Clef-Flash/ProceduralTypedDecisions/metrics.json>) |
+| StartLux-0.8B | ProceduralTypedDecisions | 65.94% | accuracy | 100.00% | full | 57016 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-repair-20261019/StartLux-0.8B/ProceduralTypedDecisions/metrics.json>) |
 | Liquid-d1-3B | ProceduralTypedDecisions | 65.08% | accuracy | 100.00% | full | 57016 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Liquid-d1-3B/ProceduralTypedDecisions/metrics.json>) |
 | Kev | ProceduralTypedDecisions | 63.13% | accuracy | 100.00% | full | 57016 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Kev/ProceduralTypedDecisions/metrics.json>) |
 | Valen-2B | ProceduralTypedDecisions | 61.96% | accuracy | 100.00% | full | 57016 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Valen-2B/ProceduralTypedDecisions/metrics.json>) |

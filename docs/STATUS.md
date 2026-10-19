@@ -1,16 +1,16 @@
 # Implementation and evaluation status
 
-Updated UTC: 2026-10-19T03:09:32.286487+00:00
+Updated UTC: 2026-10-19T03:39:41.371202+00:00
 
 The original goal is not complete. Public checkpoint validation is complete;
 live measurements for the two hosted APIs still require credentials.
 
 - Implemented: 20 model families, 8 Jev-related benchmark suites / 10 active TSV views.
 - Real inference verified: 18 families, including Valen and all public checkpoint integrations.
-- Results: 177 retained active artifacts; 117 distinct eligible primary full scores, including 77 new scores from the five-suite matrix.
+- Results: 201 retained active artifacts; 139 distinct eligible primary full scores. All 110 pairs in the five-suite matrix are complete after repairs: 99 eligible scores and 11 fully unsupported pairs, with zero question errors in the latest measurements.
 - Checks: 86 regression tests passed after the input/capacity and parallel-limit fixes. The pre-run wheel check matched all 32 package modules and bundled licenses.
 - Data: the five new suites (45,794 states / 91,817 questions) passed full schema, count and content-hash checks. Existing media checks remain valid; retired data remains archived.
-- GPU limit: at most 32 concurrent GPUs. Historical completed jobs do not consume parallel capacity. Twenty-four independent single-GPU repair tasks have been submitted.
+- GPU limit: at most 32 concurrent GPUs. All 24 single-GPU repair tasks succeeded and released their reservations; no evaluation GPUs remain active. Historical completed jobs do not consume parallel capacity.
 
 The [leaderboard](../leaderboard/README.md) selects the latest complete measurement
 per model, data hash and protocol, without selecting the best repeat. It retains
@@ -24,6 +24,12 @@ Five decision-specific suites are now integrated: TypedDecisions, DecisionBench,
 ProceduralTypedDecisions, ZhDecisionBench and JevAltBench. Their complete pinned
 TSVs are retained in shared storage. The original 5–10-benchmark scope is met
 with eight families. The five retired general NLP tasks remain excluded.
+
+The ten active TSV views, portable manifests, checksums, upstream attribution and
+official Decision Index suite files are also published in
+[Valen-Team/JevalKit_Datasets](https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets).
+Visual media remain in the original VisualDecisionBench repository; the dataset
+card documents the matching relative asset layout.
 
 CPU Uniform smoke runs passed inference, protocol scoring and re-scoring on all
 five new suites; these diagnostic records are outside the main leaderboard.
@@ -111,6 +117,33 @@ to the separate repair directory. The live submission map and evidence monitor
 are retained in `artifacts/repair-parallel-submissions.json` and
 `artifacts/repair-parallel-progress.json`. Valid full results enter the board only
 after raw-evidence hashes pass verification.
+
+### Final repair verification
+
+All 24 workers succeeded by 2026-10-19 at 03:23:23 UTC. Their 110,452 requests
+were checked against the complete dataset ID sequences, pinned source hashes,
+unchanged checkpoint metadata and prediction/manifest hashes. All question error
+counts are zero. The repair pass adds 22 eligible scores; the other two pairs are
+visual-only releases that do not support JevAltBench's text inputs.
+
+| New suite | Complete latest pairs | Eligible scores | Fully unsupported pairs |
+|---|---:|---:|---:|
+| ZhDecisionBench | 22/22 | 20 | 2 |
+| TypedDecisions | 22/22 | 19 | 3 |
+| JevAltBench | 22/22 | 20 | 2 |
+| DecisionBench | 22/22 | 20 | 2 |
+| ProceduralTypedDecisions | 22/22 | 20 | 2 |
+
+The latest 110 logical pairs contain no question errors. Partial native capability
+exclusions remain explicit in coverage; unsupported questions still count in the
+full benchmark denominator. Laya completed all 23,900 DecisionBench requests;
+StartLux completed all 18,000 ProceduralTypedDecisions requests and all 3,116
+JevAltBench requests. The initial journals remain available separately.
+
+The verified final audit is retained at `artifacts/repair-parallel-final-audit.json`.
+The leaderboard now contains 201 retained artifacts and 139 eligible primary
+scores across all active suites. Hosted Jev/OpenAI-Decisions measurements remain
+pending their API environment; no hosted scores are inferred from local checks.
 
 ## Latest completed evaluations
 
