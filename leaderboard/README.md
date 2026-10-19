@@ -22,7 +22,7 @@ Only currently registered Jev-related benchmarks are included; retired tasks rem
 | OpenJev | 71.83% | — | 89.82% | 87.45% | 82.12% | 69.75% | 83.12% | — | 87.79% |
 | Pplx-Decider | 74.70% | — | 92.25% | 89.18% | 94.59% | 73.55% | 86.88% | — | 91.22% |
 | QEV | 49.66% | — | 59.88% | 61.47% | 41.37% | 75.90% | 73.59% | — | 80.30% |
-| RSI-Jev-v4 | 70.08% | — | 88.81% | 70.13% | 61.16% | 78.40% | 80.18% | — | 90.36% |
+| RSI-Jev-v4 | 70.08% | 27.98 | 88.81% | 70.13% | 61.16% | 78.40% | 80.18% | — | 90.36% |
 | StartLux-0.8B | 74.12% | 38.48 | 86.22% | 76.62% | 65.94% | 75.05% | 71.59% | — | 87.58% |
 | Valen-0.8B | 61.18% | 20.71 (imported) | 82.74% | 77.49% | 58.66% | 58.35% | 75.82% | 79.01% | 82.44% |
 | Valen-2B | 62.50% | 27.20 (imported) | 85.27% | 82.68% | 61.96% | 62.95% | 80.47% | 82.74% | 86.72% |
@@ -62,6 +62,7 @@ Accuracy is shown as a percentage. DecisionIndex uses the upstream weighted publ
 | StartLux-0.8B | DecisionIndex | 38.48 | public index | 100.00% | full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/merged/StartLux-0.8B/DecisionIndex/metrics.json>) |
 | Crivo-150M | DecisionIndex | 34.61 | public index | 100.00% | full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/workers/Crivo-150M/DecisionIndex/metrics.json>) |
 | Vjev-4B | DecisionIndex | 29.36 | public index | 98.72% | full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/merged/Vjev-4B/DecisionIndex/metrics.json>) |
+| RSI-Jev-v4 | DecisionIndex | 27.98 | public index | 100.00% | full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/workers/RSI-Jev-v4/DecisionIndex/metrics.json>) |
 | Valen-2B | DecisionIndex | 27.20 | public index | 99.99% | imported full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/imported/Valen-2B/DecisionIndex/metrics.json>) |
 | Intern-Decision-4B | DecisionIndex | 25.51 | public index | 56.81% | full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/merged/Intern-Decision-4B/DecisionIndex/metrics.json>) |
 | Valen-0.8B | DecisionIndex | 20.71 | public index | 99.99% | imported full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/imported/Valen-0.8B/DecisionIndex/metrics.json>) |
