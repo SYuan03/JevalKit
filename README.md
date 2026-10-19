@@ -6,8 +6,7 @@
 </h1>
 
 <p align="center">
-  <b>A toolkit for evaluating Jev-like decision models.</b><br>
-  Text · Image · Video → Choice · Noul · Score
+  <b>A toolkit for evaluating Jev-like decision models.</b>
 </p>
 
 <p align="center">
@@ -33,54 +32,34 @@
 
 ## ✨ Introduction
 
-JevalKit evaluates models that return **probabilities over decisions defined at
-request time**: a yes/no judgment, a choice among named options, or a rating on an
-ordered scale. It provides model adapters, benchmark preparation, scoring and result
-comparison, using the registry design of
-[VLMEvalKit](https://github.com/open-compass/VLMEvalKit).
+JevalKit is an open-source evaluation toolkit for Jev-like decision models,
+providing unified model interfaces and prepared evaluation datasets. Users can
+evaluate models across benchmarks with a single command, without preparing data
+in separate repositories.
 
 <a id="highlights"></a>
 
-## 🎯 Highlights
+## 🎯 Recent Codebase Changes
 
-- Evaluate 20 model families through native checkpoint interfaces or published
-  APIs for hosted models.
-- Use text, image and video while preserving shared states, multiple questions,
-  candidate order and each model's modality limits.
-- Score complete probability distributions with accuracy, Brier, NLL, calibration
-  and ordinal metrics, including benchmark-specific official scorers.
-- Retain dataset hashes, raw predictions, runtime provenance, failures and coverage
-  to resume interrupted runs or score saved answers again.
-- Browse measured results and export Markdown, TSV or JSON, with smoke tests,
-  imported predictions and complete runs identified separately.
+- **2026-10-19:** Added a leaderboard and Markdown, TSV and JSON exports,
+  distinguishing complete evaluations, smoke tests and imported predictions.
+- **2026-10-18:** Added support for 20 model families and a shared evaluation
+  command across eight open-source, Jev-related benchmarks.
 
 <a id="latest-updates"></a>
 
-## 📰 Latest Updates
+## 📰 News
 
-<!-- jevalkit:coverage:start -->
-- **2026-10-19:** Filling **22 missing model/benchmark pairs**, with **21/22 audited**.
-  Full datasets run in parallel within the **32 concurrent GPU** limit; verified
-  results are published as they finish on the [leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard).
-<!-- jevalkit:coverage:end -->
-- **2026-10-19:** Released the [🤗 leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard)
-  with benchmark filters, model comparison, probability metrics and CSV/JSON downloads.
-- **2026-10-19:** Published all **10 TSV views** in
-  [🤗 JevalKit Datasets](https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets),
-  with pinned sources and scoring protocols in the [dataset packages](jevalkit/datasets/).
-- **2026-10-19:** Completed **110/110 pairs** across the five new suites:
-  99 eligible scores and 11 fully unsupported pairs. Source, checkpoint hashes
-  and complete request coverage were verified; details are in the [leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard).
-
-<details>
-<summary>Earlier updates</summary>
-
-- **2026-10-18:** Integrated Typed-Decisions, DecisionBench, Procedural Typed
-  Decisions, zh-decision-bench and JevAlt-Bench, bringing the toolkit to eight suites.
-- **2026-10-18:** Verified native inference for 18 model families. The Jev and
-  OpenAI Decisions adapters are implemented; live API measurements remain pending.
-
-</details>
+- **2026-10-19:** Released the [🤗 JevalKit Leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard)
+  with benchmark and model-size filters, model comparison, probability metrics
+  and evaluation result downloads.
+- **2026-10-18:** Integrated eight benchmarks: VisualDecisionBench, JevBench,
+  Decision Index (public components), Typed-Decisions, DecisionBench, Procedural
+  Typed Decisions, zh-decision-bench and JevAlt-Bench. Prepared evaluation datasets
+  are available in [🤗 JevalKit Datasets](https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets).
+- **2026-10-18:** Added support for 20 Jev-like model families, with real inference
+  verified for 18. Hosted API adapters for Jev and OpenAI Decisions are implemented;
+  live evaluations remain pending.
 
 <a id="quick-start"></a>
 
@@ -196,7 +175,7 @@ separately. See the [dataset packages](jevalkit/datasets/) and
 
 Download the prepared TSVs from [🤗 JevalKit Datasets](https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets).
 Use the [matrix example](examples/decision-benchmarks.json) to evaluate several
-models and benchmarks. Protocol details are in the [scoring guide](docs/benchmarks.md).
+models and benchmarks.
 
 <a id="evaluation-results"></a>
 
@@ -225,25 +204,26 @@ families remain pending. [🤗 Open the leaderboard](https://huggingface.co/spac
 Each model implementation has its own file in `jevalkit/models/`, registered in
 [`jevalkit/config.py`](jevalkit/config.py). Each benchmark has its own directory
 in `jevalkit/datasets/`, containing preparation, scoring and frozen TSV metadata.
-Contributions should preserve native probabilities, candidate order and the
-published scoring protocol.
-Include reproducible commands and the relevant validation when adding a model,
-dataset or result.
-
-```bash
-python -m pip install -e '.[test]'
-PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest -q
-```
+Pull requests are welcome from anyone interested in contributing to the project.
 
 Bug reports and contributions are welcome through
 [Issues](https://github.com/Valen-Team/JevalKit/issues) and
 [Pull Requests](https://github.com/Valen-Team/JevalKit/pulls).
 
+### Contributors
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/Liuziyu77"><img src="https://github.com/Liuziyu77.png?size=128" width="64" height="64" alt="Liuziyu77"><br><sub><b>Liuziyu77</b></sub></a>
+    </td>
+  </tr>
+</table>
+
 <a id="license-and-acknowledgements"></a>
 
 ## 📄 License and Acknowledgements
 
-JevalKit is released under [Apache-2.0](LICENSE). Model weights, datasets and
-vendored code retain their own licenses; see [THIRD_PARTY.md](THIRD_PARTY.md).
+JevalKit is released under [Apache-2.0](LICENSE).
 We thank [VLMEvalKit](https://github.com/open-compass/VLMEvalKit) for its evaluation
 toolkit design, and the authors of the integrated decision models and benchmarks.

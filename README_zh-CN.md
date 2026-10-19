@@ -6,19 +6,18 @@
 </h1>
 
 <p align="center">
-  <b>Jev 类决策模型评测工具</b><br>
-  文本 · 图像 · 视频 → Choice · Noul · Score
+  <b>Jev 类决策模型评测工具</b>
 </p>
 
 <p align="center">
   <a href="https://huggingface.co/Valen-Team"><img src="https://img.shields.io/badge/Hugging_Face-Valen_Team-FFD21E?style=flat&amp;logo=huggingface&amp;logoColor=FFD21E&amp;labelColor=555555" alt="Hugging Face: Valen Team"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-80A51B?style=flat&amp;labelColor=555555" alt="License: Apache 2.0"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-80A51B?style=flat&amp;labelColor=555555" alt="许可证：Apache 2.0"></a>
   <a href="pyproject.toml"><img src="https://img.shields.io/badge/Python-3.10%2B-1683BB?style=flat&amp;logo=python&amp;logoColor=FFD43B&amp;labelColor=555555" alt="Python 3.10+"></a>
   <br>
-  <a href="https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard"><img src="https://img.shields.io/badge/Space-Leaderboard-009C83?style=flat&amp;logo=huggingface&amp;logoColor=FFD21E&amp;labelColor=555555" alt="Hugging Face Space: leaderboard"></a>
-  <a href="https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets"><img src="https://img.shields.io/badge/Datasets-10_TSV_views-2185B5?style=flat&amp;logo=huggingface&amp;logoColor=FFD21E&amp;labelColor=555555" alt="Hugging Face: 10 dataset views"></a>
-  <a href="#supported-models"><img src="https://img.shields.io/badge/Models-20_families-8A63B8?style=flat&amp;labelColor=555555" alt="20 model families"></a>
-  <a href="#supported-benchmarks"><img src="https://img.shields.io/badge/Benchmarks-8_suites-E88B23?style=flat&amp;labelColor=555555" alt="8 Jev-related benchmark suites"></a>
+  <a href="https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard"><img src="https://img.shields.io/badge/Space-Leaderboard-009C83?style=flat&amp;logo=huggingface&amp;logoColor=FFD21E&amp;labelColor=555555" alt="Hugging Face 排行榜"></a>
+  <a href="https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets"><img src="https://img.shields.io/badge/Datasets-10_TSV_views-2185B5?style=flat&amp;logo=huggingface&amp;logoColor=FFD21E&amp;labelColor=555555" alt="Hugging Face：10 个数据视图"></a>
+  <a href="#supported-models"><img src="https://img.shields.io/badge/Models-20_families-8A63B8?style=flat&amp;labelColor=555555" alt="20 个模型家族"></a>
+  <a href="#supported-benchmarks"><img src="https://img.shields.io/badge/Benchmarks-8_suites-E88B23?style=flat&amp;labelColor=555555" alt="8 个 Jev 相关评测基准"></a>
 </p>
 
 <p align="center">
@@ -33,40 +32,23 @@
 
 ## ✨ 简介
 
-JevalKit 用于评测 Jev 类决策模型。这类模型接收请求中指定的选项或评分标准，返回相应的概率：
-`Choice` 表示从给定选项中选择，`Noul` 表示是非判断，`Score` 表示有序评分。
-工具提供模型适配、数据准备、评分和结果比较功能，注册机制参考了
-[VLMEvalKit](https://github.com/open-compass/VLMEvalKit)。
+JevalKit 是面向 Jev 类决策模型的开源评测工具，提供统一的模型接口和已整理的评测数据。
+用户可通过一条命令在不同基准上评测模型，无需分别到多个仓库准备数据。
 
 <a id="highlights"></a>
 
-## 🎯 主要功能
+## 🎯 近期代码更新
 
-- 支持 20 个模型家族，通过作者原生接口加载开放权重模型，或调用托管模型的公开 API。
-- 接收文本、图像和视频，保留共享输入、多问题请求、候选项顺序及各模型的模态限制。
-- 评测完整概率分布，报告准确率、Brier、NLL、校准和有序评分指标，并接入基准专用评分器。
-- 保存数据哈希、原始预测、运行环境、失败记录和覆盖率，支持断点恢复和重新评分。
-- 提供排行榜及 Markdown、TSV、JSON 导出，区分完整评测、冒烟测试和导入的预测结果。
+- **2026-10-19：** 提供排行榜及 Markdown、TSV、JSON 导出，区分完整评测、冒烟测试和导入的预测结果。
+- **2026-10-18：** 支持 20 个模型家族，可通过统一命令在 8 个 Jev 相关开源基准上运行评测。
 
 <a id="latest-updates"></a>
 
-## 📰 最近更新
+## 📰 项目动态
 
-<!-- jevalkit:coverage:start -->
-- **2026-10-19：** 正在补测 22 组缺失的模型与基准组合，已核验 **21/22** 组。
-  全量数据并行评测，GPU 并发不超过 **32 张**；通过核验的结果陆续发布到[排行榜](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard)。
-<!-- jevalkit:coverage:end -->
-- **2026-10-19：** 发布 [🤗 排行榜](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard)，支持基准筛选、模型比较、概率指标查看，以及 CSV/JSON 下载。
-- **2026-10-19：** 在 [🤗 JevalKit Datasets](https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets) 发布全部 10 个 TSV 数据视图；来源和评分协议见[各基准目录](jevalkit/datasets/)。
-- **2026-10-19：** 五个新增基准的 110/110 组评测全部完成，其中 99 组成绩符合收录条件，11 组完全不受模型支持。已核验代码、权重和请求覆盖情况，详情见[排行榜](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard)。
-
-<details>
-<summary>更早的更新</summary>
-
-- **2026-10-18：** 接入 Typed-Decisions、DecisionBench、Procedural Typed Decisions、zh-decision-bench 和 JevAlt-Bench，基准总数增至八个。
-- **2026-10-18：** 完成 18 个模型家族的原生推理验证。Jev 和 OpenAI Decisions 的适配器已实现，实际 API 评测尚未完成。
-
-</details>
+- **2026-10-19：** 发布 [🤗 JevalKit 排行榜](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard)，支持基准与模型大小筛选、模型比较、概率指标查看和评测结果下载。
+- **2026-10-18：** 接入 VisualDecisionBench、JevBench、Decision Index（公开部分）、Typed-Decisions、DecisionBench、Procedural Typed Decisions、zh-decision-bench 和 JevAlt-Bench，共 8 个基准。评测数据已整理至 [🤗 评测基准数据集汇总](https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets)。
+- **2026-10-18：** 已接入 20 个 Jev 类模型家族，其中 18 个已完成真实推理验证；Jev 和 OpenAI Decisions 的托管 API 适配器已实现，实际评测尚待完成。
 
 <a id="quick-start"></a>
 
@@ -160,7 +142,7 @@ python -m jevalkit leaderboard "$JEVALKIT_DATA_ROOT/results" \
 | 基准 | 输入 | 评测数据 | 主要指标 |
 |---|---|---|---|
 | [VisualDecisionBench](https://huggingface.co/datasets/Valen-Team/VisualDecisionBench) | 🖼️ 图像 · 🎬 视频 | 1,696 个共享输入；9,143 个问题 | 准确率、软标签 Brier/NLL、有序评分指标 |
-| [JevBench](https://github.com/fstandhartinger/jevbench) | 📝 文本 | 231 个公开任务，分为 easy/original/hard 三档 | 官方任务得分与校准指标 |
+| [JevBench](https://github.com/fstandhartinger/jevbench) | 📝 文本 | 231 个公开任务，分为简单、原始、困难三档 | 官方任务得分与校准指标 |
 | [Decision Index](https://huggingface.co/spaces/multimodalart/jev-decision-index) | 📝 文本 | 0.3 版公开套件，包含 43 个数据集 | 官方随机水平校正后的加权公开指数 |
 | [Typed-Decisions](https://huggingface.co/datasets/LocalLLaMA/typed-decisions) | 📝 文本 | 400 个共享输入；2,000 个决策问题 | 标签准确率、KL、软标签 Brier |
 | [DecisionBench](https://huggingface.co/datasets/Hanno-Labs/decision-bench) | 📝 文本 | 23,900 条评测样本；43 个任务 | 准确率、参考 NLL、校准指标 |
@@ -201,20 +183,24 @@ VisualDecisionBench 的图像和视频视图属于同一个基准。Decision Ind
 
 每个模型实现在 `jevalkit/models/` 中有独立文件，通过 [jevalkit/config.py](jevalkit/config.py) 注册。
 每个基准在 `jevalkit/datasets/` 中有独立目录，保存数据准备、评分和 TSV 元信息。
-新增实现应保留原生概率、候选项顺序和公开评分协议，并附上可复现的命令及相关验证结果。
-
-```bash
-python -m pip install -e '.[test]'
-PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest -q
-```
+欢迎提交 PR 成为项目的共同开发者。
 
 问题和建议可提交至 [Issues](https://github.com/Valen-Team/JevalKit/issues)，
 代码贡献可通过 [Pull Requests](https://github.com/Valen-Team/JevalKit/pulls) 提交。
+
+### 贡献者
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/Liuziyu77"><img src="https://github.com/Liuziyu77.png?size=128" width="64" height="64" alt="Liuziyu77"><br><sub><b>Liuziyu77</b></sub></a>
+    </td>
+  </tr>
+</table>
 
 <a id="license-and-acknowledgements"></a>
 
 ## 📄 许可与致谢
 
-JevalKit 采用 [Apache-2.0](LICENSE) 许可。模型权重、数据集和第三方代码各自保留原有许可，
-详见 [THIRD_PARTY.md](THIRD_PARTY.md)。感谢 [VLMEvalKit](https://github.com/open-compass/VLMEvalKit)
+JevalKit 采用 [Apache-2.0](LICENSE) 许可。感谢 [VLMEvalKit](https://github.com/open-compass/VLMEvalKit)
 提供的评测工具设计参考，以及各决策模型和基准的作者。
