@@ -25,11 +25,11 @@ Registration is not evidence of a successful weight-level evaluation: consult th
 | JevK5 | JevK5 | native | jevk5 | [source](https://huggingface.co/alibiserikbay/JevK5) |
 | StartLux-0.8B | StartLux | native | author requirements.txt | [source](https://huggingface.co/startlux-models/StartLux-Decision-v1-0.8B) |
 | Crivo-150M | Crivo | native | jevalkit[hf,decision-index] | [source](https://huggingface.co/tardellirs/crivo-150m) |
-| RSI-Jev-v4 | RSI-Jev | native | author rsijev package; --option source=<checkout> | [source](https://github.com/Shanghua-Gao/RSI-Jev) |
+| RSI-Jev-v4 | RSI-Jev | native | author rsijev package; `--option source=<checkout>` | [source](https://github.com/Shanghua-Gao/RSI-Jev) |
 | Vjev-4B | Vjev | native | author requirements.txt | [source](https://huggingface.co/yah01/vjev-vision) |
-| QEV | QEV | native | author veyra package; --option source=<checkout>/src | [source](https://github.com/ken-jo/qev) |
-| OmniJev | OmniJev | native | author mso package; --option source=<checkout> --option base_model=<Qwen3.5 weights> | [source](https://github.com/tinnel123666888/OmniJev) |
-| Visual-Jev | Visual-Jev | native | author vdm package; --option source=<checkout>/code --option base_model=<Qwen3-VL weights> | [source](https://github.com/guanxuyu-sv/Visual-Jev) |
+| QEV | QEV | native | author veyra package; `--option source=<checkout>/src` | [source](https://github.com/ken-jo/qev) |
+| OmniJev | OmniJev | native | author mso package; `--option source=<checkout>` `--option base_model=<Qwen3.5 weights>` | [source](https://github.com/tinnel123666888/OmniJev) |
+| Visual-Jev | Visual-Jev | native | author vdm package; `--option source=<checkout>/code` `--option base_model=<Qwen3-VL weights>` | [source](https://github.com/guanxuyu-sv/Visual-Jev) |
 | Jev | Jev | http | Jev API access and JEV_ENDPOINT (full /v1/systemone URL) | [source](https://typesafe.ai) |
 | OpenAI-Decisions | OpenAI-Decisions | http | OPENAI_API_KEY | [source](https://developers.openai.com/api/docs/guides/decisions) |
 | Kev | Kev | http | author kev.serve instance; KEV_ENDPOINT (full /v1/systemone URL) | [source](https://github.com/jaredpalmer/kev) |

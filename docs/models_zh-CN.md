@@ -25,11 +25,11 @@
 | JevK5 | JevK5 | 原生接口 | jevk5 | [源码](https://huggingface.co/alibiserikbay/JevK5) |
 | StartLux-0.8B | StartLux | 原生接口 | 作者的 requirements.txt | [源码](https://huggingface.co/startlux-models/StartLux-Decision-v1-0.8B) |
 | Crivo-150M | Crivo | 原生接口 | jevalkit[hf,decision-index] | [源码](https://huggingface.co/tardellirs/crivo-150m) |
-| RSI-Jev-v4 | RSI-Jev | 原生接口 | 作者的 rsijev 包； --option source=<checkout> | [源码](https://github.com/Shanghua-Gao/RSI-Jev) |
+| RSI-Jev-v4 | RSI-Jev | 原生接口 | 作者的 rsijev 包； `--option source=<checkout>` | [源码](https://github.com/Shanghua-Gao/RSI-Jev) |
 | Vjev-4B | Vjev | 原生接口 | 作者的 requirements.txt | [源码](https://huggingface.co/yah01/vjev-vision) |
-| QEV | QEV | 原生接口 | 作者的 veyra 包； --option source=<checkout>/src | [源码](https://github.com/ken-jo/qev) |
-| OmniJev | OmniJev | 原生接口 | 作者的 mso 包； --option source=<checkout> --option base_model=<Qwen3.5 weights> | [源码](https://github.com/tinnel123666888/OmniJev) |
-| Visual-Jev | Visual-Jev | 原生接口 | 作者的 vdm 包； --option source=<checkout>/code --option base_model=<Qwen3-VL weights> | [源码](https://github.com/guanxuyu-sv/Visual-Jev) |
+| QEV | QEV | 原生接口 | 作者的 veyra 包； `--option source=<checkout>/src` | [源码](https://github.com/ken-jo/qev) |
+| OmniJev | OmniJev | 原生接口 | 作者的 mso 包； `--option source=<checkout>` `--option base_model=<Qwen3.5 weights>` | [源码](https://github.com/tinnel123666888/OmniJev) |
+| Visual-Jev | Visual-Jev | 原生接口 | 作者的 vdm 包； `--option source=<checkout>/code` `--option base_model=<Qwen3-VL weights>` | [源码](https://github.com/guanxuyu-sv/Visual-Jev) |
 | Jev | Jev | HTTP | Jev API 访问权限及 JEV_ENDPOINT (完整 /v1/systemone 地址) | [源码](https://typesafe.ai) |
 | OpenAI-Decisions | OpenAI-Decisions | HTTP | OPENAI_API_KEY | [源码](https://developers.openai.com/api/docs/guides/decisions) |
 | Kev | Kev | HTTP | 作者的 kev.serve 服务； KEV_ENDPOINT (完整 /v1/systemone 地址) | [源码](https://github.com/jaredpalmer/kev) |
