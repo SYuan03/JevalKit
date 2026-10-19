@@ -1,6 +1,6 @@
 # Implementation and evaluation status
 
-Updated UTC: 2026-10-19T05:23:16.632710+00:00
+Updated UTC: 2026-10-19T05:25:31.756414+00:00
 
 Public checkpoint integrations are validated. A coverage audit found 22 compatible
 local model–benchmark pairs that had never been evaluated; these are being
@@ -8,10 +8,10 @@ evaluated with 32 single-GPU workers. Hosted API measurements still require cred
 
 - Implemented: 20 model families, 8 Jev-related benchmark suites / 10 active TSV views.
 - Real inference verified: 18 families, including Valen and all public checkpoint integrations.
-- Results: 214 retained active artifacts; 148 distinct eligible primary full scores. Gap-fill audit: 9/22 complete. The five-suite matrix remains 110/110 complete (99 eligible, 11 fully unsupported).
+- Results: 215 retained active artifacts; 149 distinct eligible primary full scores. Gap-fill audit: 10/22 complete. The five-suite matrix remains 110/110 complete (99 eligible, 11 fully unsupported).
 - Checks: 95 regression tests passed, including native question capacity, matrix shard validation and exact-partition merge checks. The pre-run wheel check matched all 32 package modules and bundled licenses.
 - Data: the five new suites (45,794 states / 91,817 questions) passed full schema, count and content-hash checks. Existing media checks remain valid; retired data remains archived.
-- GPU limit: at most 32 concurrent GPUs. Gap-fill audit: 9/22 complete; latest worker states: 11 succeeded, 21 running. Historical completed jobs do not consume parallel capacity.
+- GPU limit: at most 32 concurrent GPUs. Gap-fill audit: 10/22 complete; latest worker states: 12 succeeded, 20 running. Historical completed jobs do not consume parallel capacity.
 
 The [leaderboard](../leaderboard/README.md) selects the latest complete measurement
 per model, data hash and protocol, without selecting the best repeat. It retains

@@ -1,11 +1,11 @@
 {
-  "updated_utc": "2026-10-19T05:23:16.632710+00:00",
+  "updated_utc": "2026-10-19T05:25:31.756414+00:00",
   "parallel_gpu_limit": 32,
   "logical_pairs": 22,
   "single_gpu_workers": 32,
   "initial_attempts": 32,
   "replacement_workers": 6,
-  "verified_pairs": 9,
+  "verified_pairs": 10,
   "complete": false,
   "pairs": [
     {
@@ -141,7 +141,18 @@
       "worker_states": {
         "succeeded": 2
       },
-      "status": "in-progress"
+      "status": "verified",
+      "requests": 140178,
+      "questions": 312320,
+      "valid": 177416,
+      "unsupported": 134904,
+      "failed": 0,
+      "coverage": 0.5680584016393443,
+      "accuracy": 0.30650961664458454,
+      "public_decision_index": 15.07,
+      "weights_unchanged": true,
+      "source_verified": true,
+      "request_ids_and_hashes_verified": true
     },
     {
       "model": "Intern-Decision-4B",
@@ -252,7 +263,7 @@
       "workers": 1,
       "sampling_limit": null,
       "worker_states": {
-        "running": 1
+        "succeeded": 1
       },
       "status": "verified",
       "requests": 140178,
