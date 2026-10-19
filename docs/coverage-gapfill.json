@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-10-19T04:52:39.205361+00:00",
+  "updated_utc": "2026-10-19T05:01:35.306871+00:00",
   "parallel_gpu_limit": 32,
   "logical_pairs": 22,
   "single_gpu_workers": 32,
@@ -179,7 +179,7 @@
       "workers": 1,
       "sampling_limit": null,
       "worker_states": {
-        "not-submitted": 1
+        "running": 1
       },
       "status": "in-progress"
     },

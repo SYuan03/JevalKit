@@ -1,19 +1,33 @@
-<div align="center">
+<h1 align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/branding/jevalkit-dark.svg">
+    <img src="assets/branding/jevalkit-light.svg" alt="JevalKit — a unified evaluation toolkit for decision models" width="680">
+  </picture>
+</h1>
 
-# JevalKit
+<p align="center">
+  <b>A unified evaluation toolkit for Jev-like decision models.</b><br>
+  Text · Image · Video → Choice · Noul · Score
+</p>
 
-**A unified evaluation toolkit for Jev-like decision models.**
+<p align="center">
+  <a href="https://huggingface.co/Valen-Team"><img src="https://img.shields.io/badge/Hugging_Face-Valen_Team-FFD21E?style=flat&amp;logo=huggingface&amp;logoColor=FFD21E&amp;labelColor=555555" alt="Hugging Face: Valen Team"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-80A51B?style=flat&amp;labelColor=555555" alt="License: Apache 2.0"></a>
+  <a href="pyproject.toml"><img src="https://img.shields.io/badge/Python-3.10%2B-1683BB?style=flat&amp;logo=python&amp;logoColor=FFD43B&amp;labelColor=555555" alt="Python 3.10+"></a>
+  <br>
+  <a href="https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard"><img src="https://img.shields.io/badge/Space-Leaderboard-009C83?style=flat&amp;logo=huggingface&amp;logoColor=FFD21E&amp;labelColor=555555" alt="Hugging Face Space: interactive leaderboard"></a>
+  <a href="https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets"><img src="https://img.shields.io/badge/Datasets-10_TSV_views-2185B5?style=flat&amp;logo=huggingface&amp;logoColor=FFD21E&amp;labelColor=555555" alt="Hugging Face: 10 dataset views"></a>
+  <a href="#supported-models"><img src="https://img.shields.io/badge/Models-20_families-8A63B8?style=flat&amp;labelColor=555555" alt="20 model families"></a>
+  <a href="#supported-benchmarks"><img src="https://img.shields.io/badge/Benchmarks-8_suites-E88B23?style=flat&amp;labelColor=555555" alt="8 Jev-related benchmark suites"></a>
+</p>
 
-Text, images and video in. Choice, Noul and Score probabilities out.
+<p align="center">
+  <a href="#introduction">Introduction</a> · <a href="#latest-updates">News</a> · <a href="#quick-start">Quick Start</a> · <a href="#supported-models">Models</a> · <a href="#supported-benchmarks">Benchmarks</a> · <a href="#evaluation-results">Results</a> · <a href="#documentation">Docs</a>
+</p>
 
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
-[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](pyproject.toml)
-[![Model families: 20](https://img.shields.io/badge/Model_families-20-6366f1.svg)](#supported-models)
-[![Core suites: 8](https://img.shields.io/badge/Core_suites-8-16a34a.svg)](#supported-benchmarks)
+<a id="introduction"></a>
 
-[Leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard) · [Datasets](https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets) · [Quick Start](#quick-start) · [Models](#supported-models) · [Benchmarks](#supported-benchmarks) · [Documentation](#documentation) · [Contributing](#contributing)
-
-</div>
+## ✨ Introduction
 
 JevalKit evaluates models that return **probabilities over decisions defined at
 request time**: a yes/no judgment, a choice among named options, or a rating on an
@@ -21,7 +35,9 @@ ordered scale. It brings model adapters, benchmark preparation, scoring and resu
 comparison into one workflow, following the registry-based design of
 [VLMEvalKit](https://github.com/open-compass/VLMEvalKit).
 
-## Highlights
+<a id="highlights"></a>
+
+## 🎯 Highlights
 
 - **20 model families in one registry.** Run open checkpoints through their native
   decision interfaces and hosted models through their published APIs.
@@ -42,47 +58,42 @@ flowchart LR
     D --> E[Leaderboard + retained evidence]
 ```
 
-## Latest Updates
+<a id="latest-updates"></a>
 
-- **2026-10-19:** Filling **22 previously untested model–benchmark pairs** (4/22 audited):
-  17 DecisionIndex runs plus five JevBench/image/video runs. The workload uses
-  **32 single-GPU workers**, including verified shard merges for larger runs,
-  within the **32 concurrent GPU** limit. **95 tests pass**. See
-  [coverage plan](docs/coverage-gapfill.json) and [live evaluation status](docs/STATUS.md).
+## 📰 Latest Updates
 
-- **2026-10-19:** Launched the [interactive leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard)
-  with **139 eligible full scores**, per-benchmark ranking, accuracy/calibration
-  filters, model comparisons, measurement details and CSV downloads. Its pinned
-  snapshot includes all **201 retained runs**; the [Markdown results](leaderboard/README.md)
-  remain available in this repository.
+<!-- jevalkit:coverage:start -->
+- **2026-10-19:** Filling **22 missing model–benchmark pairs**, with **5/22 audited**.
+  Full datasets run in parallel within the **32 concurrent GPU** limit; verified
+  results are published as they finish. See [evaluation status](docs/STATUS.md).
+<!-- jevalkit:coverage:end -->
+- **2026-10-19:** Released the [🤗 interactive leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard)
+  with benchmark filters, model comparison, probability metrics and CSV/JSON downloads.
+- **2026-10-19:** Published all **10 TSV views** in
+  [🤗 JevalKit Datasets](https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets),
+  with pinned sources and scoring protocols in the [data inventory](docs/data-manifest.json).
+- **2026-10-19:** Completed **110/110 pairs** across the five new suites:
+  99 eligible scores and 11 fully unsupported pairs. Source, checkpoint hashes
+  and complete request coverage were verified; details are in the [run history](docs/STATUS.md).
 
-- **2026-10-19:** Completed all **110/110 model–benchmark pairs** on the five
-  new suites after 24 parallel repairs: **99 eligible scores**, 11 fully
-  unsupported pairs, and **zero question errors** in the latest measurements.
-  Frozen source, weights, request IDs and evidence hashes were verified.
-  **86 tests passed** for that phase. Its 24 repair workers released their GPUs; the limit remains
-  **32 concurrent GPUs**. See [evaluation status](docs/STATUS.md).
+<details>
+<summary>Earlier updates</summary>
 
-- **2026-10-19:** The **10 verified TSV views** are available from
-  [JevalKit Datasets on Hugging Face](https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets).
-  Source revisions, checksums and preparation protocols are documented in the
-  [data inventory](docs/data-manifest.json) and toolkit implementation.
+- **2026-10-18:** Integrated Typed-Decisions, DecisionBench, Procedural Typed
+  Decisions, zh-decision-bench and JevAlt-Bench, bringing the toolkit to eight suites.
+- **2026-10-18:** Verified native inference for 18 model families. The Jev and
+  OpenAI Decisions adapters are implemented; live API measurements remain pending.
 
-- **2026-10-18:** Published the initial implementation and evaluation results for
-  **18 model families**, with **75 passing tests**. Jev and OpenAI-Decisions have
-  implemented adapters; their live API measurements are pending.
-- **2026-10-18:** Added Typed-Decisions, DecisionBench, Procedural Typed Decisions,
-  zh-decision-bench and JevAlt-Bench: **8 Jev-related suites / 10 dataset views**.
-  All new evaluation data is pinned and verified. Full trained-model evaluation
-  covered **22 local configurations across 18 families × 5 suites**,
-  with 110 attempted full runs on one H200 task. See [run status](docs/STATUS.md).
+</details>
 
-## Quick Start
+<a id="quick-start"></a>
+
+## 🚀 Quick Start
 
 ### 1. Install
 
 ```bash
-git clone https://github.com/Liuziyu77/JevalKit.git
+git clone https://github.com/Valen-Team/JevalKit.git
 cd JevalKit
 python -m pip install -e '.[hf,data]'
 ```
@@ -130,15 +141,17 @@ Pass `--option model=/path/to/checkpoint` to reuse existing weights. Use
 `--limit 10` for a smoke test, or `--resume` to continue an interrupted run with
 the same settings. [Full usage guide →](docs/quickstart.md)
 
-## Supported Models
+<a id="supported-models"></a>
+
+## 🤖 Supported Models
 
 Size variants and Clef/Clef-Flash count within their respective families.
 **Measured** means real inference has been verified for at least one registered
 variant; per-benchmark coverage is shown in the [leaderboard](leaderboard/README.md).
 
-| Family | Registered model IDs | Integration | Validation |
+| Model family | Registered model IDs | Interface | Evaluation |
 |---|---|---|---|
-| [Valen](https://github.com/Liuziyu77/Valen) | `Valen-0.8B`, `Valen-2B`, `Valen-4B` | Native | Measured |
+| [Valen](https://github.com/Valen-Team/Valen) | `Valen-0.8B`, `Valen-2B`, `Valen-4B` | Native | Measured |
 | [Intern-Decision](https://github.com/InternLM/Intern-Decision) | `Intern-Decision-0.8B`, `Intern-Decision-2B`, `Intern-Decision-4B` | Native | Measured |
 | [Laya](https://github.com/NandhaKishorM/laya) | `Laya` | Native | Measured |
 | [Liquid d1](https://huggingface.co/LiquidAI/d1-3B) | `Liquid-d1-3B` | Native | Measured |
@@ -163,20 +176,20 @@ The catalog also includes a `Uniform` diagnostic baseline. Author dependencies,
 context limits, supported question types and media contracts are documented in
 the [integration guide](docs/models.md).
 
-## Supported Benchmarks
+<a id="supported-benchmarks"></a>
 
-### Jev-related suites
+## 🧩 Supported Benchmarks
 
-| Suite | Modality | Released evaluation | Main measurements |
+| Benchmark | Input | Evaluation data | Main measurements |
 |---|---|---|---|
-| [VisualDecisionBench](https://huggingface.co/datasets/Valen-Team/VisualDecisionBench) | Image + video | 1,696 states; 9,143 questions | Accuracy, soft-target Brier/NLL, ordinal metrics |
-| [JevBench](https://github.com/fstandhartinger/jevbench) | Text | 231 public tasks across easy/original/hard tiers | Official task scores and calibration |
-| [Decision Index](https://huggingface.co/spaces/multimodalart/jev-decision-index) | Text | Edition 0.3 public suite; 43 constituent datasets | Official chance-corrected, weighted public index |
-| [Typed-Decisions](https://huggingface.co/datasets/LocalLLaMA/typed-decisions) | Text | 400 states; 2,000 decisions | Modal accuracy, KL and soft-target Brier |
-| [DecisionBench](https://huggingface.co/datasets/Hanno-Labs/decision-bench) | Text | 23,900 evaluation rows; 43 tasks | Accuracy, reference NLL and calibration |
-| [Procedural Typed Decisions](https://huggingface.co/datasets/tasksource/procedural-typed-decisions) | Text | 18,000 test states; 57,016 questions | Rule execution and exact probability judgments |
-| [zh-decision-bench](https://github.com/CodyQin/zh-decision-bench) | Chinese text | v0.2: 378 items; 467 questions | Routing, moderation, ordinal ratings and calibration |
-| [JevAlt-Bench](https://huggingface.co/datasets/mertkayacs/jevalt-bench) | English, Turkish, German text | 3,116 test states; 8,434 questions | Labeled and soft-probability decisions; language slices |
+| [VisualDecisionBench](https://huggingface.co/datasets/Valen-Team/VisualDecisionBench) | 🖼️ Image · 🎬 Video | 1,696 states; 9,143 questions | Accuracy, soft-target Brier/NLL, ordinal metrics |
+| [JevBench](https://github.com/fstandhartinger/jevbench) | 📝 Text | 231 public tasks across easy/original/hard tiers | Official task scores and calibration |
+| [Decision Index](https://huggingface.co/spaces/multimodalart/jev-decision-index) | 📝 Text | Edition 0.3 public suite; 43 constituent datasets | Official chance-corrected, weighted public index |
+| [Typed-Decisions](https://huggingface.co/datasets/LocalLLaMA/typed-decisions) | 📝 Text | 400 states; 2,000 decisions | Modal accuracy, KL and soft-target Brier |
+| [DecisionBench](https://huggingface.co/datasets/Hanno-Labs/decision-bench) | 📝 Text | 23,900 evaluation rows; 43 tasks | Accuracy, reference NLL and calibration |
+| [Procedural Typed Decisions](https://huggingface.co/datasets/tasksource/procedural-typed-decisions) | 📝 Text | 18,000 test states; 57,016 questions | Rule execution and exact probability judgments |
+| [zh-decision-bench](https://github.com/CodyQin/zh-decision-bench) | 📝 Chinese | v0.2: 378 items; 467 questions | Routing, moderation, ordinal ratings and calibration |
+| [JevAlt-Bench](https://huggingface.co/datasets/mertkayacs/jevalt-bench) | 📝 EN · TR · DE | 3,116 test states; 8,434 questions | Labeled and soft-probability decisions; language slices |
 
 VisualDecisionBench's image and video views belong to the same benchmark.
 Decision Index public scores and its private leaderboard components are reported
@@ -196,11 +209,17 @@ those diagnostics do not add trained-model scores to the leaderboard. Protocol
 notes cover soft references, candidate mappings, and JevAlt's explicit `unknown`
 projection. Other candidates remain in the [benchmark research](docs/benchmarks.md#benchmark-research).
 
-## Evaluation Results
+<a id="evaluation-results"></a>
 
-The first-pass snapshot contains **177 retained run artifacts** and **117 eligible
-primary full scores**. The table below shows selected completed measurements;
-all entries have 100% question coverage.
+## 📊 Evaluation Results
+
+<!-- jevalkit:results-summary:start -->
+The current snapshot contains **144 eligible full scores** and **206 retained
+run artifacts**. It covers **18 measured model families**; the two hosted API
+families remain pending. [🤗 Open the interactive leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard).
+<!-- jevalkit:results-summary:end -->
+
+Selected measurements are shown below. All listed runs have 100% question coverage.
 
 | Model | JevBench accuracy | VDB Image accuracy |
 |---|---:|---:|
@@ -215,7 +234,8 @@ contribute probability metrics. The full board reports protocols, hardware,
 coverage and provenance, and selects the latest complete run for each matching
 model/data/protocol combination.
 
-**[Browse leaderboard →](leaderboard/README.md)** ·
+**[🤗 Interactive leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard)** ·
+[Markdown leaderboard](leaderboard/README.md) ·
 [Download TSV](leaderboard/leaderboard.tsv) ·
 [Download JSON](leaderboard/leaderboard.json) ·
 [Validation status](docs/STATUS.md)
@@ -224,7 +244,9 @@ Scores here come from retained predictions. Author-reported benchmark numbers
 belong in the research notes, not in the measured leaderboard. Raw evidence paths
 refer to the evaluation workspace; the committed tables can be browsed without it.
 
-## Documentation
+<a id="documentation"></a>
+
+## 📖 Documentation
 
 | Guide | Contents |
 |---|---|
@@ -235,7 +257,9 @@ refer to the evaluation workspace; the committed tables can be browsed without i
 | [Validation status](docs/STATUS.md) | Verified results and remaining live API evaluations |
 | [Third-party terms](THIRD_PARTY.md) | Source attribution and dataset/model licensing |
 
-## Contributing
+<a id="contributing"></a>
+
+## 🤝 Contributing
 
 Model adapters live in `jevalkit/models/` and are registered in
 [`jevalkit/config.py`](jevalkit/config.py). Benchmark loaders live in
@@ -250,10 +274,12 @@ PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest -q
 ```
 
 Bug reports and contributions are welcome through
-[Issues](https://github.com/Liuziyu77/JevalKit/issues) and
-[Pull Requests](https://github.com/Liuziyu77/JevalKit/pulls).
+[Issues](https://github.com/Valen-Team/JevalKit/issues) and
+[Pull Requests](https://github.com/Valen-Team/JevalKit/pulls).
 
-## License and Acknowledgements
+<a id="license-and-acknowledgements"></a>
+
+## 📄 License and Acknowledgements
 
 JevalKit is released under [Apache-2.0](LICENSE). Model weights, datasets and
 vendored code retain their own licenses; see [THIRD_PARTY.md](THIRD_PARTY.md).
