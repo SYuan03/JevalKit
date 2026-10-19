@@ -1,11 +1,11 @@
 {
-  "updated_utc": "2026-10-19T05:01:35.306871+00:00",
+  "updated_utc": "2026-10-19T05:06:05.431999+00:00",
   "parallel_gpu_limit": 32,
   "logical_pairs": 22,
   "single_gpu_workers": 32,
   "initial_attempts": 32,
   "replacement_workers": 6,
-  "verified_pairs": 5,
+  "verified_pairs": 6,
   "complete": false,
   "pairs": [
     {
@@ -169,9 +169,20 @@
       "workers": 2,
       "sampling_limit": null,
       "worker_states": {
-        "running": 2
+        "succeeded": 2
       },
-      "status": "in-progress"
+      "status": "verified",
+      "requests": 140178,
+      "questions": 312320,
+      "valid": 312320,
+      "unsupported": 0,
+      "failed": 0,
+      "coverage": 1.0,
+      "accuracy": 0.7530102063101495,
+      "public_decision_index": 48.13,
+      "weights_unchanged": true,
+      "source_verified": true,
+      "request_ids_and_hashes_verified": true
     },
     {
       "model": "Decision1-Kai",
