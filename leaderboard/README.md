@@ -13,7 +13,7 @@ Only currently registered Jev-related benchmarks are included; retired tasks rem
 | H2O-Lightning | 77.42% | — | 88.56% | 87.45% | 84.23% | 71.50% | 82.06% | — | 90.58% |
 | Intern-Decision-0.8B | 48.97% | — | 77.51% | 71.00% | 42.79% | 77.70% | 66.35% | — | 89.94% |
 | Intern-Decision-2B | 55.24% | 15.07 | 78.60% | 78.35% | 47.52% | 79.35% | 76.47% | — | 87.58% |
-| Intern-Decision-4B | 60.53% | — | 88.97% | 86.58% | 60.98% | 80.50% | 77.94% | — | 91.65% |
+| Intern-Decision-4B | 60.53% | 25.51 | 88.97% | 86.58% | 60.98% | 80.50% | 77.94% | — | 91.65% |
 | JevK5 | 76.06% | — | 86.97% | 88.74% | 61.51% | 62.85% | — | — | 87.37% |
 | Kev | 74.66% | — | 86.47% | 74.03% | 63.13% | 66.20% | — | — | 87.15% |
 | Laya | 32.82% | 5.11 | 44.91% | 58.87% | 32.80% | 37.75% | — | — | 69.38% |
@@ -61,6 +61,7 @@ Accuracy is shown as a percentage. DecisionIndex uses the upstream weighted publ
 | StartLux-0.8B | DecisionIndex | 38.48 | public index | 100.00% | full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/merged/StartLux-0.8B/DecisionIndex/metrics.json>) |
 | Crivo-150M | DecisionIndex | 34.61 | public index | 100.00% | full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/workers/Crivo-150M/DecisionIndex/metrics.json>) |
 | Valen-2B | DecisionIndex | 27.20 | public index | 99.99% | imported full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/imported/Valen-2B/DecisionIndex/metrics.json>) |
+| Intern-Decision-4B | DecisionIndex | 25.51 | public index | 56.81% | full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/merged/Intern-Decision-4B/DecisionIndex/metrics.json>) |
 | Valen-0.8B | DecisionIndex | 20.71 | public index | 99.99% | imported full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/imported/Valen-0.8B/DecisionIndex/metrics.json>) |
 | Intern-Decision-2B | DecisionIndex | 15.07 | public index | 56.81% | full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/merged/Intern-Decision-2B/DecisionIndex/metrics.json>) |
 | Decision1-Kai | DecisionIndex | 5.45 | public index | 83.18% | full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/decision1-fixed-workers/Decision1-Kai/DecisionIndex/metrics.json>) |

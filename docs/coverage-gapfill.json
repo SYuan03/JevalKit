@@ -1,11 +1,11 @@
 {
-  "updated_utc": "2026-10-19T05:36:17.411099+00:00",
+  "updated_utc": "2026-10-19T05:37:03.453247+00:00",
   "parallel_gpu_limit": 32,
   "logical_pairs": 22,
   "single_gpu_workers": 32,
   "initial_attempts": 32,
   "replacement_workers": 6,
-  "verified_pairs": 11,
+  "verified_pairs": 12,
   "complete": false,
   "pairs": [
     {
@@ -162,7 +162,18 @@
       "worker_states": {
         "succeeded": 2
       },
-      "status": "in-progress"
+      "status": "verified",
+      "requests": 140178,
+      "questions": 312320,
+      "valid": 177416,
+      "unsupported": 134904,
+      "failed": 0,
+      "coverage": 0.5680584016393443,
+      "accuracy": 0.36137035365374254,
+      "public_decision_index": 25.51,
+      "weights_unchanged": true,
+      "source_verified": true,
+      "request_ids_and_hashes_verified": true
     },
     {
       "model": "Laya",
