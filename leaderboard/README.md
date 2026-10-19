@@ -28,7 +28,7 @@ Only currently registered Jev-related benchmarks are included; retired tasks rem
 | Valen-2B | 62.50% | 27.20 (imported) | 85.27% | 82.68% | 61.96% | 62.95% | 80.47% | 82.74% | 86.72% |
 | Valen-4B | 67.23% | 38.54 (imported) | 88.14% | 83.55% | 68.86% | 69.55% | 83.12% | 87.43% | 87.15% |
 | Visual-Jev | — | — | — | — | — | — | 77.94% | — | — |
-| Vjev-4B | 54.25% | — | 75.49% | 60.61% | 56.50% | 57.70% | 74.24% | — | 79.87% |
+| Vjev-4B | 54.25% | 29.36 | 75.49% | 60.61% | 56.50% | 57.70% | 74.24% | — | 79.87% |
 
 Accuracy is shown as a percentage. DecisionIndex uses the upstream weighted public index (0–100).
 
@@ -60,6 +60,7 @@ Accuracy is shown as a percentage. DecisionIndex uses the upstream weighted publ
 | Valen-4B | DecisionIndex | 38.54 | public index | 99.99% | imported full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/imported/Valen-4B/DecisionIndex/metrics.json>) |
 | StartLux-0.8B | DecisionIndex | 38.48 | public index | 100.00% | full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/merged/StartLux-0.8B/DecisionIndex/metrics.json>) |
 | Crivo-150M | DecisionIndex | 34.61 | public index | 100.00% | full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/workers/Crivo-150M/DecisionIndex/metrics.json>) |
+| Vjev-4B | DecisionIndex | 29.36 | public index | 98.72% | full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/merged/Vjev-4B/DecisionIndex/metrics.json>) |
 | Valen-2B | DecisionIndex | 27.20 | public index | 99.99% | imported full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/imported/Valen-2B/DecisionIndex/metrics.json>) |
 | Intern-Decision-4B | DecisionIndex | 25.51 | public index | 56.81% | full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/merged/Intern-Decision-4B/DecisionIndex/metrics.json>) |
 | Valen-0.8B | DecisionIndex | 20.71 | public index | 99.99% | imported full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/imported/Valen-0.8B/DecisionIndex/metrics.json>) |
@@ -67,10 +68,13 @@ Accuracy is shown as a percentage. DecisionIndex uses the upstream weighted publ
 | Intern-Decision-0.8B | DecisionIndex | 8.41 | public index | 56.81% | full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/intern-fixed-workers/Intern-Decision-0.8B/DecisionIndex/metrics.json>) |
 | Decision1-Kai | DecisionIndex | 5.45 | public index | 83.18% | full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/decision1-fixed-workers/Decision1-Kai/DecisionIndex/metrics.json>) |
 | Laya | DecisionIndex | 5.11 | public index | 97.60% | full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/workers/Laya/DecisionIndex/metrics.json>) |
+| Clef-Flash | DecisionIndex | 13.10 | public index | 98.92% | partial/errors | 157437 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/workers/Clef-Flash/DecisionIndex/shard-000/metrics.json>) |
 | Liquid-d1-3B | DecisionIndex | 11.89 | public index | 100.00% | partial/errors | 154883 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/workers/Liquid-d1-3B/DecisionIndex/shard-001/metrics.json>) |
 | Liquid-d1-3B | DecisionIndex | 11.70 | public index | 100.00% | partial/errors | 157437 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/workers/Liquid-d1-3B/DecisionIndex/shard-000/metrics.json>) |
 | StartLux-0.8B | DecisionIndex | 9.05 | public index | 100.00% | partial/errors | 154883 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/workers/StartLux-0.8B/DecisionIndex/shard-001/metrics.json>) |
 | StartLux-0.8B | DecisionIndex | 8.98 | public index | 100.00% | partial/errors | 157437 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/workers/StartLux-0.8B/DecisionIndex/shard-000/metrics.json>) |
+| Vjev-4B | DecisionIndex | 6.60 | public index | 98.87% | partial/errors | 157437 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/workers/Vjev-4B/DecisionIndex/shard-000/metrics.json>) |
+| Vjev-4B | DecisionIndex | 6.32 | public index | 98.57% | partial/errors | 154883 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/workers/Vjev-4B/DecisionIndex/shard-001/metrics.json>) |
 | Intern-Decision-4B | DecisionIndex | 3.20 | public index | 56.34% | partial/errors | 157437 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/intern-fixed-workers/Intern-Decision-4B/DecisionIndex/shard-000/metrics.json>) |
 | Intern-Decision-4B | DecisionIndex | 2.97 | public index | 57.28% | partial/errors | 154883 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/intern-fixed-workers/Intern-Decision-4B/DecisionIndex/shard-001/metrics.json>) |
 | Intern-Decision-2B | DecisionIndex | 1.11 | public index | 56.34% | partial/errors | 157437 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/intern-fixed-workers/Intern-Decision-2B/DecisionIndex/shard-000/metrics.json>) |
