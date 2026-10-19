@@ -165,7 +165,7 @@ VisualDecisionBench 的图像和视频视图属于同一个基准。Decision Ind
 ## 📊 评测结果
 
 <!-- jevalkit:results-summary:start -->
-当前快照包含 **176 条有效完整成绩**，保留 **258 份运行记录**，覆盖 **18 个已实测模型家族**。
+当前快照包含 **184 条有效完整成绩**，保留 **267 份运行记录**，覆盖 **18 个已实测模型家族**。
 两个托管 API 家族仍待实际评测。[🤗 打开排行榜](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard)。
 <!-- jevalkit:results-summary:end -->
 
