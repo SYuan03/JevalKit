@@ -133,6 +133,7 @@ variant; per-benchmark coverage is shown in the [leaderboard](https://huggingfac
 | [Pplx-Decider](https://huggingface.co/perplexity-ai/pplx-decider-v1.1-27b) | `Pplx-Decider` | Native | Measured |
 | [JevK5](https://huggingface.co/alibiserikbay/JevK5) | `JevK5` | Native | Measured |
 | [StartLux](https://huggingface.co/startlux-models/StartLux-Decision-v1-0.8B) | `StartLux-0.8B` | Native | Measured |
+| [StartLux v1.1 Instant](docs/startlux-instant.md) | `StartLux-v1.1-{0.8B,2B,4B,9B,27B}-Instant` | Author server | Registered; weight-level evaluation pending |
 | [Crivo](https://huggingface.co/tardellirs/crivo-150m) | `Crivo-150M` | Native | Measured |
 | [RSI-Jev](https://github.com/Shanghua-Gao/RSI-Jev) | `RSI-Jev-v4` | Native | Measured |
 | [Vjev](https://huggingface.co/yah01/vjev-vision) | `Vjev-4B` | Native | Measured |

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "output": "./results/startlux-instant",
+  "runs": [
+    {
+      "model": "StartLux-v1.1-4B-Instant",
+      "data": ["JevBench"],
+      "options": {"endpoint": "http://127.0.0.1:8090/v1/systemone"},
+      "services": [
+        {
+          "command": [
+            "/path/to/startlux-venv/bin/startlux-decide", "serve",
+            "--model", "/path/to/models/StartLux-Decision-v1.1-4B-Instant",
+            "--name", "StartLux-Decision-v1.1-4B-Instant",
+            "--launch-vllm", "--gpus", "0", "--port", "8090"
+          ],
+          "env": {"NO_PROXY": "127.0.0.1,localhost", "no_proxy": "127.0.0.1,localhost"},
+          "ready_url": "http://127.0.0.1:8090/health",
+          "timeout": 1800,
+          "provenance_paths": [
+            "/path/to/models/StartLux-Decision-v1.1-4B-Instant",
+            "/path/to/StartLux-Decision/startlux_decide"
+          ]
+        }
+      ]
+    }
+  ]
+}

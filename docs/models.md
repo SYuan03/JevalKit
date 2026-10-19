@@ -24,6 +24,11 @@ Registration is not evidence of a successful weight-level evaluation: consult th
 | Pplx-Decider | Pplx-Decider | native | Python 3.12+; author requirements.txt | [source](https://huggingface.co/perplexity-ai/pplx-decider-v1.1-27b) |
 | JevK5 | JevK5 | native | jevk5 | [source](https://huggingface.co/alibiserikbay/JevK5) |
 | StartLux-0.8B | StartLux | native | author requirements.txt | [source](https://huggingface.co/startlux-models/StartLux-Decision-v1-0.8B) |
+| StartLux-v1.1-0.8B-Instant | StartLux | http | author startlux-decide server; STARTLUX_ENDPOINT | [setup](startlux-instant.md) |
+| StartLux-v1.1-2B-Instant | StartLux | http | author startlux-decide server; STARTLUX_ENDPOINT | [setup](startlux-instant.md) |
+| StartLux-v1.1-4B-Instant | StartLux | http | author startlux-decide server; STARTLUX_ENDPOINT | [setup](startlux-instant.md) |
+| StartLux-v1.1-9B-Instant | StartLux | http | author startlux-decide server; STARTLUX_ENDPOINT | [setup](startlux-instant.md) |
+| StartLux-v1.1-27B-Instant | StartLux | http | author startlux-decide server; STARTLUX_ENDPOINT | [setup](startlux-instant.md) |
 | Crivo-150M | Crivo | native | jevalkit[hf,decision-index] | [source](https://huggingface.co/tardellirs/crivo-150m) |
 | RSI-Jev-v4 | RSI-Jev | native | author rsijev package; `--option source=<checkout>` | [source](https://github.com/Shanghua-Gao/RSI-Jev) |
 | Vjev-4B | Vjev | native | author requirements.txt | [source](https://huggingface.co/yah01/vjev-vision) |
@@ -120,3 +125,10 @@ register its import path in `jevalkit/config.py`. Size variants can share the sa
 implementation. Keep author imports inside initialization so other models remain
 usable without that SDK. Reuse `_http.py` or `_hf.py` for matching calling conventions.
 Run `jeval check --model <name> --output check.json` and the relevant adapter tests.
+
+## StartLux v1.1 Instant
+
+The five v1.1 Instant variants use a separate author HTTP adapter; their weight-level
+evaluation remains pending. Set `STARTLUX_ENDPOINT` to the complete `/v1/systemone`
+URL and optionally `STARTLUX_API_KEY`. See [setup, fixed controls, media contracts
+and provenance](startlux-instant.md). The existing v1 native ID remains unchanged.

@@ -39,6 +39,8 @@ def decision_server(monkeypatch):
             self.send_header("Content-Type", "application/json")
             self.end_headers()
             response = {"answers": {"check": {"type": "noul", "noul": 0.75}}}
+            if calls[-1][2].get("model", "").startswith("startlux-models/"):
+                response["model"] = calls[-1][2]["model"].split("/")[-1]
             if self.path == "/v1/decisions":
                 response = {
                     "model": "fixture-decisions",
@@ -90,7 +92,8 @@ def test_transport_retries_and_reads_token_without_persisting_it(decision_server
     assert "test-credential" not in json.dumps(model.metadata())
 
 
-@pytest.mark.parametrize("model_name", ["Jev", "Kev", "H2O-Lightning", "OpenJev"])
+@pytest.mark.parametrize("model_name", ["Jev", "Kev", "H2O-Lightning", "OpenJev",
+                                       "StartLux-v1.1-4B-Instant"])
 def test_registered_systemone_api_uses_named_questions(decision_server, model_name):
     endpoint, calls = decision_server
     model = build_model(model_name, endpoint=endpoint + "/v1/systemone")

@@ -24,6 +24,11 @@
 | Pplx-Decider | Pplx-Decider | 原生接口 | Python 3.12+; 作者的 requirements.txt | [源码](https://huggingface.co/perplexity-ai/pplx-decider-v1.1-27b) |
 | JevK5 | JevK5 | 原生接口 | jevk5 | [源码](https://huggingface.co/alibiserikbay/JevK5) |
 | StartLux-0.8B | StartLux | 原生接口 | 作者的 requirements.txt | [源码](https://huggingface.co/startlux-models/StartLux-Decision-v1-0.8B) |
+| StartLux-v1.1-0.8B-Instant | StartLux | HTTP | 官方 startlux-decide 服务；STARTLUX_ENDPOINT | [接入说明](startlux-instant.md) |
+| StartLux-v1.1-2B-Instant | StartLux | HTTP | 官方 startlux-decide 服务；STARTLUX_ENDPOINT | [接入说明](startlux-instant.md) |
+| StartLux-v1.1-4B-Instant | StartLux | HTTP | 官方 startlux-decide 服务；STARTLUX_ENDPOINT | [接入说明](startlux-instant.md) |
+| StartLux-v1.1-9B-Instant | StartLux | HTTP | 官方 startlux-decide 服务；STARTLUX_ENDPOINT | [接入说明](startlux-instant.md) |
+| StartLux-v1.1-27B-Instant | StartLux | HTTP | 官方 startlux-decide 服务；STARTLUX_ENDPOINT | [接入说明](startlux-instant.md) |
 | Crivo-150M | Crivo | 原生接口 | jevalkit[hf,decision-index] | [源码](https://huggingface.co/tardellirs/crivo-150m) |
 | RSI-Jev-v4 | RSI-Jev | 原生接口 | 作者的 rsijev 包； `--option source=<checkout>` | [源码](https://github.com/Shanghua-Gao/RSI-Jev) |
 | Vjev-4B | Vjev | 原生接口 | 作者的 requirements.txt | [源码](https://huggingface.co/yah01/vjev-vision) |
@@ -106,3 +111,10 @@ Intern-Decision 每个共享请求最多接受 16 个问题，Decision1-Kai 要�
 尺寸变体可共用实现。作者包应在初始化时导入，避免其他模型因缺少该 SDK 而无法使用。
 调用约定相同的实现可复用 `_http.py` 或 `_hf.py`。
 使用 `jeval check --model <name> --output check.json` 检查接口，并运行相关适配器测试。
+
+## StartLux v1.1 Instant
+
+五个 v1.1 Instant 变体使用独立的官方 HTTP 适配器，权重级验证尚待完成。
+设置完整 `/v1/systemone` 地址至 `STARTLUX_ENDPOINT`，鉴权可用 `STARTLUX_API_KEY`。
+启动方式、固定控制参数、媒体约定与运行溯源见[接入说明](startlux-instant.md)。
+现有 v1 原生模型 ID 保持原样。
