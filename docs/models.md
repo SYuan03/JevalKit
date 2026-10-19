@@ -91,3 +91,7 @@ The tested reference deployment uses the author's published `READOUT_T=0.85`,
 `READOUT_NOUL_T=1.829074`, `READOUT_NOUL_BIAS=0`, `READOUT_INSTR_STYLE=pyrepr`
 and FP8 serving configuration. These constants are not fitted on JevalKit's
 test sets; the service provenance records all selected settings.
+
+Intern-Decision accepts at most 16 questions in a shared request. Decision1-Kai
+requires nonempty state text. Requests outside these released SDK limits are
+recorded as unsupported with the original request preserved.

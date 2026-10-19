@@ -47,7 +47,7 @@ flowchart LR
 - **2026-10-19:** Filling **22 previously untested model–benchmark pairs** (4/22 audited):
   17 DecisionIndex runs plus five JevBench/image/video runs. The workload uses
   **32 single-GPU workers**, including verified shard merges for larger runs,
-  within the **32 concurrent GPU** limit. **93 tests pass**. See
+  within the **32 concurrent GPU** limit. **95 tests pass**. See
   [coverage plan](docs/coverage-gapfill.json) and [live evaluation status](docs/STATUS.md).
 
 - **2026-10-19:** Launched the [interactive leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard)

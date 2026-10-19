@@ -1,10 +1,10 @@
 {
-  "updated_utc": "2026-10-19T04:50:33.606448+00:00",
+  "updated_utc": "2026-10-19T04:52:39.205361+00:00",
   "parallel_gpu_limit": 32,
   "logical_pairs": 22,
   "single_gpu_workers": 32,
   "initial_attempts": 32,
-  "replacement_workers": 5,
+  "replacement_workers": 6,
   "verified_pairs": 5,
   "complete": false,
   "pairs": [
@@ -179,7 +179,7 @@
       "workers": 1,
       "sampling_limit": null,
       "worker_states": {
-        "failed": 1
+        "not-submitted": 1
       },
       "status": "in-progress"
     },
@@ -284,5 +284,5 @@
       "status": "in-progress"
     }
   ],
-  "policy": "Full datasets, unchanged released checkpoints, frozen worker code. Exact request partitions and matching runtime are verified before official rescoring. Five Intern workers were replaced after adding an explicit16-question native capacity check; original failed evidence is preserved."
+  "policy": "Full datasets, unchanged released checkpoints, frozen worker code. Exact request partitions and matching runtime are verified before official rescoring. Five Intern workers and one Decision1 worker were replaced after explicit native question-count and empty-state checks; original failed evidence is preserved."
 }

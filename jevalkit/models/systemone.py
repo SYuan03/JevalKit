@@ -55,17 +55,19 @@ class HFSystemOne(NativeRuntime):
     """Liquid d1 and vLLM Decision-1 ship AutoModel.system_one(state, questions)."""
     modalities = frozenset({"text", "image"})
 
-    def __init__(self, model, image_support=True, max_score_levels=None, **options):
+    def __init__(self, model, image_support=True, max_score_levels=None, requires_nonempty_state=False, **options):
         os.environ.setdefault("HF_MODULES_CACHE", str(data_root(options.get("root")) / "cache" / "modules"))
         super().__init__(model, **options)
         from transformers import AutoModel
         self.image_support = image_support
         self.max_score_levels = max_score_levels
+        self.requires_nonempty_state = bool(requires_nonempty_state)
         self.modalities = frozenset({"text", "image"} if image_support else {"text"})
         self.engine = AutoModel.from_pretrained(str(self.folder), trust_remote_code=True,
                                                 local_files_only=True, dtype="auto").to(self.device).eval()
         self.info["image_support"] = bool(image_support)
         self.info["max_score_levels"] = max_score_levels
+        self.info["requires_nonempty_state"] = self.requires_nonempty_state
 
     def predict(self, request, *, media_root=None, assets=None):
         text, images, videos = state_parts(request["state"], media_root)
@@ -74,6 +76,8 @@ class HFSystemOne(NativeRuntime):
         if self.max_score_levels is not None and any(q["type"] == "score" and len(q["criteria"]) > self.max_score_levels
                                                     for q in request["questions"].values()):
             raise Unsupported(f"This native release supports at most {self.max_score_levels} score levels")
+        if not text.strip() and not images and self.requires_nonempty_state:
+            raise Unsupported("This native release requires a nonempty state; no placeholder evidence was inserted")
         import torch
         if images:
             from PIL import Image

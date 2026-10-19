@@ -1,6 +1,6 @@
 # Implementation and evaluation status
 
-Updated UTC: 2026-10-19T04:50:33.606448+00:00
+Updated UTC: 2026-10-19T04:52:39.205361+00:00
 
 Public checkpoint integrations are validated. A coverage audit found 22 compatible
 local model–benchmark pairs that had never been evaluated; these are being
@@ -9,9 +9,9 @@ evaluated with 32 single-GPU workers. Hosted API measurements still require cred
 - Implemented: 20 model families, 8 Jev-related benchmark suites / 10 active TSV views.
 - Real inference verified: 18 families, including Valen and all public checkpoint integrations.
 - Results: 206 retained active artifacts; 144 distinct eligible primary full scores. Gap-fill audit: 5/22 complete. The five-suite matrix remains 110/110 complete (99 eligible, 11 fully unsupported).
-- Checks: 93 regression tests passed, including native question capacity, matrix shard validation and exact-partition merge checks. The pre-run wheel check matched all 32 package modules and bundled licenses.
+- Checks: 95 regression tests passed, including native question capacity, matrix shard validation and exact-partition merge checks. The pre-run wheel check matched all 32 package modules and bundled licenses.
 - Data: the five new suites (45,794 states / 91,817 questions) passed full schema, count and content-hash checks. Existing media checks remain valid; retired data remains archived.
-- GPU limit: at most 32 concurrent GPUs. Gap-fill audit: 5/22 complete; latest worker states: 5 succeeded, 26 running, 1 failed. Historical completed jobs do not consume parallel capacity.
+- GPU limit: at most 32 concurrent GPUs. Gap-fill audit: 5/22 complete; latest worker states: 5 succeeded, 26 running, 1 not-submitted. Historical completed jobs do not consume parallel capacity.
 
 The [leaderboard](../leaderboard/README.md) selects the latest complete measurement
 per model, data hash and protocol, without selecting the best repeat. It retains
@@ -49,6 +49,12 @@ The earlier 110/110 completion refers to the five new benchmark suites. It did
 not cover all older benchmarks. The [gap-fill plan](coverage-gapfill.json) lists
 all 22 newly scheduled pairs: 17 DecisionIndex models, Intern-Decision-2B/4B on
 JevBench and VisualDecisionBench_Image, and Clef-Flash on VisualDecisionBench_Video.
+
+Intern-Decision accepts at most16 questions per request; Decision1-Kai rejects
+empty state text. These native input limits are recorded as unsupported without
+removing questions or inserting placeholder evidence. Five Intern workers and
+one Decision1 worker were replaced with these explicit checks; their original
+failed evidence is retained.
 
 Each DecisionIndex model evaluates all 140,178 states / 312,320 questions.
 Pplx-Decider uses four independent request shards; seven other larger runs use

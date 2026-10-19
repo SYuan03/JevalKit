@@ -35,7 +35,8 @@ register("Laya", "Laya", "jevalkit.models.native:LayaModel", "convaiinnovations/
 register("Liquid-d1-3B", "Liquid-d1", S + "HFSystemOne", "LiquidAI/d1-3B",
          "https://huggingface.co/LiquidAI/d1-3B", requirements="transformers>=5.14; author dependencies")
 register("Decision1-Kai", "vLLM-Decision1", S + "HFSystemOne", "vllm-sr/Decision-1.0-Kai-0.6B",
-         "https://huggingface.co/vllm-sr/Decision-1.0-Kai-0.6B", options={"image_support": False, "max_score_levels": 10})
+         "https://huggingface.co/vllm-sr/Decision-1.0-Kai-0.6B",
+         options={"image_support": False, "max_score_levels": 10, "requires_nonempty_state": True})
 register("Clef", "Clef", S + "ClefModel", "Cloudflare/clef", "https://huggingface.co/Cloudflare/clef",
          requirements="author requirements.txt")
 register("Clef-Flash", "Clef", S + "ClefModel", "Cloudflare/clef-flash", "https://huggingface.co/Cloudflare/clef-flash",

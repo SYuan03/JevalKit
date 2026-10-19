@@ -256,6 +256,22 @@ def test_decision1_score_capacity_is_explicit_before_forward():
     assert len(request["questions"]["severity"]["criteria"]) == 11
 
 
+@pytest.mark.parametrize("state", ["", " \n\t"])
+def test_decision1_empty_state_is_an_explicit_native_input_limit(state):
+    from jevalkit.config import MODELS
+    from jevalkit.models.systemone import HFSystemOne
+    from jevalkit.schema import Unsupported
+    model = object.__new__(HFSystemOne)
+    model.image_support, model.max_score_levels = False, 10
+    model.requires_nonempty_state = MODELS["Decision1-Kai"].options["requires_nonempty_state"]
+    request = record()["request"]
+    request["state"] = state
+    before = copy.deepcopy(request)
+    with pytest.raises(Unsupported, match="requires a nonempty state"):
+        model.predict(request)
+    assert request == before
+
+
 def test_model_fingerprint_covers_auxiliary_heads_and_configuration(tmp_path):
     from jevalkit.models.provenance import inference_artifacts
     for name in ("head.pt", "adapter.safetensors", "calibration.json", "tokenizer.model", "inference.py"):
