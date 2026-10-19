@@ -6,7 +6,8 @@ from threading import Thread
 import pytest
 
 from jevalkit.config import build_model
-from jevalkit.models.http import HttpDecisionModel, OpenAIDecisions
+from jevalkit.models._http import HttpDecisionModel
+from jevalkit.models.openai_decisions import OpenAIDecisions
 from jevalkit.schema import Unsupported, answer_probabilities
 
 
@@ -22,7 +23,13 @@ def decision_server(monkeypatch):
             pass
 
         def do_POST(self):
-            calls.append((self.path, dict(self.headers), json.loads(self.rfile.read(int(self.headers['Content-Length'])))))
+            calls.append(
+                (
+                    self.path,
+                    dict(self.headers),
+                    json.loads(self.rfile.read(int(self.headers["Content-Length"]))),
+                )
+            )
             if self.path == "/retry" and len(calls) == 1:
                 self.send_response(429)
                 self.send_header("Retry-After", "0")
@@ -31,15 +38,31 @@ def decision_server(monkeypatch):
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
             self.end_headers()
-            response = {"answers": {"check": {"type": "noul", "noul": .75}}}
+            response = {"answers": {"check": {"type": "noul", "noul": 0.75}}}
             if self.path == "/v1/decisions":
-                response = {"model": "fixture-decisions", "usage": {"input_tokens": 12}, "answers": [
-                    {"name": "route", "type": "choice", "probabilities": [
-                        {"value": "support", "probability": .8}, {"value": "billing", "probability": .2}]},
-                    {"name": "check", "type": "predicate", "probability": .75},
-                    {"name": "severity", "type": "score", "probabilities": [
-                        {"value": "1", "probability": .6}, {"value": "0", "probability": .4}]},
-                ]}
+                response = {
+                    "model": "fixture-decisions",
+                    "usage": {"input_tokens": 12},
+                    "answers": [
+                        {
+                            "name": "route",
+                            "type": "choice",
+                            "probabilities": [
+                                {"value": "support", "probability": 0.8},
+                                {"value": "billing", "probability": 0.2},
+                            ],
+                        },
+                        {"name": "check", "type": "predicate", "probability": 0.75},
+                        {
+                            "name": "severity",
+                            "type": "score",
+                            "probabilities": [
+                                {"value": "1", "probability": 0.6},
+                                {"value": "0", "probability": 0.4},
+                            ],
+                        },
+                    ],
+                }
             self.wfile.write(json.dumps(response).encode())
 
     server = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
@@ -63,7 +86,7 @@ def test_transport_retries_and_reads_token_without_persisting_it(decision_server
     model = HttpDecisionModel(endpoint + "/retry", "fixture", token_env="JEVAL_TEST_TOKEN")
     result = model.predict(request())
     assert len(calls) == 2 and calls[1][1]["Authorization"] == "Bearer test-credential"
-    assert answer_probabilities(request()["questions"]["check"], result["answers"]["check"])["true"] == .75
+    assert answer_probabilities(request()["questions"]["check"], result["answers"]["check"])["true"] == 0.75
     assert "test-credential" not in json.dumps(model.metadata())
 
 
@@ -81,8 +104,17 @@ def test_registered_systemone_api_uses_named_questions(decision_server, model_na
 def test_openjev_screenshot_uses_author_state_image_field(tmp_path, decision_server):
     endpoint, calls = decision_server
     (tmp_path / "picture.png").write_bytes(b"fixture image bytes")
-    state = {"messages": [{"role": "user", "content": [{"type": "text", "text": "Inspect"},
-             {"type": "image_url", "image_url": {"url": "picture.png"}}]}]}
+    state = {
+        "messages": [
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": "Inspect"},
+                    {"type": "image_url", "image_url": {"url": "picture.png"}},
+                ],
+            }
+        ]
+    }
     model = build_model("OpenJev", endpoint=endpoint + "/v1/systemone")
     model.predict(request(state), media_root=tmp_path)
     sent = calls[0][2]["state"]
@@ -107,15 +139,25 @@ def test_openai_image_and_video_contract(tmp_path):
 def test_registered_openai_decisions_transport_all_question_types(decision_server, monkeypatch):
     endpoint, calls = decision_server
     monkeypatch.setenv("JEVAL_TEST_OPENAI_TOKEN", "fixture-openai-token")
-    model = build_model("OpenAI-Decisions", endpoint=endpoint + "/v1/decisions",
-                        token_env="JEVAL_TEST_OPENAI_TOKEN")
-    source = {"state": "Please help fix an integration error.", "questions": {
-        "route": {"type": "choice", "instructions": "Route this request", "criteria": {
-            "billing": None, "support": {"team": "technical"}}},
-        "check": {"type": "noul", "instructions": "Requires support?", "criteria": {
-            "true": "Technical integration issue", "false": "Billing question"}},
-        "severity": {"type": "score", "instructions": "Rate severity", "criteria": ["low", "high"]},
-    }}
+    model = build_model(
+        "OpenAI-Decisions", endpoint=endpoint + "/v1/decisions", token_env="JEVAL_TEST_OPENAI_TOKEN"
+    )
+    source = {
+        "state": "Please help fix an integration error.",
+        "questions": {
+            "route": {
+                "type": "choice",
+                "instructions": "Route this request",
+                "criteria": {"billing": None, "support": {"team": "technical"}},
+            },
+            "check": {
+                "type": "noul",
+                "instructions": "Requires support?",
+                "criteria": {"true": "Technical integration issue", "false": "Billing question"},
+            },
+            "severity": {"type": "score", "instructions": "Rate severity", "criteria": ["low", "high"]},
+        },
+    }
     before = copy.deepcopy(source)
     result = model.predict(source)
     path, headers, payload = calls[0]
@@ -129,12 +171,20 @@ def test_registered_openai_decisions_transport_all_question_types(decision_serve
     assert "Technical integration issue" in payload["questions"][1]["instructions"]
     assert "Billing question" in payload["questions"][1]["instructions"]
     assert payload["questions"][2]["levels"] == [
-        {"label": "0", "description": "low"}, {"label": "1", "description": "high"}]
+        {"label": "0", "description": "low"},
+        {"label": "1", "description": "high"},
+    ]
     assert answer_probabilities(source["questions"]["route"], result["answers"]["route"]) == {
-        "billing": .2, "support": .8}
+        "billing": 0.2,
+        "support": 0.8,
+    }
     assert answer_probabilities(source["questions"]["check"], result["answers"]["check"]) == {
-        "false": .25, "true": .75}
+        "false": 0.25,
+        "true": 0.75,
+    }
     assert answer_probabilities(source["questions"]["severity"], result["answers"]["severity"]) == {
-        "0": .4, "1": .6}
+        "0": 0.4,
+        "1": 0.6,
+    }
     assert result["usage"] == {"input_tokens": 12}
     assert source == before and "fixture-openai-token" not in json.dumps(model.metadata())

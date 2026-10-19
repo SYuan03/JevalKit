@@ -1,4 +1,5 @@
 """Import actual upstream predictions, verify their frozen inputs, and re-score them."""
+
 from pathlib import Path
 import time
 
@@ -7,8 +8,8 @@ from .config import MODELS
 from .datasets import DecisionDataset
 from .io import atomic_json, dumps, jsonl, load_json, sha256
 from .metrics import grouped_report
-from .runner import score_predictions
-from .scoring import official_report
+from .metrics import score_predictions
+from .datasets import official_report
 
 
 def import_decision_index(model_name, results, environments, output, root=None):
@@ -24,7 +25,10 @@ def import_decision_index(model_name, results, environments, output, root=None):
     common, evidence = None, []
     for path in map(Path, environments):
         env = load_json(path)
-        identity = {k: env.get(k) for k in ("model_source", "hardware", "versions", "cuda", "runner_sha256", "latency")}
+        identity = {
+            k: env.get(k)
+            for k in ("model_source", "hardware", "versions", "cuda", "runner_sha256", "latency")
+        }
         if common is None:
             common = identity
         elif common != identity:
@@ -48,11 +52,12 @@ def import_decision_index(model_name, results, environments, output, root=None):
             if index in seen or row["payload_sha256"] != allowed[index]:
                 raise ValueError("Duplicate upstream prediction or frozen input identity mismatch")
             seen.add(index)
-            status = {"ok": "ok", "error": "error", "unsupported": "unsupported", "abstained": "refusal"}.get(row["status"])
+            status = {"ok": "ok", "error": "error", "unsupported": "unsupported", "abstained": "refusal"}.get(
+                row["status"]
+            )
             if status is None:
                 raise ValueError("Unknown upstream inference status")
-            prediction = {"index": index, "status": status,
-                          "latency_s": row["model_request_wall_ms"] / 1000}
+            prediction = {"index": index, "status": status, "latency_s": row["model_request_wall_ms"] / 1000}
             if "response" in row:
                 prediction["response"] = row["response"]
             if "error" in row:
@@ -61,25 +66,55 @@ def import_decision_index(model_name, results, environments, output, root=None):
             predictions.append(prediction)
     if seen != set(allowed):
         raise ValueError(f"Imported predictions cover {len(seen)} of {len(allowed)} frozen requests")
-    runtime = {"origin": "imported-upstream-measurement", "adapter": "upstream Decision Index engine",
-               "source_runtime": common, "hardware": common["hardware"],
-               "source_results": str(Path(results).resolve()), "source_results_sha256": sha256(results),
-               "environment_evidence": evidence,
-               "identity_scope": "Model identity is declared by original inference environments; this import performs no new inference."}
-    signature = {"model": model_name, "benchmark": dataset.name, "dataset_sha256": dataset.manifest["sha256"],
-                 "protocol": dataset.manifest["protocol"], "records": len(allowed), "limit": None,
-                 "rank": 0, "world_size": 1, "warmup": None, "jevalkit": __version__, "operation": "verified-upstream-import"}
-    atomic_json(output / "manifest.json", {"signature": signature, "runtime": runtime,
-                                           "dataset_manifest": dataset.manifest})
+    runtime = {
+        "origin": "imported-upstream-measurement",
+        "adapter": "upstream Decision Index engine",
+        "source_runtime": common,
+        "hardware": common["hardware"],
+        "source_results": str(Path(results).resolve()),
+        "source_results_sha256": sha256(results),
+        "environment_evidence": evidence,
+        "identity_scope": "Model identity is declared by original inference environments; this import performs no new inference.",
+    }
+    signature = {
+        "model": model_name,
+        "benchmark": dataset.name,
+        "dataset_sha256": dataset.manifest["sha256"],
+        "protocol": dataset.manifest["protocol"],
+        "records": len(allowed),
+        "limit": None,
+        "rank": 0,
+        "world_size": 1,
+        "warmup": None,
+        "jevalkit": __version__,
+        "operation": "verified-upstream-import",
+    }
+    atomic_json(
+        output / "manifest.json",
+        {"signature": signature, "runtime": runtime, "dataset_manifest": dataset.manifest},
+    )
     started = time.perf_counter()
     metrics = grouped_report(score_predictions(dataset, predictions))
     official = official_report(dataset, dataset, predictions, output)
-    report = {"schema_version": 1, "model": model_name, "benchmark": dataset.name,
-              "dataset_sha256": dataset.manifest["sha256"], "protocol": dataset.manifest["protocol"],
-              "attempted_requests": len(predictions), "selected_requests": len(allowed), "total_requests": len(allowed),
-              "rank": 0, "world_size": 1, "complete": True, "smoke": False, "metrics": metrics,
-              "official": official, "runtime": runtime, "scoring_seconds": time.perf_counter() - started,
-              "predictions_sha256": sha256(output / "predictions.jsonl"),
-              "manifest_sha256": sha256(output / "manifest.json")}
+    report = {
+        "schema_version": 1,
+        "model": model_name,
+        "benchmark": dataset.name,
+        "dataset_sha256": dataset.manifest["sha256"],
+        "protocol": dataset.manifest["protocol"],
+        "attempted_requests": len(predictions),
+        "selected_requests": len(allowed),
+        "total_requests": len(allowed),
+        "rank": 0,
+        "world_size": 1,
+        "complete": True,
+        "smoke": False,
+        "metrics": metrics,
+        "official": official,
+        "runtime": runtime,
+        "scoring_seconds": time.perf_counter() - started,
+        "predictions_sha256": sha256(output / "predictions.jsonl"),
+        "manifest_sha256": sha256(output / "manifest.json"),
+    }
     atomic_json(output / "metrics.json", report)
     return report

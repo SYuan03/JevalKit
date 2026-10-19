@@ -75,7 +75,7 @@ starting its published `serve.sh`, create a standard HF index that selects the
 backbone file for vLLM's local loader:
 
 ```bash
-python scripts/prepare_weight_index.py /path/to/h2o-lightning-4b model.safetensors
+python -m jevalkit.models.h2o_lightning /path/to/h2o-lightning-4b model.safetensors
 bash /path/to/h2o-lightning-4b/serve.sh
 ```
 
@@ -108,3 +108,11 @@ Use separate environments where author dependencies differ. Matrix rows can
 select an absolute `python` path; SDK source checkouts use `--option source=PATH`.
 Each result manifest records the actual library versions, weights and native
 source fingerprints. See [running evaluations](quickstart.md) for usage.
+
+## Add a model
+
+Create `jevalkit/models/<model>.py`, implement the interface in `base.py`, and
+register its import path in `jevalkit/config.py`. Size variants can share the same
+implementation. Keep author imports inside initialization so other models remain
+usable without that SDK. Reuse `_http.py` or `_hf.py` for matching calling conventions.
+Run `jeval check --model <name> --output check.json` and the relevant adapter tests.

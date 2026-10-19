@@ -63,7 +63,7 @@ comparison into one workflow, following the registry-based design of
   with benchmark filters, model comparison, probability metrics and CSV/JSON downloads.
 - **2026-10-19:** Published all **10 TSV views** in
   [🤗 JevalKit Datasets](https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets),
-  with pinned sources and scoring protocols in the [dataset catalog](jevalkit/datasets/catalog.json).
+  with pinned sources and scoring protocols in the [dataset packages](jevalkit/datasets/).
 - **2026-10-19:** Completed **110/110 pairs** across the five new suites:
   99 eligible scores and 11 fully unsupported pairs. Source, checkpoint hashes
   and complete request coverage were verified; details are in the [leaderboard](leaderboard/README.md).
@@ -187,7 +187,7 @@ the [integration guide](docs/models.md).
 
 VisualDecisionBench's image and video views belong to the same benchmark.
 Decision Index public scores and its private leaderboard components are reported
-separately. See the [dataset catalog](jevalkit/datasets/catalog.json) and
+separately. See the [dataset packages](jevalkit/datasets/) and
 [scoring protocols](docs/benchmarks.md).
 
 Download the prepared TSVs from [🤗 JevalKit Datasets](https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets).
@@ -222,10 +222,11 @@ families remain pending. [🤗 Open the leaderboard](https://huggingface.co/spac
 
 ## 🤝 Contributing
 
-Model adapters live in `jevalkit/models/` and are registered in
-[`jevalkit/config.py`](jevalkit/config.py). Benchmark loaders live in
-`jevalkit/datasets/`, with scoring in `jevalkit/scoring.py`. Contributions should
-preserve native probabilities, candidate order and the published scoring protocol.
+Each model implementation has its own file in `jevalkit/models/`, registered in
+[`jevalkit/config.py`](jevalkit/config.py). Each benchmark has its own directory
+in `jevalkit/datasets/`, containing preparation, scoring and frozen TSV metadata.
+Contributions should preserve native probabilities, candidate order and the
+published scoring protocol.
 Include reproducible commands and the relevant validation when adding a model,
 dataset or result.
 

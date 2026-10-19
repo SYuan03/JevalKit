@@ -3,7 +3,7 @@
 The repository structure is inspired by [VLMEvalKit](https://github.com/open-compass/VLMEvalKit).
 No VLMEvalKit implementation is copied.
 
-`jevalkit/datasets/_jevbench/` contains the task schema and scoring/aggregation
+`jevalkit/datasets/jevbench/official/` contains the task schema and scoring/aggregation
 modules from [fstandhartinger/jevbench](https://github.com/fstandhartinger/jevbench),
 revision `bb05a335bc809e61b20c0f745d25499a82b326fc`, obtained through Valen's
 attributed vendor snapshot. Its MIT license is retained in that directory.

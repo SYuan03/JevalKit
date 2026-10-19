@@ -1,7 +1,7 @@
 import json
 
 from jevalkit.conformance import check_model
-from jevalkit.models.base import UniformModel
+from jevalkit.models.uniform import UniformModel
 
 
 def test_interface_checks_have_no_labels_or_benchmark_scores(tmp_path):
@@ -21,5 +21,6 @@ def test_interface_checks_reject_missing_candidates(tmp_path):
                 if answer["type"] == "choice":
                     answer["probabilities"].pop(next(iter(answer["probabilities"])))
             return response
+
     report = check_model("Uniform", tmp_path / "invalid.json", model_instance=Incomplete())
     assert not report["passed"] and all(row["status"] == "error" for row in report["cases"])

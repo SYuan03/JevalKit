@@ -1,0 +1,26 @@
+{
+  "datasets": [
+    {
+      "schema_version": 1,
+      "name": "JevAltBench",
+      "media_root": ".",
+      "protocol": "test-en-tr-de-explicit-unknown-v1",
+      "reference_normalization": "sum-normalized only within 0.001 of one; original sum retained",
+      "tie_break": "first upstream candidate; explicit mapping retained per question",
+      "records": 3116,
+      "questions": 8434,
+      "sha256": "58cd34780da758315050609a716ea22e53519122513343327614d956ed08c49a",
+      "source": {
+        "repository": "https://huggingface.co/datasets/mertkayacs/jevalt-bench",
+        "revision": "950b95fac0950d85b6383dccbe3445726c1ccc3c",
+        "split": "test",
+        "license": "mixed permissive; record-level licenses retained",
+        "files": {
+          "data/en/test.jsonl": "6ca22d30eb83eaf014d80ef448e82ecd26370f415d77c2c894129b5344c734b6",
+          "data/tr/test.jsonl": "fa02b3d392da2febf3579f99dcf0bc063bbb72347e74d6f47d5453ba01475e44",
+          "data/de/test.jsonl": "6904b1f96bf76fecf50558f40285d899568074f48ef35c1308d945265f1bd6d7"
+        }
+      }
+    }
+  ]
+}

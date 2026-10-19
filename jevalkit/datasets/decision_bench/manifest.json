@@ -1,0 +1,24 @@
+{
+  "datasets": [
+    {
+      "schema_version": 1,
+      "name": "DecisionBench",
+      "media_root": ".",
+      "protocol": "standard-eval-systemone-native-v1",
+      "reference_normalization": "sum-normalized only within 0.001 of one; original sum retained",
+      "tie_break": "first upstream candidate; explicit mapping retained per question",
+      "records": 23900,
+      "questions": 23900,
+      "sha256": "c99000b66862ef3781aa65f1d4edf267c605a519e619b9975a1509de428fefec",
+      "source": {
+        "repository": "https://huggingface.co/datasets/Hanno-Labs/decision-bench",
+        "revision": "071b7b2d2e1504c89e1e5a811a3f82e1bfe3aedb",
+        "split": "eval",
+        "license": "source-specific; upstream license metadata: other",
+        "files": {
+          "data/eval-00000-of-00001.parquet": "d9dd5be8e0944a7ceadfcac6cf8f9d17aab256093acff23c6de6a037ad6e55f6"
+        }
+      }
+    }
+  ]
+}

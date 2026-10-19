@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "output": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/served",
+  "output": "./results/served",
   "runs": [
     {
       "model": "Kev",

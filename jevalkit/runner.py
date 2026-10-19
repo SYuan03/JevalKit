@@ -1,4 +1,5 @@
 """Streaming inference with verified resume, request sharding and explicit coverage."""
+
 import fcntl
 import json
 import platform
@@ -9,8 +10,8 @@ from pathlib import Path
 from . import __version__
 from .datasets import DecisionDataset
 from .io import atomic_json, dumps, load_json, object_hash, sha256
-from .metrics import grouped_report, question_metrics
-from .schema import Unsupported, answer_probabilities, inference_request, is_capacity_error, target_label, target_probabilities
+from .metrics import grouped_report, score_predictions
+from .schema import Unsupported, inference_request, is_capacity_error
 
 
 def selected_records(dataset, limit=None, rank=0, world_size=1):
@@ -58,47 +59,22 @@ def read_journal(path, allowed):
     return records
 
 
-def score_predictions(dataset, predictions):
-    rows = []
-    by_id = {p["index"]: p for p in predictions}
-    for record in dataset:
-        if record["index"] not in by_id:
-            continue
-        prediction = by_id[record["index"]]
-        for qid, question in record["request"]["questions"].items():
-            truth = target_probabilities(question, record["targets"][qid])
-            row = {"index": record["index"], "qid": qid, "type": question["type"],
-                   "hard": target_label(question, record["targets"][qid]) is not None,
-                   "scorable": truth is not None, "status": prediction["status"],
-                   **{k: record["meta"].get(k, "unknown") for k in ("subset", "domain", "modality")}}
-            if prediction["status"] == "error" and is_capacity_error(prediction.get("error", "")):
-                row["status"] = "unsupported"
-            # Latency belongs to shared requests, not to every question in the batch.
-            if qid == next(iter(record["request"]["questions"])):
-                row["latency_s"] = prediction["latency_s"]
-            if prediction["status"] == "ok":
-                try:
-                    answer = prediction["response"]["answers"][qid]
-                    if not isinstance(answer, dict):
-                        raise ValueError("Native answer must be an object")
-                    if answer.get("type") == "refusal":
-                        row["status"] = "refusal"
-                    elif answer.get("error") in {"max_length_exceeded", "unsupported_question_type"}:
-                        row.update(status="unsupported", error=answer["error"])
-                    else:
-                        probabilities = answer_probabilities(question, answer)
-                        order = record["meta"].get("candidate_order", {}).get(qid)
-                        row.update(question_metrics(question, record["targets"][qid], probabilities, order),
-                                   probabilities=probabilities)
-                except (KeyError, TypeError, ValueError) as exc:
-                    row.update(status="error", error=str(exc))
-            rows.append(row)
-    return rows
-
-
-def run(model_name, benchmark, output, *, root=None, model_options=None, resume=False,
-        limit=None, rank=0, world_size=1, warmup=1, model_instance=None):
+def run(
+    model_name,
+    benchmark,
+    output,
+    *,
+    root=None,
+    model_options=None,
+    resume=False,
+    limit=None,
+    rank=0,
+    world_size=1,
+    warmup=1,
+    model_instance=None,
+):
     from .config import build_model
+
     if warmup < 0:
         raise ValueError("warmup must be nonnegative")
     dataset = DecisionDataset(benchmark, root)
@@ -115,13 +91,24 @@ def run(model_name, benchmark, output, *, root=None, model_options=None, resume=
         options = model_options or {}
         # CLI accepts only token environment names; never token values.
         source_root = Path(__file__).parent
-        signature = {"model": model_name, "model_options": options, "benchmark": benchmark,
-                     "dataset_sha256": dataset.manifest["sha256"], "protocol": dataset.manifest["protocol"],
-                     "selected_ids_sha256": object_hash([r["index"] for r in records]),
-                     "records": len(records), "limit": limit, "rank": rank, "world_size": world_size,
-                     "warmup": warmup, "jevalkit": __version__, "python": platform.python_version(),
-                     "source_sha256": {str(p.relative_to(source_root)): sha256(p)
-                                       for p in sorted(source_root.rglob("*.py"))}}
+        signature = {
+            "model": model_name,
+            "model_options": options,
+            "benchmark": benchmark,
+            "dataset_sha256": dataset.manifest["sha256"],
+            "protocol": dataset.manifest["protocol"],
+            "selected_ids_sha256": object_hash([r["index"] for r in records]),
+            "records": len(records),
+            "limit": limit,
+            "rank": rank,
+            "world_size": world_size,
+            "warmup": warmup,
+            "jevalkit": __version__,
+            "python": platform.python_version(),
+            "source_sha256": {
+                str(p.relative_to(source_root)): sha256(p) for p in sorted(source_root.rglob("*.py"))
+            },
+        }
         manifest_path = output / "manifest.json"
         if manifest_path.exists():
             if not resume:
@@ -138,10 +125,14 @@ def run(model_name, benchmark, output, *, root=None, model_options=None, resume=
         if manifest_path.exists() and load_json(manifest_path)["runtime"] != runtime:
             model.close()
             raise ValueError("Resume model weights or runtime changed")
-        manifest = {"signature": signature, "runtime": runtime,
-                    "created_utc": datetime.now(timezone.utc).isoformat(),
-                    "dataset_manifest": dataset.manifest, "load_seconds": load_seconds,
-                    "timing_scope": "synchronized native request including preprocessing; excludes load/warmup/scoring"}
+        manifest = {
+            "signature": signature,
+            "runtime": runtime,
+            "created_utc": datetime.now(timezone.utc).isoformat(),
+            "dataset_manifest": dataset.manifest,
+            "load_seconds": load_seconds,
+            "timing_scope": "synchronized native request including preprocessing; excludes load/warmup/scoring",
+        }
         if not manifest_path.exists():
             atomic_json(manifest_path, manifest)
         journal = output / "predictions.jsonl"
@@ -151,8 +142,11 @@ def run(model_name, benchmark, output, *, root=None, model_options=None, resume=
             for _ in range(warmup):
                 for record in records[:1]:
                     try:
-                        model.predict(inference_request(record), media_root=dataset.media_root,
-                                      assets=record.get("assets", []))
+                        model.predict(
+                            inference_request(record),
+                            media_root=dataset.media_root,
+                            assets=record.get("assets", []),
+                        )
                     except Unsupported:
                         pass
             with journal.open("a", encoding="utf-8") as stream:
@@ -163,8 +157,11 @@ def run(model_name, benchmark, output, *, root=None, model_options=None, resume=
                     started = time.perf_counter()
                     prediction = {"index": record["index"], "status": "ok"}
                     try:
-                        response = model.predict(inference_request(record), media_root=dataset.media_root,
-                                                 assets=record.get("assets", []))
+                        response = model.predict(
+                            inference_request(record),
+                            media_root=dataset.media_root,
+                            assets=record.get("assets", []),
+                        )
                         model.synchronize()
                         if set(response.get("answers", {})) != set(record["request"]["questions"]):
                             raise ValueError("Native response question IDs do not match the request")
@@ -173,8 +170,11 @@ def run(model_name, benchmark, output, *, root=None, model_options=None, resume=
                     except Unsupported as exc:
                         prediction.update(status="unsupported", error=str(exc))
                     except Exception as exc:
-                        prediction.update(status="unsupported" if is_capacity_error(str(exc)) else "error",
-                                          exception=type(exc).__name__, error=str(exc))
+                        prediction.update(
+                            status="unsupported" if is_capacity_error(str(exc)) else "error",
+                            exception=type(exc).__name__,
+                            error=str(exc),
+                        )
                     prediction["latency_s"] = time.perf_counter() - started
                     stream.write(dumps(prediction) + "\n")
                     stream.flush()
@@ -182,33 +182,68 @@ def run(model_name, benchmark, output, *, root=None, model_options=None, resume=
                     if prediction.get("exception") in {"OutOfMemoryError", "AcceleratorError"}:
                         raise RuntimeError("GPU error recorded; stopping before reusing the device context")
                     if len(predictions) >= 5 and all(p["status"] == "error" for p in predictions[-5:]):
-                        raise RuntimeError("Five consecutive request errors; inspect the native runtime before continuing")
+                        raise RuntimeError(
+                            "Five consecutive request errors; inspect the native runtime before continuing"
+                        )
                     if len(predictions) % 25 == 0:
-                        print(dumps({"event": "progress", "model": model_name, "benchmark": benchmark,
-                                     "completed_requests": len(predictions), "planned": len(records)}), flush=True)
+                        print(
+                            dumps(
+                                {
+                                    "event": "progress",
+                                    "model": model_name,
+                                    "benchmark": benchmark,
+                                    "completed_requests": len(predictions),
+                                    "planned": len(records),
+                                }
+                            ),
+                            flush=True,
+                        )
         finally:
             model.close()
         metrics = grouped_report(score_predictions(records, predictions))
-        report = {"schema_version": 1, "model": model_name, "benchmark": benchmark,
-                  "dataset_sha256": dataset.manifest["sha256"], "protocol": dataset.manifest["protocol"],
-                  "attempted_requests": len(predictions), "selected_requests": len(records),
-                  "total_requests": dataset.manifest["records"], "rank": rank, "world_size": world_size,
-                  "complete": len(predictions) == dataset.manifest["records"] and world_size == 1,
-                  "smoke": limit is not None, "metrics": metrics, "runtime": runtime,
-                  "predictions_sha256": sha256(journal), "manifest_sha256": sha256(manifest_path)}
-        from .scoring import official_report
+        report = {
+            "schema_version": 1,
+            "model": model_name,
+            "benchmark": benchmark,
+            "dataset_sha256": dataset.manifest["sha256"],
+            "protocol": dataset.manifest["protocol"],
+            "attempted_requests": len(predictions),
+            "selected_requests": len(records),
+            "total_requests": dataset.manifest["records"],
+            "rank": rank,
+            "world_size": world_size,
+            "complete": len(predictions) == dataset.manifest["records"] and world_size == 1,
+            "smoke": limit is not None,
+            "metrics": metrics,
+            "runtime": runtime,
+            "predictions_sha256": sha256(journal),
+            "manifest_sha256": sha256(manifest_path),
+        }
+        from .datasets import official_report
+
         official = official_report(dataset, records, predictions, output)
         if official:
             report["official"] = official
         atomic_json(output / "metrics.json", report)
-        print(dumps({"event": "complete", "model": model_name, "benchmark": benchmark,
-                     "complete": report["complete"], "metrics": metrics["overall"]}), flush=True)
+        print(
+            dumps(
+                {
+                    "event": "complete",
+                    "model": model_name,
+                    "benchmark": benchmark,
+                    "complete": report["complete"],
+                    "metrics": metrics["overall"],
+                }
+            ),
+            flush=True,
+        )
         return report
 
 
 def merge_shards(model_name, benchmark, shard_dirs, output, *, root=None):
     """Promote shards only after their exact request partition is proven complete."""
     from .io import jsonl
+
     dataset = DecisionDataset(benchmark, root)
     manifests, predictions, seen, ranks = [], [], set(), set()
     first = None
@@ -220,7 +255,10 @@ def merge_shards(model_name, benchmark, shard_dirs, output, *, root=None):
             raise ValueError("Shard model/benchmark mismatch or limited smoke shard")
         if report["dataset_sha256"] != dataset.manifest["sha256"]:
             raise ValueError("Shard dataset fingerprint differs from current benchmark")
-        if sha256(folder / "predictions.jsonl") != report["predictions_sha256"] or sha256(folder / "manifest.json") != report["manifest_sha256"]:
+        if (
+            sha256(folder / "predictions.jsonl") != report["predictions_sha256"]
+            or sha256(folder / "manifest.json") != report["manifest_sha256"]
+        ):
             raise ValueError("Shard evidence changed")
         common = {k: v for k, v in signature.items() if k not in {"rank", "selected_ids_sha256", "records"}}
         common["runtime"] = manifest["runtime"]
@@ -249,19 +287,38 @@ def merge_shards(model_name, benchmark, shard_dirs, output, *, root=None):
     records = list(dataset)
     positions = {r["index"]: i for i, r in enumerate(records)}
     predictions.sort(key=lambda r: positions[r["index"]])
-    atomic_json(output / "manifest.json", {"signature": {**first, "operation": "verified-shard-merge"},
-                                           "shards": manifests, "runtime": first["runtime"]})
+    atomic_json(
+        output / "manifest.json",
+        {
+            "signature": {**first, "operation": "verified-shard-merge"},
+            "shards": manifests,
+            "runtime": first["runtime"],
+        },
+    )
     journal = output / "predictions.jsonl"
     with journal.open("w", encoding="utf-8") as stream:
         for row in predictions:
             stream.write(dumps(row) + "\n")
-    report = {"schema_version": 1, "model": model_name, "benchmark": benchmark,
-              "dataset_sha256": dataset.manifest["sha256"], "protocol": dataset.manifest["protocol"],
-              "attempted_requests": len(predictions), "selected_requests": len(records), "total_requests": len(records),
-              "rank": None, "world_size": first["world_size"], "complete": True, "smoke": False,
-              "metrics": grouped_report(score_predictions(records, predictions)), "runtime": first["runtime"],
-              "predictions_sha256": sha256(journal), "manifest_sha256": sha256(output / "manifest.json")}
-    from .scoring import official_report
+    report = {
+        "schema_version": 1,
+        "model": model_name,
+        "benchmark": benchmark,
+        "dataset_sha256": dataset.manifest["sha256"],
+        "protocol": dataset.manifest["protocol"],
+        "attempted_requests": len(predictions),
+        "selected_requests": len(records),
+        "total_requests": len(records),
+        "rank": None,
+        "world_size": first["world_size"],
+        "complete": True,
+        "smoke": False,
+        "metrics": grouped_report(score_predictions(records, predictions)),
+        "runtime": first["runtime"],
+        "predictions_sha256": sha256(journal),
+        "manifest_sha256": sha256(output / "manifest.json"),
+    }
+    from .datasets import official_report
+
     official = official_report(dataset, records, predictions, output)
     if official:
         report["official"] = official
@@ -272,6 +329,7 @@ def merge_shards(model_name, benchmark, shard_dirs, output, *, root=None):
 def score_saved_run(folder, root=None):
     """Re-score stored native answers, including official metrics, without weights."""
     from .io import jsonl
+
     folder = Path(folder)
     with (folder / ".run.lock").open("w") as lock:
         try:
@@ -285,27 +343,48 @@ def score_saved_run(folder, root=None):
         if dataset.manifest["sha256"] != signature["dataset_sha256"]:
             raise ValueError("Cannot re-score predictions against changed benchmark data")
         merged = signature.get("operation") == "verified-shard-merge"
-        records = list(dataset) if merged else list(selected_records(
-            dataset, signature["limit"], signature["rank"], signature["world_size"]))
+        records = (
+            list(dataset)
+            if merged
+            else list(
+                selected_records(dataset, signature["limit"], signature["rank"], signature["world_size"])
+            )
+        )
         predictions = list(jsonl(folder / "predictions.jsonl"))
         seen = {p["index"] for p in predictions}
         if len(predictions) != len(seen) or seen != {r["index"] for r in records}:
             raise ValueError("Saved predictions do not cover the exact selected requests")
-        report = {"schema_version": 1, "model": signature["model"], "benchmark": dataset.name,
-                  "dataset_sha256": dataset.manifest["sha256"], "protocol": dataset.manifest["protocol"],
-                  "attempted_requests": len(predictions), "selected_requests": len(records),
-                  "total_requests": dataset.manifest["records"],
-                  "complete": len(records) == dataset.manifest["records"] and (merged or signature["world_size"] == 1),
-                  "smoke": signature["limit"] is not None, "rank": signature.get("rank"),
-                  "world_size": signature["world_size"], "runtime": manifest["runtime"],
-                  "metrics": grouped_report(score_predictions(records, predictions)),
-                  "manifest_sha256": sha256(manifest_path), "predictions_sha256": sha256(folder / "predictions.jsonl"),
-                  "rescoring": {"version": __version__, "source_sha256": {str(p.relative_to(Path(__file__).parent)): sha256(p)
-                               for p in sorted(Path(__file__).parent.rglob("*.py"))}}}
+        report = {
+            "schema_version": 1,
+            "model": signature["model"],
+            "benchmark": dataset.name,
+            "dataset_sha256": dataset.manifest["sha256"],
+            "protocol": dataset.manifest["protocol"],
+            "attempted_requests": len(predictions),
+            "selected_requests": len(records),
+            "total_requests": dataset.manifest["records"],
+            "complete": len(records) == dataset.manifest["records"]
+            and (merged or signature["world_size"] == 1),
+            "smoke": signature["limit"] is not None,
+            "rank": signature.get("rank"),
+            "world_size": signature["world_size"],
+            "runtime": manifest["runtime"],
+            "metrics": grouped_report(score_predictions(records, predictions)),
+            "manifest_sha256": sha256(manifest_path),
+            "predictions_sha256": sha256(folder / "predictions.jsonl"),
+            "rescoring": {
+                "version": __version__,
+                "source_sha256": {
+                    str(p.relative_to(Path(__file__).parent)): sha256(p)
+                    for p in sorted(Path(__file__).parent.rglob("*.py"))
+                },
+            },
+        }
         previous = folder / "metrics.json"
         if previous.exists() and "validation" in load_json(previous):
             report["validation"] = load_json(previous)["validation"]
-        from .scoring import official_report
+        from .datasets import official_report
+
         official = official_report(dataset, records, predictions, folder)
         if official:
             report["official"] = official

@@ -1,29 +1,66 @@
-"""Dataset registry and verified TSV loaders, patterned after VLMEvalKit."""
+"""Dataset registry; each benchmark owns preparation, scoring and metadata."""
+
+from importlib import import_module
 from pathlib import Path
+
 from ..io import load_json, read_tsv, sha256
 from ..paths import data_root
 
+
 BENCHMARKS = {
-    "VisualDecisionBench": {"family": "VisualDecisionBench", "modality": "image,video"},
-    "VisualDecisionBench_Image": {"family": "VisualDecisionBench", "modality": "image"},
-    "VisualDecisionBench_Video": {"family": "VisualDecisionBench", "modality": "video"},
-    "JevBench": {"family": "JevBench", "modality": "text"},
-    "DecisionIndex": {"family": "DecisionIndex", "modality": "text"},
-    "TypedDecisions": {"family": "TypedDecisions", "modality": "text"},
-    "DecisionBench": {"family": "DecisionBench", "modality": "text"},
-    "ProceduralTypedDecisions": {"family": "ProceduralTypedDecisions", "modality": "text"},
-    "ZhDecisionBench": {"family": "ZhDecisionBench", "modality": "text"},
-    "JevAltBench": {"family": "JevAltBench", "modality": "text"},
+    "VisualDecisionBench": {
+        "family": "VisualDecisionBench",
+        "modality": "image,video",
+        "module": "visual_decision_bench",
+    },
+    "VisualDecisionBench_Image": {
+        "family": "VisualDecisionBench",
+        "modality": "image",
+        "module": "visual_decision_bench",
+    },
+    "VisualDecisionBench_Video": {
+        "family": "VisualDecisionBench",
+        "modality": "video",
+        "module": "visual_decision_bench",
+    },
+    "JevBench": {"family": "JevBench", "modality": "text", "module": "jevbench"},
+    "DecisionIndex": {"family": "DecisionIndex", "modality": "text", "module": "decision_index"},
+    "TypedDecisions": {"family": "TypedDecisions", "modality": "text", "module": "typed_decisions"},
+    "DecisionBench": {"family": "DecisionBench", "modality": "text", "module": "decision_bench"},
+    "ProceduralTypedDecisions": {
+        "family": "ProceduralTypedDecisions",
+        "modality": "text",
+        "module": "procedural_typed_decisions",
+    },
+    "ZhDecisionBench": {"family": "ZhDecisionBench", "modality": "text", "module": "zh_decision_bench"},
+    "JevAltBench": {"family": "JevAltBench", "modality": "text", "module": "jevalt_bench"},
 }
 
 
 def published_manifest(name):
-    """Describe the ready-to-use TSV release shipped on Hugging Face."""
-    catalog = load_json(Path(__file__).with_name("catalog.json"))
-    for manifest in catalog["datasets"]:
-        if manifest["name"] == name:
-            return manifest
+    """Load the frozen TSV metadata owned by the selected benchmark."""
+    module = BENCHMARKS.get(name, {}).get("module")
+    if module:
+        path = Path(__file__).parent / module / "manifest.json"
+        for manifest in load_json(path)["datasets"]:
+            if manifest["name"] == name:
+                return manifest
     raise FileNotFoundError("No published dataset metadata or local manifest for: " + name)
+
+
+def prepare_dataset(name, root=None, source=None, edition="0.3"):
+    module = import_module("." + BENCHMARKS[name]["module"], __name__)
+    return module.prepare(root=root, source=source, edition=edition)
+
+
+def official_report(dataset, records, predictions, output):
+    module_name = BENCHMARKS.get(dataset.name, {}).get("module")
+    if module_name:
+        module = import_module("." + module_name, __name__)
+        scorer = getattr(module, "evaluate", None)
+        if scorer:
+            return scorer(dataset, records, predictions, output)
+    return None
 
 
 class DecisionDataset:
@@ -32,8 +69,9 @@ class DecisionDataset:
         self.root = data_root(root)
         self.path = self.root / "datasets" / (name + ".tsv")
         self.manifest_path = self.path.with_suffix(".manifest.json")
-        self.manifest = (load_json(self.manifest_path) if self.manifest_path.is_file()
-                         else published_manifest(name))
+        self.manifest = (
+            load_json(self.manifest_path) if self.manifest_path.is_file() else published_manifest(name)
+        )
         if self.manifest["name"] != name or sha256(self.path) != self.manifest["sha256"]:
             raise ValueError("Dataset identity or TSV checksum mismatch: " + name)
         self.media_root = (self.path.parent / self.manifest.get("media_root", ".")).resolve()
@@ -43,6 +81,7 @@ class DecisionDataset:
 
     def verify(self, media=False):
         from ..models.media import state_parts
+
         records, questions = 0, 0
         for record in self:
             records += 1
@@ -56,8 +95,13 @@ class DecisionDataset:
                             raise ValueError("Media checksum mismatch: " + str(path))
         if records != self.manifest["records"] or questions != self.manifest["questions"]:
             raise ValueError("Dataset coverage differs from manifest")
-        return {"name": self.name, "records": records, "questions": questions,
-                "sha256": self.manifest["sha256"], "media_verified": media}
+        return {
+            "name": self.name,
+            "records": records,
+            "questions": questions,
+            "sha256": self.manifest["sha256"],
+            "media_verified": media,
+        }
 
 
 def build_dataset(name, root=None):

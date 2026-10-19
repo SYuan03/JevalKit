@@ -14,8 +14,8 @@ views are subdivisions of VisualDecisionBench, not additional benchmark families
 | zh-decision-bench | Pinned v0.2 public validation: 378 states, 467 questions | Chinese classification/rating; right-closed 15-bin reference ECE |
 | JevAlt-Bench | Pinned English/Turkish/German test files: 3,116 states, 8,434 questions | Modal accuracy; hard and soft probability scores; language slices and equal-mass reference ECE |
 
-The published [dataset catalog](../jevalkit/datasets/catalog.json) pins source
-revisions, TSV hashes, counts and scoring protocols. Download the released data
+Each [benchmark directory](../jevalkit/datasets/) contains preparation, scoring
+and a `manifest.json` pinning TSV hashes, counts and protocols. Download the released data
 using the [usage guide](quickstart.md#download-data).
 
 `JevBench` specifically means
@@ -91,3 +91,12 @@ report**, identified by `scorer=jevalkit-decision-protocol-v1`; it does not impl
 execution by an upstream harness. Reports include task/domain/language/difficulty
 slices, label-only NLL/Brier, soft-target KL/Brier, and the applicable reference
 ECE. JevBench and Decision Index continue to invoke their benchmark-owned scorers.
+
+## Add a benchmark
+
+Create `jevalkit/datasets/<benchmark>/` with `__init__.py` and `manifest.json`.
+Implement `prepare(root=None, source=None, **options)` and, when required,
+`evaluate(dataset, records, predictions, output)` in that package. Register the
+package name, family and modality in `jevalkit/datasets/__init__.py`; the CLI and
+runner dispatch through that entry. Use `_shared.commit_dataset` for validated TSVs
+and add fixtures checking the source projection and scoring rules.

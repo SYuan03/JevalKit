@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "output": "/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/example",
+  "output": "./results/example",
   "data": ["JevBench", "VisualDecisionBench_Image"],
   "runs": [
     {"model": "Valen-0.8B", "options": {"model": "/path/to/Valen-0.8B"}},

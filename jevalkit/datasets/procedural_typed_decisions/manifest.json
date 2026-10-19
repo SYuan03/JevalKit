@@ -1,0 +1,24 @@
+{
+  "datasets": [
+    {
+      "schema_version": 1,
+      "name": "ProceduralTypedDecisions",
+      "media_root": ".",
+      "protocol": "18-tasks-test-native-probability-v1",
+      "reference_normalization": "sum-normalized only within 0.001 of one; original sum retained",
+      "tie_break": "first upstream candidate; explicit mapping retained per question",
+      "records": 18000,
+      "questions": 57016,
+      "sha256": "4809d20dc7aa54a6d15d7edf352044e658898e46232cb42bba9acb15f1fd8faf",
+      "source": {
+        "repository": "https://huggingface.co/datasets/tasksource/procedural-typed-decisions",
+        "revision": "e4b21b7b55f6cc9e76e33563e9d604ac5fcd25ad",
+        "split": "test",
+        "license": "Apache-2.0",
+        "files": {
+          "all/test-00000-of-00001.parquet": "9f16b7415fef05a01654c1fb4b743d6c43fd09e86d4d5b96b510a260239fbe9e"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+"""Decision Index frozen-suite preparation and upstream official scoring."""
+
+import copy
+import hashlib
+import shutil
+from pathlib import Path
+from ...io import dumps
+from ...paths import data_root
+from .._shared import commit_dataset
+
+
+def install_digest_compat():
+    """The pinned Decision Index kit uses Python 3.11's file_digest on Python 3.10."""
+    if not hasattr(hashlib, "file_digest"):
+
+        def file_digest(stream, algorithm):
+            digest = hashlib.new(algorithm)
+            for chunk in iter(lambda: stream.read(8 * 1024 * 1024), b""):
+                digest.update(chunk)
+            return digest
+
+        hashlib.file_digest = file_digest
+
+
+def prepare(root=None, source=None, edition="0.3"):
+    install_digest_compat()
+    from decision_index import editions
+    from decision_index.suite.io import Suite
+
+    root = data_root(root)
+    folder = root / "raw" / ("DecisionIndex-" + edition)
+    folder.mkdir(parents=True, exist_ok=True)
+    if source:
+        for name in editions.files(edition):
+            shutil.copyfile(Path(source) / name, folder / name)
+    else:
+        from decision_index.suite.download import download
+
+        download(folder, edition=edition)
+    suite = Suite(folder, edition)
+    checks = suite.verify(strict=True)
+    if not checks.get("exclusions_match") or checks.get("subsets_match") is False:
+        raise ValueError("Decision Index exclusion/subset checksums do not match the frozen release")
+
+    def records():
+        for row in suite.rows(apply_exclusions=True):
+            questions = copy.deepcopy(row["questions"])
+            for q in questions.values():
+                if not isinstance(q["instructions"], str):
+                    q["instructions"] = dumps(q["instructions"])
+            yield {
+                "index": row["_evaluation"]["run_id"],
+                "request": {"state": row["state"], "questions": questions},
+                "targets": {
+                    k: {"label": v} if v is not None else {"unscored": True}
+                    for k, v in row["expected"].items()
+                },
+                "meta": {
+                    "subset": row["_evaluation"]["dataset"],
+                    "domain": row.get("family", "unknown"),
+                    "modality": "text",
+                    "_evaluation": row["_evaluation"],
+                    "expected": row["expected"],
+                    "source_metadata": row.get("metadata", {}),
+                },
+                "assets": [],
+            }
+
+    return commit_dataset(
+        "DecisionIndex",
+        records(),
+        root,
+        {
+            "repository": "https://github.com/apolinario/decision-index",
+            "edition": edition,
+            "checks": checks,
+            "suite_manifest": suite.manifest(),
+        },
+        protocol="official-public-" + edition,
+        suite_dir="../raw/DecisionIndex-" + edition,
+    )
+
+
+def evaluate(dataset, records, predictions, output):
+    install_digest_compat()
+    from decision_index.suite.io import Suite
+    from decision_index.pipeline import score_run
+
+    source = dataset.path.parent / dataset.manifest["suite_dir"]
+    suite = Suite(source, dataset.manifest["source"]["edition"])
+    by_id = {p["index"]: p for p in predictions}
+    path = Path(output) / "decision-index-results.jsonl"
+    with path.open("w", encoding="utf-8") as stream:
+        for record in records:
+            p = by_id[record["index"]]
+            row = {
+                **record["meta"]["_evaluation"],
+                "status": p["status"],
+                "total_wall_ms": p["latency_s"] * 1000,
+                "model_request_wall_ms": p["latency_s"] * 1000,
+            }
+            if row["status"] == "refusal":
+                row["status"] = "abstained"
+            if "response" in p:
+                row["response"] = p["response"]
+                from decision_index.engines import validate
+
+                try:
+                    validate(record["request"]["questions"], row["response"])
+                except (KeyError, ValueError, TypeError):
+                    row.update(
+                        status="error", error="Native response fails official Decision Index validation"
+                    )
+                    row.pop("response")
+            if "error" in p:
+                row["error"] = p["error"]
+            stream.write(dumps(row) + "\n")
+    return score_run(suite, path, "jevalkit", Path(output) / "official")

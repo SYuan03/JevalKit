@@ -1,0 +1,46 @@
+{
+  "datasets": [
+    {
+      "schema_version": 1,
+      "name": "VisualDecisionBench",
+      "media_root": "../media/VisualDecisionBench",
+      "protocol": "native-shared-state",
+      "records": 1696,
+      "questions": 9143,
+      "sha256": "7caa026b69ba1b160f2aa23776b31d4d6162cdb95592810411ce4c905e1a1b44",
+      "source": {
+        "repository": "https://huggingface.co/datasets/Valen-Team/VisualDecisionBench",
+        "license": "upstream datasets retain their own licenses",
+        "eval_jsonl_sha256": "23eec19993613f9fb1cc6671dbbdf3afb99525c58097f3ac6bd752ae3f34d7e9"
+      }
+    },
+    {
+      "schema_version": 1,
+      "name": "VisualDecisionBench_Image",
+      "media_root": "../media/VisualDecisionBench",
+      "protocol": "native-shared-state",
+      "records": 1402,
+      "questions": 2000,
+      "sha256": "4db5a36bb084f5143d537a107e1685a2d01a3cbd7bf7c8717dd414d91e9aa67a",
+      "source": {
+        "repository": "https://huggingface.co/datasets/Valen-Team/VisualDecisionBench",
+        "license": "upstream datasets retain their own licenses",
+        "eval_jsonl_sha256": "23eec19993613f9fb1cc6671dbbdf3afb99525c58097f3ac6bd752ae3f34d7e9"
+      }
+    },
+    {
+      "schema_version": 1,
+      "name": "VisualDecisionBench_Video",
+      "media_root": "../media/VisualDecisionBench",
+      "protocol": "native-shared-state",
+      "records": 294,
+      "questions": 7143,
+      "sha256": "72a0d2421a439212fa749a320df5d90570d87ad37570561a5dd06d3d5f3be7ed",
+      "source": {
+        "repository": "https://huggingface.co/datasets/Valen-Team/VisualDecisionBench",
+        "license": "upstream datasets retain their own licenses",
+        "eval_jsonl_sha256": "23eec19993613f9fb1cc6671dbbdf3afb99525c58097f3ac6bd752ae3f34d7e9"
+      }
+    }
+  ]
+}

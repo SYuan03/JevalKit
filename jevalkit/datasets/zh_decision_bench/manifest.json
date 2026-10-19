@@ -1,0 +1,25 @@
+{
+  "datasets": [
+    {
+      "schema_version": 1,
+      "name": "ZhDecisionBench",
+      "media_root": ".",
+      "protocol": "v0.2-validation-378-native-v1",
+      "reference_normalization": "sum-normalized only within 0.001 of one; original sum retained",
+      "tie_break": "first upstream candidate; explicit mapping retained per question",
+      "records": 378,
+      "questions": 467,
+      "sha256": "d99704fc055c8f767813786ce6184089a5ebc8aa4f88a5cc21075108bafbe099",
+      "source": {
+        "repository": "https://huggingface.co/datasets/CodyQin/zh-decision-bench",
+        "revision": "c4f90cdd973f5f5c0793c30a2ff3b77ea42d2266",
+        "split": "validation",
+        "license": "CC-BY-4.0; Amazon MASSIVE and CodyQin attribution",
+        "files": {
+          "voice_routing.jsonl": "3be12956bd7cbf23a09056d55a741178466f3214f4e03dbb4dda9581ac9b8cba",
+          "business_scenarios.jsonl": "4a48af57e67e6977f47d4180b1d3392d938eb2ccf0318a2c273fb85ce2f71f30"
+        }
+      }
+    }
+  ]
+}

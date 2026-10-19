@@ -24,8 +24,8 @@ jeval = "jevalkit.cli:main"
 include = ["jevalkit*"]
 
 [tool.setuptools.package-data]
-"jevalkit.datasets" = ["catalog.json"]
-"jevalkit.datasets._jevbench" = ["LICENSE"]
+"*" = ["manifest.json"]
+"jevalkit.datasets.jevbench.official" = ["LICENSE"]
 
 [tool.setuptools]
 license-files = ["LICENSE", "THIRD_PARTY.md"]

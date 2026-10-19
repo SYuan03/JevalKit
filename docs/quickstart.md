@@ -23,7 +23,7 @@ hf download Valen-Team/JevalKit_Datasets --repo-type dataset \
 
 For one benchmark, replace `datasets/*.tsv` with `datasets/JevBench.tsv`.
 JevalKit reads the published schema, counts and hashes from its bundled
-[dataset catalog](../jevalkit/datasets/catalog.json); local manifests are optional
+[benchmark packages](../jevalkit/datasets/); local manifests are optional
 for these published snapshots. No conversion or dataset construction is needed.
 
 For VisualDecisionBench, download and extract the original media:

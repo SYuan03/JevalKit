@@ -1,0 +1,18 @@
+{
+  "datasets": [
+    {
+      "schema_version": 1,
+      "name": "DecisionIndex",
+      "media_root": ".",
+      "protocol": "official-public-0.3",
+      "suite_dir": "../raw/DecisionIndex-0.3",
+      "records": 140178,
+      "questions": 312320,
+      "sha256": "9cc55d90b70b0aeca387abffed2957d740a11246be6dc480dfd41e0cc9b7368f",
+      "source": {
+        "repository": "https://github.com/apolinario/decision-index",
+        "edition": "0.3"
+      }
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "datasets": [
+    {
+      "schema_version": 1,
+      "name": "TypedDecisions",
+      "media_root": ".",
+      "protocol": "test-400-shared-state-soft-gold-v1",
+      "reference_normalization": "sum-normalized only within 0.001 of one; original sum retained",
+      "tie_break": "first upstream candidate; explicit mapping retained per question",
+      "records": 400,
+      "questions": 2000,
+      "sha256": "043b3089dac5ab2045e717d3899afe7bfc073e30e66da3cb47b8ebca17277cfe",
+      "source": {
+        "repository": "https://huggingface.co/datasets/LocalLLaMA/typed-decisions",
+        "revision": "7189f46b02248bd2569df7325c9df8e3b24e90a7",
+        "split": "test",
+        "license": "Apache-2.0",
+        "files": {
+          "all/test-00000-of-00001.parquet": "4f294f218ea1da27f3efef936359389c62ea4d3973a41457732990f1d31b647c"
+        }
+      }
+    }
+  ]
+}
