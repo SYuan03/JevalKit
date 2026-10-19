@@ -1,6 +1,6 @@
 # Implementation and evaluation status
 
-Updated UTC: 2026-10-19T03:44:00.211142+00:00
+Updated UTC: 2026-10-19T04:20:22.819719+00:00
 
 The original goal is not complete. Public checkpoint validation is complete;
 live measurements for the two hosted APIs still require credentials.
@@ -15,6 +15,9 @@ live measurements for the two hosted APIs still require credentials.
 The [leaderboard](../leaderboard/README.md) selects the latest complete measurement
 per model, data hash and protocol, without selecting the best repeat. It retains
 smoke, imported, unsupported and repeated runs in the detailed results.
+The [HF Space](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard)
+provides an interactive snapshot with benchmark/metric filters, model comparison,
+coverage, per-run provenance and CSV/JSON export. It runs as a static website.
 The [data inventory](data-manifest.json) records persistent TSV paths, hashes,
 sources and counts under `/mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit`.
 The [requirement audit](validation-audit.json) records the original scope and pending evidence.

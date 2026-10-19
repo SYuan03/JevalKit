@@ -11,7 +11,7 @@ Text, images and video in. Choice, Noul and Score probabilities out.
 [![Model families: 20](https://img.shields.io/badge/Model_families-20-6366f1.svg)](#supported-models)
 [![Core suites: 8](https://img.shields.io/badge/Core_suites-8-16a34a.svg)](#supported-benchmarks)
 
-[Leaderboard](leaderboard/README.md) · [Datasets](https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets) · [Quick Start](#quick-start) · [Models](#supported-models) · [Benchmarks](#supported-benchmarks) · [Documentation](#documentation) · [Contributing](#contributing)
+[Leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard) · [Datasets](https://huggingface.co/datasets/Valen-Team/JevalKit_Datasets) · [Quick Start](#quick-start) · [Models](#supported-models) · [Benchmarks](#supported-benchmarks) · [Documentation](#documentation) · [Contributing](#contributing)
 
 </div>
 
@@ -43,6 +43,12 @@ flowchart LR
 ```
 
 ## Latest Updates
+
+- **2026-10-19:** Launched the [interactive leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard)
+  with **139 eligible full scores**, per-benchmark ranking, accuracy/calibration
+  filters, model comparisons, measurement details and CSV downloads. Its pinned
+  snapshot includes all **201 retained runs**; the [Markdown results](leaderboard/README.md)
+  remain available in this repository.
 
 - **2026-10-19:** Completed all **110/110 model–benchmark pairs** on the five
   new suites after 24 parallel repairs: **99 eligible scores**, 11 fully

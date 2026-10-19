@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-10-19T03:44:00.211142+00:00",
+  "updated_utc": "2026-10-19T04:20:22.819719+00:00",
   "goal_complete": false,
   "scope": {
     "model_families": 20,
@@ -1230,7 +1230,10 @@
         "leaderboard/README.md",
         "leaderboard/leaderboard.tsv",
         "leaderboard/leaderboard.json",
-        "artifacts/goal-audit-leaderboard.log"
+        "artifacts/goal-audit-leaderboard.log",
+        "artifacts/space-publication.json",
+        "artifacts/space-browser-report.json",
+        "https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard"
       ]
     },
     {
@@ -1254,6 +1257,17 @@
         "README.md"
       ],
       "layout": "10 TSVs, README.md, .gitattributes"
+    },
+    {
+      "requirement": "Create and publish the Hugging Face leaderboard Space with current measured results",
+      "state": "published-running-and-browser-verified",
+      "url": "https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard",
+      "commit": "22c1d1b342fac51e1ab231f811cfd2eede94ffcb",
+      "evidence": [
+        "README.md",
+        "artifacts/space-publication.json",
+        "artifacts/space-browser-report.json"
+      ]
     }
   ],
   "tested_source_current": true,
@@ -1314,5 +1328,34 @@
     "removed_bytes": 83670764,
     "tsv_content_unchanged": true,
     "layout": "10 TSVs, README.md, .gitattributes"
+  },
+  "leaderboard_space": {
+    "verified_utc": "2026-10-19T04:19:52.278982+00:00",
+    "url": "https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard",
+    "host": "https://valen-team-jevalkit-leaderboard.static.hf.space",
+    "repository": "Valen-Team/JevalKit-Leaderboard",
+    "commit": "22c1d1b342fac51e1ab231f811cfd2eede94ffcb",
+    "runtime": "RUNNING",
+    "source_commit": "32cf3e1c54547fba60e4a434561c34ca61fd6d7f",
+    "counts": {
+      "model_families": 20,
+      "evaluated_families": 18,
+      "model_configurations": 22,
+      "benchmark_families": 8,
+      "eligible_scores": 139,
+      "retained_runs": 201,
+      "fully_unsupported": 11
+    },
+    "unit_tests_passed": 7,
+    "browser_checks": [
+      "real snapshot and correct initial ranking",
+      "search, family, empty-state reset and coverage filters",
+      "lower-is-better sorting, public-only index scale and imported provenance",
+      "model comparison and downloadable CSV contents",
+      "retained 201-run archive and methodology",
+      "visual and all-suite views, 390px/320px mobile layout, mobile details"
+    ],
+    "browser_errors": [],
+    "remote_assets_sha256_verified": 6
   }
 }
