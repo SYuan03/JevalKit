@@ -55,7 +55,7 @@ comparison into one workflow, following the registry-based design of
 ## 📰 Latest Updates
 
 <!-- jevalkit:coverage:start -->
-- **2026-10-19:** Filling **22 missing model–benchmark pairs**, with **16/22 audited**.
+- **2026-10-19:** Filling **22 missing model–benchmark pairs**, with **17/22 audited**.
   Full datasets run in parallel within the **32 concurrent GPU** limit; verified
   results are published as they finish on the [leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard).
 <!-- jevalkit:coverage:end -->
@@ -199,7 +199,7 @@ models and benchmarks. Protocol details are in the [scoring guide](docs/benchmar
 ## 📊 Evaluation Results
 
 <!-- jevalkit:results-summary:start -->
-The current snapshot contains **155 eligible full scores** and **229 retained
+The current snapshot contains **156 eligible full scores** and **233 retained
 run artifacts**. It covers **18 measured model families**; the two hosted API
 families remain pending. [🤗 Open the leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard).
 <!-- jevalkit:results-summary:end -->
