@@ -133,6 +133,9 @@ Size variants and Clef/Clef-Flash count within their respective families.
 **Measured** means real inference has been verified for at least one registered
 variant; per-benchmark coverage is shown in the [leaderboard](leaderboard/README.md).
 
+<details>
+<summary>View supported models (20 families)</summary>
+
 | Model family | Registered model IDs | Interface | Evaluation |
 |---|---|---|---|
 | [Valen](https://github.com/Valen-Team/Valen) | `Valen-0.8B`, `Valen-2B`, `Valen-4B` | Native | Measured |
@@ -156,6 +159,8 @@ variant; per-benchmark coverage is shown in the [leaderboard](leaderboard/README
 | [Jev](https://typesafe.ai) | `Jev` | Hosted API | Live evaluation pending |
 | [OpenAI Decisions](https://developers.openai.com/api/docs/guides/decisions) | `OpenAI-Decisions` | Hosted API | Live evaluation pending |
 
+</details>
+
 The catalog also includes a `Uniform` diagnostic baseline. Author dependencies,
 context limits, supported question types and media contracts are documented in
 the [integration guide](docs/models.md).
@@ -163,6 +168,9 @@ the [integration guide](docs/models.md).
 <a id="supported-benchmarks"></a>
 
 ## 🧩 Supported Benchmarks
+
+<details>
+<summary>View supported datasets (8 benchmark suites)</summary>
 
 | Benchmark | Input | Evaluation data | Main measurements |
 |---|---|---|---|
@@ -174,6 +182,8 @@ the [integration guide](docs/models.md).
 | [Procedural Typed Decisions](https://huggingface.co/datasets/tasksource/procedural-typed-decisions) | 📝 Text | 18,000 test states; 57,016 questions | Rule execution and exact probability judgments |
 | [zh-decision-bench](https://github.com/CodyQin/zh-decision-bench) | 📝 Chinese | v0.2: 378 items; 467 questions | Routing, moderation, ordinal ratings and calibration |
 | [JevAlt-Bench](https://huggingface.co/datasets/mertkayacs/jevalt-bench) | 📝 EN · TR · DE | 3,116 test states; 8,434 questions | Labeled and soft-probability decisions; language slices |
+
+</details>
 
 VisualDecisionBench's image and video views belong to the same benchmark.
 Decision Index public scores and its private leaderboard components are reported
