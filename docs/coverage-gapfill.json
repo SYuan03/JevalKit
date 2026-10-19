@@ -1,11 +1,11 @@
 {
-  "updated_utc": "2026-10-19T05:18:39.756684+00:00",
+  "updated_utc": "2026-10-19T05:21:02.216752+00:00",
   "parallel_gpu_limit": 32,
   "logical_pairs": 22,
   "single_gpu_workers": 32,
   "initial_attempts": 32,
   "replacement_workers": 6,
-  "verified_pairs": 7,
+  "verified_pairs": 8,
   "complete": false,
   "pairs": [
     {
@@ -204,7 +204,18 @@
       "worker_states": {
         "running": 1
       },
-      "status": "in-progress"
+      "status": "verified",
+      "requests": 140178,
+      "questions": 312320,
+      "valid": 259796,
+      "unsupported": 52524,
+      "failed": 0,
+      "coverage": 0.8318263319672131,
+      "accuracy": 0.4247739615334217,
+      "public_decision_index": 5.45,
+      "weights_unchanged": true,
+      "source_verified": true,
+      "request_ids_and_hashes_verified": true
     },
     {
       "model": "Clef-Flash",
