@@ -20,7 +20,7 @@ Only currently registered Jev-related benchmarks are included; retired tasks rem
 | Liquid-d1-3B | 72.92% | 48.13 | 84.88% | 74.89% | 65.08% | 65.40% | 81.82% | — | 82.01% |
 | OmniJev | — | — | — | — | — | — | 62.18% | 63.36% | — |
 | OpenJev | 71.83% | — | 89.82% | 87.45% | 82.12% | 69.75% | 83.12% | — | 87.79% |
-| Pplx-Decider | 74.70% | — | 92.25% | 89.18% | 94.59% | 73.55% | 86.88% | — | 91.22% |
+| Pplx-Decider | 74.70% | 62.20 | 92.25% | 89.18% | 94.59% | 73.55% | 86.88% | — | 91.22% |
 | QEV | 49.66% | — | 59.88% | 61.47% | 41.37% | 75.90% | 73.59% | — | 80.30% |
 | RSI-Jev-v4 | 70.08% | 27.98 | 88.81% | 70.13% | 61.16% | 78.40% | 80.18% | — | 90.36% |
 | StartLux-0.8B | 74.12% | 38.48 | 86.22% | 76.62% | 65.94% | 75.05% | 71.59% | — | 87.58% |
@@ -56,6 +56,7 @@ Accuracy is shown as a percentage. DecisionIndex uses the upstream weighted publ
 | Laya | DecisionBench | 32.82% | accuracy | 90.79% | full | 23900 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-repair-20261019/Laya/DecisionBench/metrics.json>) |
 | OmniJev | DecisionBench | — | accuracy | 0.00% | unsupported | 23900 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/OmniJev/DecisionBench/metrics.json>) |
 | Visual-Jev | DecisionBench | — | accuracy | 0.00% | unsupported | 23900 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/decision-benchmarks-full-20261018/Visual-Jev/DecisionBench/metrics.json>) |
+| Pplx-Decider | DecisionIndex | 62.20 | public index | 99.98% | full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/merged/Pplx-Decider/DecisionIndex/metrics.json>) |
 | H2O-Lightning | DecisionIndex | 57.07 | public index | 100.00% | full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/workers/H2O-Lightning/DecisionIndex/metrics.json>) |
 | Clef-Flash | DecisionIndex | 55.45 | public index | 98.91% | full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/merged/Clef-Flash/DecisionIndex/metrics.json>) |
 | Liquid-d1-3B | DecisionIndex | 48.13 | public index | 100.00% | full | 312320 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/merged/Liquid-d1-3B/DecisionIndex/metrics.json>) |
@@ -79,6 +80,7 @@ Accuracy is shown as a percentage. DecisionIndex uses the upstream weighted publ
 | StartLux-0.8B | DecisionIndex | 8.98 | public index | 100.00% | partial/errors | 157437 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/workers/StartLux-0.8B/DecisionIndex/shard-000/metrics.json>) |
 | Vjev-4B | DecisionIndex | 6.60 | public index | 98.87% | partial/errors | 157437 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/workers/Vjev-4B/DecisionIndex/shard-000/metrics.json>) |
 | Vjev-4B | DecisionIndex | 6.32 | public index | 98.57% | partial/errors | 154883 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/workers/Vjev-4B/DecisionIndex/shard-001/metrics.json>) |
+| Pplx-Decider | DecisionIndex | 4.06 | public index | 99.96% | partial/errors | 78265 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/workers/Pplx-Decider/DecisionIndex/shard-001/metrics.json>) |
 | Pplx-Decider | DecisionIndex | 4.03 | public index | 99.99% | partial/errors | 78695 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/workers/Pplx-Decider/DecisionIndex/shard-002/metrics.json>) |
 | Pplx-Decider | DecisionIndex | 3.97 | public index | 100.00% | partial/errors | 78742 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/workers/Pplx-Decider/DecisionIndex/shard-000/metrics.json>) |
 | Pplx-Decider | DecisionIndex | 3.82 | public index | 99.96% | partial/errors | 76618 | [run](</mnt/shared-storage-user/mllm/liuziyu/share_data/JevalKit/results/coverage-gapfill-20261019/workers/Pplx-Decider/DecisionIndex/shard-003/metrics.json>) |
