@@ -37,7 +37,7 @@ providing unified model interfaces and prepared evaluation datasets. Users can
 evaluate models across benchmarks with a single command, without preparing data
 in separate repositories.
 
-**Integration requests:** [Open an issue](https://github.com/Valen-Team/JevalKit/issues)
+**Integration requests:** Simply [open an issue](https://github.com/Valen-Team/JevalKit/issues)
 with the model or benchmark ID, and we can help add support for it.
 
 <a id="highlights"></a>

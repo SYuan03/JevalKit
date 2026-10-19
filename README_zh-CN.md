@@ -35,7 +35,7 @@
 JevalKit 是面向 Jev 类决策模型的开源评测工具，提供统一的模型接口和已整理的评测数据。
 用户可通过一条命令在不同基准上评测模型，无需分别到多个仓库准备数据。
 
-**接入申请：** 如需支持新的模型或评测基准，请[提交接入申请](https://github.com/Valen-Team/JevalKit/issues)并提供对应的模型或基准 ID，我们可以协助完成接入。
+**接入申请：** 如需支持新的模型或评测基准，只需[提交接入申请](https://github.com/Valen-Team/JevalKit/issues)并提供对应的模型或基准 ID，我们可以协助完成接入。
 
 <a id="highlights"></a>
 
