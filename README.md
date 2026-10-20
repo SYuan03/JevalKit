@@ -185,7 +185,7 @@ models and benchmarks.
 ## 📊 Evaluation Results
 
 <!-- jevalkit:results-summary:start -->
-The current snapshot contains **184 eligible full scores** and **267 retained
+The current snapshot contains **192 eligible full scores** and **276 retained
 run artifacts**. It covers **18 measured model families**; the two hosted API
 families remain pending. [🤗 Open the leaderboard](https://huggingface.co/spaces/Valen-Team/JevalKit-Leaderboard).
 <!-- jevalkit:results-summary:end -->
